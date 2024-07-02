@@ -1,0 +1,11 @@
+{
+  "name": "dynamodb",
+  "version": "1.0.0",
+  "description": "DynamoDB Observability Tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Erik Gao, James Coen, Lauren Felty, Mike Bui, Piero Espejo",
+  "license": "ISC"
+}
