@@ -6,9 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-      <h1>Test</h1>
       {/* <NavBar /> */}
-      {/* <Dashboard /> */}
+      <Dashboard />
     </BrowserRouter>
   );
 }
