@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@aws-sdk/client-cloudwatch": "^3.609.0",
     "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "react-cookie": "^7.1.4"
