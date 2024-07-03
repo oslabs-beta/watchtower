@@ -2,10 +2,10 @@
 
 .navbar {
   position: fixed;
-  text-align:left;
+  text-align: center;
   width: 10%;
   max-width: min-content;
-  min-width: 80px;
+  min-width: 90px;
   top: 0;
   left: 0;
   bottom: 0;
@@ -13,7 +13,7 @@
   padding: 1rem;
   box-shadow: 0 1em 1em black;
   z-index: 1000;
-  color: $lightblue
+  color: $lightblue;
 }
 
 .menu {
@@ -31,5 +31,4 @@
   text-decoration: none;
   padding: 0.5rem;
   font-size: larger;
-
 }

@@ -1,9 +1,15 @@
+@import '__global.scss';
+html {
+  background-color: $lightblue;
+}
+
 #dashboard {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   margin: 0 0 0;
   padding: 0 0 0;
+  background-color: $lightblue;
 
   #leftSide {
     display: flex;

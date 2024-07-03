@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Label,
 } from 'recharts';
 
 const data = [
@@ -27,7 +28,7 @@ const data = [
 function WcuGraphContainer() {
   return (
     <div className='indvidualGraph'>
-      WCU Graph
+      <h3>Write Capacity Unit</h3>
       <ResponsiveContainer width='100%' height={400}>
         <LineChart
           width={500}
@@ -41,10 +42,12 @@ function WcuGraphContainer() {
           }}
         >
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='time' />
+          <XAxis dataKey='time'>
+            <Label value='Time' offset={-5} position='insideBottom' />
+          </XAxis>
           <YAxis />
           <Tooltip />
-          <Legend />
+          {/* <Legend /> */}
           <Line type='monotone' dataKey='wcu' stroke='#000000' />
         </LineChart>
       </ResponsiveContainer>
