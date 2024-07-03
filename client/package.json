@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx webpack-dev-server --mode development --open --hot",
-    "build": "npx webpack --mode production"
+    "build": "npx webpack --mode development"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
     "webpack": "^5.92.1",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }
