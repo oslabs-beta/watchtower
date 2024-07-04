@@ -22,13 +22,31 @@
   padding: 0;
 }
 
-.items {
-  margin-top: 4rem;
-}
+.option {
+  width: fit-content;
+  border-radius: 5px;
+  justify-content: space-evenly;
 
-.links {
-  color: $lightblue;
-  text-decoration: none;
-  padding: 0.5rem;
-  font-size: larger;
+  &:hover {
+    background-color: $lightblue;
+    color: $darkblue;
+  }
+
+  .items {
+    margin-top: 4rem;
+  }
+
+  .links {
+    color: $lightblue;
+    text-decoration: none;
+    padding: 0.5rem;
+    font-size: larger;
+    &:hover {
+      color: $darkblue;
+    }
+
+    a {
+      align-self: center;
+    }
+  }
 }
