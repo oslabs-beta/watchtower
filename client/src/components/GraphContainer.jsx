@@ -2,6 +2,7 @@ import React from 'react';
 import RcuGraphContainer from './RcuGraphContainer';
 import WcuGraphContainer from './WcuGraphContainer';
 import TotalTimeGraphContainer from './TotalTimeGraphContainer';
+import ConsumedCapacity from './ConsumedCapacity';
 import '../styles/graphContainer.scss';
 
 function GraphContainer() {
@@ -11,6 +12,7 @@ function GraphContainer() {
       <RcuGraphContainer />
       <WcuGraphContainer />
       <TotalTimeGraphContainer />
+      <ConsumedCapacity />
     </div>
   );
 }
