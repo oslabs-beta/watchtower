@@ -11,7 +11,7 @@ function App() {
         <Route path='/' element={<Dashboard />} />
         {/*
         <Route path="/analyze" element={<Analyze />} />
-        <Route path="/pastAnalyzes" element={<PastAnalyzes />} /> */}
+        <Route path="/pastAnalyses" element={<PastAnalyses />} /> */}
       </Routes>
     </BrowserRouter>
   );

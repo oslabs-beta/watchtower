@@ -27,8 +27,8 @@ const NavBar = () => {
 
           <div className='option'>
             <li className='items'>
-              <Link to='/pastAnalyzes' className='links'>
-                Past Analyzses
+              <Link to='/pastAnalyses' className='links'>
+                Past Analyses
               </Link>
             </li>
           </div>
