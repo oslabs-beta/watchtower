@@ -4,15 +4,18 @@
   "main": "index.js",
   "scripts": {
     "start": "npx webpack-dev-server --mode development --open --hot",
-    "build": "npx webpack --mode production"
+    "build": "npx webpack --mode development"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "chart.js": "^4.4.3",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.0"
+    "react-router-dom": "^6.24.1",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
@@ -21,11 +24,14 @@
     "@babel/preset-react": "^7.24.7",
     "babel-loader": "^9.1.3",
     "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
     "sass": "^1.77.6",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
     "webpack": "^5.92.1",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }
+

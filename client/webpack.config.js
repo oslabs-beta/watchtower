@@ -27,6 +27,18 @@ module.exports = {
 
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
@@ -46,7 +58,7 @@ module.exports = {
     port: 3000,
     proxy: [
       {
-        context: ['/'],
+        context: ['/api'],
         target: 'http://localhost:8000',
       },
     ],
