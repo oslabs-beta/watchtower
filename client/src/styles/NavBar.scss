@@ -1,0 +1,52 @@
+@import '__global.scss';
+
+.navbar {
+  position: fixed;
+  text-align: center;
+  width: 10%;
+  max-width: min-content;
+  min-width: 90px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $darkblue;
+  padding: 1rem;
+  box-shadow: 0 1em 1em black;
+  z-index: 1000;
+  color: $lightblue;
+}
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.option {
+  width: fit-content;
+  border-radius: 5px;
+  justify-content: space-evenly;
+
+  &:hover {
+    background-color: $lightblue;
+    color: $darkblue;
+  }
+
+  .items {
+    margin-top: 4rem;
+  }
+
+  .links {
+    color: $lightblue;
+    text-decoration: none;
+    padding: 0.5rem;
+    font-size: larger;
+    &:hover {
+      color: $darkblue;
+    }
+
+    a {
+      align-self: center;
+    }
+  }
+}

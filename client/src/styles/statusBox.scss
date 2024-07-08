@@ -1,0 +1,20 @@
+@import '__global.scss';
+
+#infoBox {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ccc;
+  margin: 10px 0;
+  width: 80%;
+  border-color: black;
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: 5px 0;
+    }
+  }
+}
