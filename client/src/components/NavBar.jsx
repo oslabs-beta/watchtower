@@ -1,41 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect, Router } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import '../styles/NavBar.scss';
+import AWSInfoPage from './AWSInfoPage';
 
 const NavBar = () => {
   return (
     <nav className='navbar'>
-      <div className='container'>
+      {/* //<div className='container'> */}
       <Link to='/' className='links'>
         <img src={logo} alt='watchtower logo' />
-      </Link>    
-        <ul className='menu'>
-          <div className='option'>
-            <li className='items'>
-              <Link to='/accountInfo' className='links'>
-                AWS Account Info
-              </Link>
-            </li>
-          </div>
+      </Link>
+      {/* <ul className='menu'> */}
+      <button className='option'>
+        <Link to='/accountInfo' className='links'>
+          AWS Account Info
+        </Link>
+      </button>
 
-          <div className='option'>
-            <li className='items'>
-              <Link to='/analyze' className='links'>
-                Analyze Provisioning
-              </Link>
-            </li>
-          </div>
+      <button className='option'>
+        <Link to='/analyze' className='links'>
+          Analyze Provisioning
+        </Link>
+      </button>
 
-          <div className='option'>
-            <li className='items'>
-              <Link to='/pastAnalyses' className='links'>
-                Past Analyses
-              </Link>
-            </li>
-          </div>
-        </ul>
-      </div>
+      <button className='option'>
+        <Link to='/pastAnalyses' className='links'>
+          Past Analyses
+        </Link>
+      </button>
+      {/* </ul> */}
+      {/* </div> */}
     </nav>
   );
 };
