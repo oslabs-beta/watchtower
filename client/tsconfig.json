@@ -1,15 +1,18 @@
 {
-  "include": ["src/**/*", "types/**/*.d.ts"],
-
   "compilerOptions": {
-    "outDir": "./dist/",
-    "noImplicitAny": true,
+    "target": "es5",
     "module": "commonjs",
-    "target": "es6",
+    "strict": true,
     "jsx": "react",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "typeRoots": ["./types", "./node_modules/@types"],
     "esModuleInterop": true,
-    "allowJs": true,
-    "moduleResolution": "node",
-    "typeRoots": ["./types", "./node_modules/@types"]
-  }
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts"],
+  "exclude": ["node_modules"]
 }

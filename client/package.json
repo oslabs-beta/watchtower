@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "npx webpack-dev-server --mode development --open --hot",
     "build": "npx webpack --mode development"
