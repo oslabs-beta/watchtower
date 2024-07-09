@@ -55,7 +55,7 @@ module.exports = {
       directory: path.resolve(__dirname, 'build'),
       publicPath: '/',
     },
-    port: 8000,
+    port: 3000,
     proxy: [
       {
         context: ['/api'],

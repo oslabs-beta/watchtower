@@ -12,23 +12,48 @@
   background-color: $darkblue;
   padding: 1rem;
   box-shadow: 0 1em 1em black;
-  z-index: 1000;
+  // z-index: 1000;
   color: $lightblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.menu {
-  list-style-type: none;
-  margin: 0;
+.container {
   padding: 0;
 }
 
-.items {
-  margin-top: 4rem;
-}
+// .menu {
+//   list-style-type: none;
+//   margin: 0;
+//   padding: 0;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+// }
 
-.links {
-  color: $lightblue;
-  text-decoration: none;
-  padding: 0.5rem;
-  font-size: larger;
+.option {
+  width: 100%;
+  height: 20%;
+  border-radius: 5px;
+  vertical-align: middle;
+  white-space: wrap;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background-color: $lightblue;
+    color: $darkblue;
+  }
+
+  .links {
+    color: rgb(10, 10, 68);
+    text-decoration: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    &:hover {
+      color: $darkblue;
+      font-weight: bold;
+    }
+  }
 }
