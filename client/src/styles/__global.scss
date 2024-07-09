@@ -1,3 +1,5 @@
+@import 'node_modules/react-datepicker/src/stylesheets/datepicker.scss';
+
 $lightblue: #a6d8d9;
 $darkblue: #1c3454;
 
@@ -51,13 +53,14 @@ $darkblue: #1c3454;
     button {
       border-radius: 5px;
       margin-top: 3%;
-      background-color: #a6d8d9;
+      background-color: $lightblue;
       border: none;
       padding: 15px 32px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
+      color: #ccc;
 
       link:hover {
         font-weight: bold;
