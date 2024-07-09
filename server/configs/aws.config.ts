@@ -1,4 +1,4 @@
-import 'dotenv/config.js';
+import 'dotenv/config';
 import { Config } from '../types.ts';
 // import {
 //   DynamoDBClient,

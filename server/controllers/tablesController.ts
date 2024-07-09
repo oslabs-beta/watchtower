@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-// import path from 'path';
 import { config } from '../configs/aws.config.ts'
 import {
   DynamoDBClient,
@@ -8,7 +7,7 @@ import {
 
 interface TablesController {
   getTables: RequestHandler;
-}
+};
 
 const dynamoDBClient = new DynamoDBClient(config);
 
@@ -18,13 +17,17 @@ const dynamoDBClient = new DynamoDBClient(config);
 
 export const tablesController: TablesController = {
 
-  getTables: async (req: Request, res: Response, next: NextFunction) => {
+  //get all the tables' name from users' AWS DynamoDB
+  getTables: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      //pass in empty object to get all tables name
       const input = {};
       const command = new ListTablesCommand(input);
+      //waiting for respoonse from DynamoDB
       const response = await dynamoDBClient.send(command);
-      res.locals.tables = response.TableNames
-      return next()
+      //save all tables name as an array
+      res.locals.tables = response.TableNames;
+      return next();
     } catch(err) {
       return next({
         log: `Error in tablesController.getTables middleware function: ${err}`,
@@ -32,8 +35,8 @@ export const tablesController: TablesController = {
         message: {
           err: 'Error getting tables from DynamonDB.',
         },
-      })
-    }
+      });
+    };
   }
 
 }
