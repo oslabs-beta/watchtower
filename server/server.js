@@ -1,3 +1,7 @@
 const path = require('path');
 const express = require('express');
-const app = express()''
+const app = express('');
+
+app.use('');
+
+const apiRouter = require('.routes/api');
