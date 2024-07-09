@@ -5,10 +5,7 @@ require('dotenv/config.js');
 //   DynamoDBClient,
 //   DescribeTableCommand,
 // } = require('@aws-sdk/client-dynamodb');
-const {
-  CloudWatchClient,
-  GetMetricStatisticsCommand,
-} = require('@aws-sdk/client-cloudwatch');
+const { CloudWatchClient } = require('@aws-sdk/client-cloudwatch');
 
 const cloudWatchClient = new CloudWatchClient({
   credentials: {
@@ -18,6 +15,7 @@ const cloudWatchClient = new CloudWatchClient({
   region: process.env.region,
 });
 
+module.exports = cloudWatchClient;
 // //sdk v3 configuration method for DynamoDB:
 
 // const client = new DynamoDBClient({
