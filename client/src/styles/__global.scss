@@ -4,6 +4,7 @@ $darkblue: #1c3454;
 // global components used throughout the application
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;

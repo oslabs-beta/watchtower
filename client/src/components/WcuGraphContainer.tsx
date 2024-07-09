@@ -25,7 +25,7 @@ const data = [
   { wcu: 86, time: '10' },
 ];
 
-function WcuGraphContainer() {
+const WcuGraphContainer = () => {
   return (
     <div className='indvidualGraph'>
       <h3>Write Capacity Unit</h3>

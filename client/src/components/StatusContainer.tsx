@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/statusContainer.scss';
-import StatusBox from './statusBox.jsx';
+import StatusBox from './StatusBox';
 
 //import { useState, useEffect } from 'react';
 
@@ -25,7 +25,7 @@ import StatusBox from './statusBox.jsx';
 //   fetchData();
 // }, []);
 
-function StatusContainer() {
+const StatusContainer = () => {
   return (
     <div id='statusContainer'>
       <h2>Capacity Status</h2>

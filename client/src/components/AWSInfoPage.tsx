@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 import '../styles/__global.scss';
 
-function AWSInfoPage() {
+const AWSInfoPage = () => {
   return (
     <div className='container'>
       <NavBar />

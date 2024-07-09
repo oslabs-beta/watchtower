@@ -8,8 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-  Label,
+  ResponsiveContainer, Label,
 } from 'recharts';
 
 const data = [
@@ -25,10 +24,10 @@ const data = [
   { rcu: 86, time: '10' },
 ];
 
-function RcuGraphContainer() {
+const TotalTimeGraphContainer = () => {
   return (
     <div className='indvidualGraph'>
-      <h3>Read Capacity Unit</h3>
+      <h3>Total Time</h3>
       <ResponsiveContainer width='100%' height={400}>
         <LineChart
           width={500}
@@ -47,6 +46,7 @@ function RcuGraphContainer() {
           </XAxis>
           <YAxis />
           <Tooltip />
+          {/* <Legend /> */}
           <Line type='monotone' dataKey='rcu' stroke='#000000' />
         </LineChart>
       </ResponsiveContainer>
@@ -54,4 +54,4 @@ function RcuGraphContainer() {
   );
 }
 
-export default RcuGraphContainer;
+export default TotalTimeGraphContainer;

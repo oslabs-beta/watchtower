@@ -1,11 +1,11 @@
 import React from 'react';
-import GraphContainer from './GraphContainer.jsx';
-import StatusContainer from './StatusContainer.jsx';
-import AnalysisContainer from './AnalysisContainer.jsx';
-import NavBar from './NavBar.jsx';
+import GraphContainer from './GraphContainer';
+import StatusContainer from './StatusContainer';
+import AnalysisContainer from './AnalysisContainer';
+import NavBar from './NavBar';
 import '../styles/Dashboard.scss';
 
-function Dashboard() {
+const Dashboard = () => {
   return (
     <div id='dashboard'>
       <NavBar />

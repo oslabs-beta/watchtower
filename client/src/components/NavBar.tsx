@@ -1,10 +1,11 @@
 import React from 'react';
+import '../../types/index.d.ts';
 import { Link, redirect, Router } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import '../styles/NavBar.scss';
 import AWSInfoPage from './AWSInfoPage';
 
-const NavBar = () => {
+const NavBar = (): JSX.Element => {
   return (
     <nav className='navbar'>
       {/* //<div className='container'> */}

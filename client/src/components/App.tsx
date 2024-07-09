@@ -1,12 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './Dashboard.jsx';
-import NavBar from './NavBar.jsx';
-import AWSInfoPage from './AWSInfoPage.jsx';
-import Login from './Login.jsx';
-import Signup from './Signup.jsx';
+import Dashboard from './Dashboard';
+import AWSInfoPage from './AWSInfoPage';
+import Login from './Login';
+import Signup from './Signup';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>

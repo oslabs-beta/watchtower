@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/statusBox.scss';
 
 
-function StatusBox() {
+const StatusBox = () => {
   return (
     <div id='infoBox'>
       <ul>

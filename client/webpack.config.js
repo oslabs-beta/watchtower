@@ -23,12 +23,17 @@ module.exports = {
         },
       },
       {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: ['ts-loader'],
+      },
+      {
         test: /\.s?css/,
 
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jp(e*)g|gif|svg)$/,
         use: [
           {
             loader: 'file-loader',
@@ -42,7 +47,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.tsx', '.ts'],
   },
   plugins: [
     new HtmlWebPackPlugin({
