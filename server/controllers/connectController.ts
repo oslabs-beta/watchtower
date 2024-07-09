@@ -15,9 +15,9 @@ interface ConnectController {
 // console.log(readEnv())
 
 // uncomment below for testing
-// const w = `AWS_ACCESS_KEY_ID=AKIAU6GDUTAI7DAQMBGN\n` +
-// `AWS_SECRET_ACCESS_KEY_ID=tohXjOec6nhMNAx1yPur7n0J2KgAnqYfYymtiqFq\n` +
-// `REGION=us-east-1`
+// const w = `AWS_ACCESS_KEY_ID=123\n` +
+// `AWS_SECRET_ACCESS_KEY_ID=123\n` +
+// `REGION=123`
 // const write = () => fs.writeFileSync('./.env', w);
 // write()
 
