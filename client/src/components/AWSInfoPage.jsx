@@ -1,10 +1,12 @@
 import React from 'react';
+import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 import '../styles/__global.scss';
 
 function AWSInfoPage() {
   return (
     <div className='container'>
+      <NavBar />
       <form className='formContainer'>
         <label>AWS Account Name</label>
         <input type='text'></input>

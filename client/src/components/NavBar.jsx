@@ -8,7 +8,7 @@ const NavBar = () => {
   return (
     <nav className='navbar'>
       {/* //<div className='container'> */}
-      <Link to='/' className='links'>
+      <Link to='/dashboard' className='links'>
         <img src={logo} alt='watchtower logo' />
       </Link>
       {/* <ul className='menu'> */}
