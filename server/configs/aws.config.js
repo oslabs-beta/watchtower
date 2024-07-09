@@ -16,6 +16,9 @@ const cloudWatchClient = new CloudWatchClient({
 });
 
 module.exports = cloudWatchClient;
+
+
+
 // //sdk v3 configuration method for DynamoDB:
 
 // const client = new DynamoDBClient({
