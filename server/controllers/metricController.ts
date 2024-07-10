@@ -48,6 +48,7 @@ interface MetricController {
 
 export const metricController: MetricController = {
   getConsumedRCUs: async (req: Request, res: Response, next: NextFunction) => {
+    //types for deconstruct
     const { tableName, startTime, endTime } = req.body;
 
     try {
@@ -91,6 +92,7 @@ export const metricController: MetricController = {
   },
 
   getConsumedWCUs: async (req: Request, res: Response, next: NextFunction) => {
+    //types for deconstruct
     const { tableName, startTime, endTime } = req.body;
 
     try {
@@ -139,6 +141,7 @@ export const metricController: MetricController = {
     res: Response,
     next: NextFunction
   ) => {
+    //types for deconstruct
     const { tableName, startTime, endTime } = req.body;
 
     try {
@@ -187,6 +190,7 @@ export const metricController: MetricController = {
     res: Response,
     next: NextFunction
   ) => {
+    //types for deconstruct
     const { tableName, startTime, endTime } = req.body;
 
     try {
