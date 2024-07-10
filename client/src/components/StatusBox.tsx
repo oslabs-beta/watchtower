@@ -7,18 +7,19 @@ import '../styles/statusContainer.scss';
 import { ProvisionFormData, StatusBoxProps } from '../../types/types';
 
 const StatusBox = ({ onSubmit }: StatusBoxProps) => {
-
   //declare use states to keep track of changes to the form
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [aWSAccountName, setAWSAccountName] = useState('');
+  //commented out for MVP
+  // const [aWSAccountName, setAWSAccountName] = useState('');
   const [tableName, setTableName] = useState('');
 
   //handle when the form is submitted
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({
-      aWSAccountName,
+      //commented out for MVP
+      //aWSAccountName,
       tableName,
       startTime: startDate,
       endTime: endDate,
@@ -30,7 +31,8 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
       <h2>Capacity Status</h2>
       <div className='container'>
         <form id='infoBox' className='formContainer' onSubmit={handleSubmit}>
-          <label>AWS Account Name</label>
+          {/* commented out for MVP */}
+          {/* <label>AWS Account Name</label>
           <select
             value={aWSAccountName}
             onChange={(e) => setAWSAccountName(e.target.value)}
@@ -41,13 +43,15 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
             <option value='DynamoDB'>DynamoDB</option>
             <option value='SQL'>SQL</option>
             <option value='Watchtower'>Watchtower</option>
-          </select>
+          </select> */}
+
           <label>Table Name</label>
           <input
             type='text'
             value={tableName}
             onChange={(e) => setTableName(e.target.value)}
           />
+
           <label>Start Time</label>
           <DatePicker
             selected={startDate}
@@ -59,6 +63,7 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
             timeCaption='time'
             className='datepicker'
           />
+
           <label>End Time</label>
           <DatePicker
             selected={endDate}
