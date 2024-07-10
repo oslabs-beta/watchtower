@@ -49,6 +49,7 @@ const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
           metrics={currentMetrics}
         />
       )}
+
       {currentProvision && (
         <WcuGraphContainer
           provisionData={currentProvision}

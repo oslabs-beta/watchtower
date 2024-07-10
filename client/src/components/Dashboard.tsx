@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GraphContainer from './GraphContainer';
 import StatusBox from './StatusBox';
 import AnalysisContainer from './AnalysisContainer';
@@ -13,7 +13,7 @@ const Dashboard = () => {
     useState<ProvisionFormData | null>(null);
 
   //handler function to handle the onSubmit for StatusBox
-  //On Submit a post request will be made with the data from the request form 
+  //On Submit a post request will be made with the data from the request form
   const handleFormSubmit = async (data: ProvisionFormData) => {
     try {
       // const response = await fetch('http://localhost:8000/tables', {
@@ -21,7 +21,7 @@ const Dashboard = () => {
       //   headers: {
       //     'Content-Type': 'application/json',
       //   },
-      //   body: JSON.stringify(data),
+      //   body: JSON.stringify(convertedTime),
       // });
 
       // if (!response.ok) {
@@ -34,6 +34,10 @@ const Dashboard = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(currentProvision);
+  }, [currentProvision]);
+
   return (
     <div id='dashboard'>
       <NavBar />
@@ -43,7 +47,7 @@ const Dashboard = () => {
       </div>
       <div id='rightSide'>
         {/* Send the currentProvision on the props to the graphContainer */}
-        <GraphContainer currentProvision={currentProvision} />
+        {/* <GraphContainer currentProvision={currentProvision} /> */}
       </div>
     </div>
   );

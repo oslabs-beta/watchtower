@@ -21,8 +21,8 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
       //commented out for MVP
       //aWSAccountName,
       tableName,
-      startTime: startDate,
-      endTime: endDate,
+      startTime: startDate ? startDate.toISOString() : null,
+      endTime: endDate ? endDate.toISOString() : null,
     });
   };
 
@@ -79,7 +79,6 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
           <button id='submitButton' type='submit'>
             Submit
           </button>
-          
         </form>
       </div>
     </div>
