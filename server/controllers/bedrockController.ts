@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { config } from '../configs/aws.config.ts'
-import { BedrockRuntimeClient, InvokeModelCommand, InvokeModelCommandInput } from "@aws-sdk/client-bedrock-runtime";
-
-const bedrockclient = new BedrockRuntimeClient(config);
+import {
+  InvokeModelCommand,
+  InvokeModelCommandInput,
+} from '@aws-sdk/client-bedrock-runtime';
+import { bedrockclient } from '../configs/aws.config.ts';
 
 interface BedrockController {
   getAnlysis: RequestHandler;
@@ -26,18 +27,21 @@ interface BedrockController {
 // };
 
 export const bedrockController: BedrockController = {
-
-  getAnlysis: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  getAnlysis: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      return next()
-    } catch(err) {
+      return next();
+    } catch (err) {
       return next({
         log: `Error in bedrockController.getAnlysis middleware function: ${err}`,
         status: 500,
         message: {
           err: 'Error getting anlysis from AWS bedrock.',
         },
-      })
+      });
     }
-  }
-}
+  },
+};

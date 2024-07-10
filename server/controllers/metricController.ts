@@ -1,50 +1,16 @@
-import { CloudWatchClient, GetMetricStatisticsCommand, GetMetricStatisticsCommandInput } from '@aws-sdk/client-cloudwatch';
+import {
+  GetMetricStatisticsCommand,
+  GetMetricStatisticsCommandInput,
+} from '@aws-sdk/client-cloudwatch';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { config } from '../configs/aws.config.ts'
+import { cloudWatchClient } from '../configs/aws.config.ts';
 
-const cloudWatchClient = new CloudWatchClient(config)
 interface MetricController {
   getConsumedRCUs: RequestHandler;
   getConsumedWCUs: RequestHandler;
   getProvisionedRCUs: RequestHandler;
   getProvisionedWCUs: RequestHandler;
 }
-
-//Example of working request to AWS Cloudwatch.
-
-// const cloudWatchInput = {
-//   // GetMetricStatisticsInput
-//   Namespace: 'AWS/DynamoDB', // required
-//   MetricName: 'ConsumedReadCapacityUnits', // required
-//   Dimensions: [
-//     // Dimensions
-//     {
-//       // Dimension
-//       Name: 'TableName', // required
-//       Value: 'mockUserTable1', // required
-//     },
-//   ],
-//   StartTime: new Date('2024-07-08T15:20:00.000Z'), // required
-//   EndTime: new Date('2024-07-08T15:30:00.000Z'), // required
-//   Period: Number('60'), // required
-//   Statistics: [
-//     // Statistics
-//     'Average',
-//     'Maximum',
-//     // 'SampleCount' || 'Average' || 'Sum' || 'Minimum' || 'Maximum',
-//   ],
-//   //   ExtendedStatistics: [
-//   //     // ExtendedStatistics
-//   //     'STRING_VALUE',
-//   //   ],
-//   //   Unit: 'Count/Second',
-// }
-
-// const cloudWatchCommand = new GetMetricStatisticsCommand(input);
-// const cloudWatchResponse = await cloudWatchClient.send(cloudWatchCommand);
-
-// console.table(cloudWatchResponse.Datapoints);
-
 
 export const metricController: MetricController = {
   getConsumedRCUs: async (req: Request, res: Response, next: NextFunction) => {
@@ -78,7 +44,10 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.RCU.consumedUsage = cloudWatchResponse.Datapoints;
+      // res.locals.metrics.RCU.consumedUsage = cloudWatchResponse.Datapoints;
+      res.locals.ConsRCU = cloudWatchResponse.Datapoints;
+      // console.log(res.locals.metrics.RCU);
+      // console.log('res.locals', res.locals);
       return next();
     } catch (err) {
       return next({
@@ -122,7 +91,9 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.WCU.consumedUsage = cloudWatchResponse.Datapoints;
+      res.locals.ConsWCU = cloudWatchResponse.Datapoints;
+      // res.locals.metrics.WCU.consumedUsage = cloudWatchResponse.Datapoints;
+      // console.log('res.locals: getConsumedWCUs', res.locals);
 
       return next();
     } catch (err) {
@@ -170,8 +141,9 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.RCU.provisionedCapacity =
-        cloudWatchResponse.Datapoints[0].Maximum;
+      // res.locals.metrics.RCU.provisionedCapacity =
+      // cloudWatchResponse.Datapoints[0].Maximum;
+      res.locals.ProvRCU = cloudWatchResponse.Datapoints[0].Maximum;
 
       return next();
     } catch (err) {
@@ -208,7 +180,7 @@ export const metricController: MetricController = {
         Period: Number('60'), // required
         Statistics: [
           // Statistics
-          'Average',
+          'Maximum',
         ],
       };
 
@@ -219,8 +191,10 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.RCU.provisionedCapacity =
-        cloudWatchResponse.Datapoints[0].Average;
+      // res.locals.metrics.RCU.provisionedCapacity =
+      //   cloudWatchResponse.Datapoints[0].Average;
+      res.locals.ProvWCU = cloudWatchResponse.Datapoints[0].Maximum;
+      console.log(res.locals);
 
       return next();
     } catch (err) {
@@ -234,3 +208,38 @@ export const metricController: MetricController = {
     }
   },
 };
+
+//Example of working request to AWS Cloudwatch.
+
+// const cloudWatchInput = {
+//   // GetMetricStatisticsInput
+//   Namespace: 'AWS/DynamoDB', // required
+//   MetricName: 'ConsumedReadCapacityUnits', // required
+//   Dimensions: [
+//     // Dimensions
+//     {
+//       // Dimension
+//       Name: 'TableName', // required
+//       Value: 'mockUserTable1', // required
+//     },
+//   ],
+//   StartTime: new Date('2024-07-08T15:20:00.000Z'), // required
+//   EndTime: new Date('2024-07-08T15:30:00.000Z'), // required
+//   Period: Number('60'), // required
+//   Statistics: [
+//     // Statistics
+//     'Average',
+//     'Maximum',
+//     // 'SampleCount' || 'Average' || 'Sum' || 'Minimum' || 'Maximum',
+//   ],
+//   //   ExtendedStatistics: [
+//   //     // ExtendedStatistics
+//   //     'STRING_VALUE',
+//   //   ],
+//   //   Unit: 'Count/Second',
+// }
+
+// const cloudWatchCommand = new GetMetricStatisticsCommand(input);
+// const cloudWatchResponse = await cloudWatchClient.send(cloudWatchCommand);
+
+// console.table(cloudWatchResponse.Datapoints);

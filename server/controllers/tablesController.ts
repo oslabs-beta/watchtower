@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { config } from '../configs/aws.config.ts'
-import { DynamoDBClient, ListTablesCommand, ListTablesCommandInput} from '@aws-sdk/client-dynamodb';
+import {
+  ListTablesCommand,
+  ListTablesCommandInput,
+} from '@aws-sdk/client-dynamodb';
+import { dynamoDBClient } from '../configs/aws.config.ts';
 
 interface TablesController {
   getTables: RequestHandler;
-};
-
-const dynamoDBClient = new DynamoDBClient(config);
+}
 
 // const input = {};
 // const command = new ListTablesCommand(input);
@@ -14,9 +15,12 @@ const dynamoDBClient = new DynamoDBClient(config);
 // console.log(response.TableNames)
 
 export const tablesController: TablesController = {
-
   //get all the tables' name from users' AWS DynamoDB
-  getTables: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  getTables: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       //pass in empty object to get all tables name
       const input: ListTablesCommandInput = {};
@@ -26,7 +30,7 @@ export const tablesController: TablesController = {
       //save all tables name as an array
       res.locals.tables = response.TableNames;
       return next();
-    } catch(err) {
+    } catch (err) {
       return next({
         log: `Error in tablesController.getTables middleware function: ${err}`,
         status: 500,
@@ -34,7 +38,6 @@ export const tablesController: TablesController = {
           err: 'Error getting tables from DynamonDB.',
         },
       });
-    };
-  }
-
-}
+    }
+  },
+};
