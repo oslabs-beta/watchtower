@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/graphContainer.scss';
+import { ProvisionFormData, TotalTimeContainerProps } from '../../types/types';
 import {
   LineChart,
   Line,
@@ -8,7 +8,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer, Label,
+  ResponsiveContainer,
+  Label,
 } from 'recharts';
 
 const data = [
@@ -24,7 +25,10 @@ const data = [
   { rcu: 86, time: '10' },
 ];
 
-const TotalTimeGraphContainer = () => {
+const TotalTimeGraphContainer = ({
+  provisionData,
+  metrics,
+}: TotalTimeContainerProps) => {
   return (
     <div className='indvidualGraph'>
       <h3>Total Time</h3>
@@ -52,6 +56,6 @@ const TotalTimeGraphContainer = () => {
       </ResponsiveContainer>
     </div>
   );
-}
+};
 
 export default TotalTimeGraphContainer;

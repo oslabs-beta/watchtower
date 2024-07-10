@@ -1,4 +1,5 @@
 import React from 'react';
+import { ProvisionFormData, RcuGraphContainerProps } from '../../types/types';
 import '../styles/graphContainer.scss';
 import {
   LineChart,
@@ -25,10 +26,13 @@ const data = [
   { rcu: 86, time: '10' },
 ];
 
-const RcuGraphContainer = () => {
+const RcuGraphContainer = ({
+  provisionData,
+  metrics,
+}: RcuGraphContainerProps) => {
   return (
     <div className='indvidualGraph'>
-      <h3>Read Capacity Unit</h3>
+      <h3>RCU</h3>
       <ResponsiveContainer width='100%' height={400}>
         <LineChart
           width={500}
@@ -47,11 +51,12 @@ const RcuGraphContainer = () => {
           </XAxis>
           <YAxis />
           <Tooltip />
+          {/* <Legend /> */}
           <Line type='monotone' dataKey='rcu' stroke='#000000' />
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
-}
+};
 
 export default RcuGraphContainer;
