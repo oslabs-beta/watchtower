@@ -1,12 +1,7 @@
-import express, {
-  Request,
-  Response,
-  NextFunction,
-  RequestHandler,
-} from 'express';
+import express, { Request, Response } from 'express';
 
-import { tablesController } from '../controllers/tablesController';
-import { metricController } from '../controllers/metricController';
+import { tablesController } from '../controllers/tablesController.ts';
+import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
 // import { authController } from '../controllers/authController';
 
@@ -29,9 +24,9 @@ router.post(
   metricController.getConsumedRCUs,
   metricController.getConsumedWCUs,
   metricController.getProvisionedRCUs,
-  metricController.getProvisionedRCUs,
+  metricController.getProvisionedWCUs,
   (req: Request, res: Response): Response => {
-    return res.status(200).json(res.locals.metrics);
+    return res.status(200).json(res.locals);
   }
 );
 
@@ -45,4 +40,4 @@ router.get(
   }
 );
 
-module.exports = router;
+export default router;

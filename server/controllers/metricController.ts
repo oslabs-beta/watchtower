@@ -44,7 +44,10 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.RCU.consumedUsage = cloudWatchResponse.Datapoints;
+      // res.locals.metrics.RCU.consumedUsage = cloudWatchResponse.Datapoints;
+      res.locals.ConsRCU = cloudWatchResponse.Datapoints;
+      // console.log(res.locals.metrics.RCU);
+      // console.log('res.locals', res.locals);
       return next();
     } catch (err) {
       return next({
@@ -88,7 +91,9 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.WCU.consumedUsage = cloudWatchResponse.Datapoints;
+      res.locals.ConsWCU = cloudWatchResponse.Datapoints;
+      // res.locals.metrics.WCU.consumedUsage = cloudWatchResponse.Datapoints;
+      // console.log('res.locals: getConsumedWCUs', res.locals);
 
       return next();
     } catch (err) {
@@ -136,8 +141,9 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.RCU.provisionedCapacity =
-        cloudWatchResponse.Datapoints[0].Maximum;
+      // res.locals.metrics.RCU.provisionedCapacity =
+      // cloudWatchResponse.Datapoints[0].Maximum;
+      res.locals.ProvRCU = cloudWatchResponse.Datapoints[0].Maximum;
 
       return next();
     } catch (err) {
@@ -174,7 +180,7 @@ export const metricController: MetricController = {
         Period: Number('60'), // required
         Statistics: [
           // Statistics
-          'Average',
+          'Maximum',
         ],
       };
 
@@ -185,8 +191,10 @@ export const metricController: MetricController = {
         getMetricStatisticsCommand
       );
       // console.log(cloudWatchResponse);
-      res.locals.metrics.RCU.provisionedCapacity =
-        cloudWatchResponse.Datapoints[0].Average;
+      // res.locals.metrics.RCU.provisionedCapacity =
+      //   cloudWatchResponse.Datapoints[0].Average;
+      res.locals.ProvWCU = cloudWatchResponse.Datapoints[0].Maximum;
+      console.log(res.locals);
 
       return next();
     } catch (err) {
