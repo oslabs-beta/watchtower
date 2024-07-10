@@ -1,6 +1,30 @@
 import React from 'react';
 import { defaults } from 'chart.js/auto';
-import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
+import { Bar, Doughnut, Line, Pie } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 // defaults.maintainAspectRatio = false;
 defaults.responsive = true;
@@ -9,6 +33,9 @@ defaults.plugins.title.display = true;
 defaults.plugins.title.align = 'start';
 // defaults.plugins.title.font.size = 20;
 defaults.plugins.title.color = 'black';
+
+
+
 
 const ConsumedCapacity = () => {
   return (
@@ -83,8 +110,9 @@ const ConsumedCapacity = () => {
                   'rgba(250, 192, 19, 0.8)',
                   'rgba(253, 135, 135, 0.8)',
                 ],
-              },
-            ],
+                hoverOffset:4,
+              }
+            ]
           }}
           options={{
             plugins: {
