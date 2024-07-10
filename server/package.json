@@ -10,9 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.613.0",
     "@aws-sdk/client-cloudwatch": "^3.609.0",
     "@aws-sdk/client-dynamodb": "^3.609.0",
-    "@aws-sdk/credential-providers": "^3.609.0",
     "@types/express": "^4.17.21",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
