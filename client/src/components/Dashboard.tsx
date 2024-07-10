@@ -16,27 +16,16 @@ const Dashboard = () => {
   //On Submit a post request will be made with the data from the request form
   const handleFormSubmit = async (data: ProvisionFormData) => {
     try {
-      // const response = await fetch('http://localhost:8000/tables', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(convertedTime),
-      // });
-
-      // if (!response.ok) {
-      //   throw new Error('Error connecting to server');
-      // }
-      //set the current provison to the data saved
       setCurrentProvision(data);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-  useEffect(() => {
-    console.log(currentProvision);
-  }, [currentProvision]);
+  //console.log to check that the curretnProvision is being updated
+  // useEffect(() => {
+  //   console.log(currentProvision);
+  // }, [currentProvision]);
 
   return (
     <div id='dashboard'>
@@ -47,7 +36,7 @@ const Dashboard = () => {
       </div>
       <div id='rightSide'>
         {/* Send the currentProvision on the props to the graphContainer */}
-        {/* <GraphContainer currentProvision={currentProvision} /> */}
+        <GraphContainer currentProvision={currentProvision} />
       </div>
     </div>
   );

@@ -11,30 +11,25 @@ const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
   const [currentMetrics, setMetrics] = useState(null);
 
   //fetch the data from the backend
+  // fetch the data from the backend
   useEffect(() => {
-    //ensure that the currenrProvison is truthy aka the user has submitted the form
+    // ensure that the currentProvision is truthy aka the user has submitted the form
     if (currentProvision) {
       (async () => {
         try {
-          //send the currentProvison on the params to the backend to get the correct metric
-          const response = await fetch(
-            `http://localhost:8000/metrics?${currentProvision}`,
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error('Error fetching data');
-          }
+          // send the currentProvision in the body to the backend to get the correct metric
+          const response = await fetch(`/api/metrics`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ provision: currentProvision }),
+          });
 
           const data = await response.json();
           setMetrics(data);
         } catch (error) {
-          console.error('Error:', error);
+          console.error('Error fetching metrics:', error);
         }
       })();
     }

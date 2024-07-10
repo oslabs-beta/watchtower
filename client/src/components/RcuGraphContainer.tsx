@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProvisionFormData, RcuGraphContainerProps } from '../../types/types';
+import { RcuGraphContainerProps } from '../../types/types';
 import '../styles/graphContainer.scss';
 import {
   LineChart,
@@ -8,11 +8,13 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Label,
+  ReferenceLine,
+  Legend,
 } from 'recharts';
 
+// Hard-coded data in case connection is not made by MVP presentation
 const data = [
   { rcu: 40, time: '1' },
   { rcu: 100, time: '2' },
@@ -30,6 +32,19 @@ const RcuGraphContainer = ({
   provisionData,
   metrics,
 }: RcuGraphContainerProps) => {
+  // deconstruct startTime and endTime from provisionData
+  const { startTime, endTime } = provisionData;
+
+  //error when time is null so must account for that 
+  const startTimeMillis = startTime
+    ? new Date(startTime).getTime()
+    : new Date().getTime();
+  const endTimeMillis = endTime
+    ? new Date(endTime).getTime()
+    : new Date().getTime();
+
+  const provisionedCapacity = 50; // Replace with metrics.RCU.provisionedCapacity
+
   return (
     <div className='indvidualGraph'>
       <h3>RCU</h3>
@@ -46,10 +61,20 @@ const RcuGraphContainer = ({
           }}
         >
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='time'>
+          <XAxis
+            dataKey='time'
+            type='number'
+            domain={[startTimeMillis, endTimeMillis]}
+            tickFormatter={(tick) => new Date(tick).toLocaleTimeString()}
+          >
             <Label value='Time' offset={-5} position='insideBottom' />
           </XAxis>
           <YAxis />
+          <ReferenceLine
+            y={provisionedCapacity}
+            label='Provisioned Capacity'
+            stroke='black'
+          />
           <Tooltip />
           {/* <Legend /> */}
           <Line type='monotone' dataKey='rcu' stroke='#000000' />

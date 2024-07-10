@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
   Label,
 } from 'recharts';
 
@@ -29,6 +30,8 @@ const WcuGraphContainer = ({
   provisionData,
   metrics,
 }: WcuGraphContainerProps) => {
+  const provisionedCapacity = 50; // Replace with metrics.WCU.provisionedCapacity
+
   return (
     <div className='indvidualGraph'>
       <h3>WCU</h3>
@@ -49,6 +52,11 @@ const WcuGraphContainer = ({
             <Label value='Time' offset={-5} position='insideBottom' />
           </XAxis>
           <YAxis />
+          <ReferenceLine
+            y={provisionedCapacity}
+            label='Provisioned Capacity'
+            stroke='black'
+          />
           <Tooltip />
           {/* <Legend /> */}
           <Line type='monotone' dataKey='rcu' stroke='#000000' />

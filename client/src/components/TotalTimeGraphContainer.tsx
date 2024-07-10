@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
   Label,
 } from 'recharts';
 
@@ -29,6 +30,7 @@ const TotalTimeGraphContainer = ({
   provisionData,
   metrics,
 }: TotalTimeContainerProps) => {
+  const provisionedCapacity = 50; // Replace with metrics.RCU.provisionedCapacity
   return (
     <div className='indvidualGraph'>
       <h3>Total Time</h3>
@@ -49,6 +51,11 @@ const TotalTimeGraphContainer = ({
             <Label value='Time' offset={-5} position='insideBottom' />
           </XAxis>
           <YAxis />
+          <ReferenceLine
+            y={provisionedCapacity}
+            label='Provisioned Capacity'
+            stroke='black'
+          />
           <Tooltip />
           {/* <Legend /> */}
           <Line type='monotone' dataKey='rcu' stroke='#000000' />

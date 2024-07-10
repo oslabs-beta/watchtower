@@ -10,21 +10,21 @@ export interface StatusBoxProps {
   onSubmit: (data: ProvisionFormData) => void;
 }
 
-interface GraphContainerProps {
+export interface GraphContainerProps {
   currentProvision: ProvisionFormData | null;
 }
 
-interface RcuGraphContainerProps {
+export interface RcuGraphContainerProps {
   provisionData: ProvisionFormData;
   metrics: any;
 }
 
-interface WcuGraphContainerProps {
+export interface WcuGraphContainerProps {
   provisionData: ProvisionFormData;
   metrics: any;
 }
 
-interface TotalTimeContainerProps {
+export interface TotalTimeContainerProps {
   provisionData: ProvisionFormData;
   metrics: any;
 }
