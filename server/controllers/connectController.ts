@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import fs from 'fs';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
 
 interface ConnectController {
   saveAWSInfo: RequestHandler;
 };
+
 //https://iamwebwiz.medium.com/how-to-fix-dirname-is-not-defined-in-es-module-scope-34d94a86694d
 // const __filename: string = fileURLToPath(import.meta.url); // get the resolved path to the file
 // const __dirname: string = path.dirname(__filename); // get the name of the directory
