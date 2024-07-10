@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { config } from '../configs/aws.config.ts'
-import {
-  DynamoDBClient,
-  ListTablesCommand,
-} from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, ListTablesCommand, ListTablesCommandInput} from '@aws-sdk/client-dynamodb';
 
 interface TablesController {
   getTables: RequestHandler;
@@ -11,7 +8,8 @@ interface TablesController {
 
 const dynamoDBClient = new DynamoDBClient(config);
 
-// const command = new ListTablesCommand({});
+// const input = {};
+// const command = new ListTablesCommand(input);
 // const response = await dynamoDBClient.send(command);
 // console.log(response.TableNames)
 
@@ -21,7 +19,7 @@ export const tablesController: TablesController = {
   getTables: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       //pass in empty object to get all tables name
-      const input = {};
+      const input: ListTablesCommandInput = {};
       const command = new ListTablesCommand(input);
       //waiting for respoonse from DynamoDB
       const response = await dynamoDBClient.send(command);
