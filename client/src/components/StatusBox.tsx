@@ -79,6 +79,7 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
           <button id='submitButton' type='submit'>
             Submit
           </button>
+          
         </form>
       </div>
     </div>
