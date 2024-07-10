@@ -12,7 +12,7 @@ interface BedrockController {
 //   body: new Uint8Array(), // e.g. Buffer.from("") or new TextEncoder().encode("")   // required
 //   contentType: "STRING_VALUE",
 //   accept: "STRING_VALUE",
-//   modelId: "STRING_VALUE", // required
+//   modelId: "mistral.mistral-7b-instruct-v0:2", // required
 //   trace: "ENABLED" || "DISABLED",
 //   guardrailIdentifier: "STRING_VALUE",
 //   guardrailVersion: "STRING_VALUE",
