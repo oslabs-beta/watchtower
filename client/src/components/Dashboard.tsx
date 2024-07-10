@@ -22,11 +22,6 @@ const Dashboard = () => {
     }
   };
 
-  //console.log to check that the curretnProvision is being updated
-  // useEffect(() => {
-  //   console.log(currentProvision);
-  // }, [currentProvision]);
-
   return (
     <div id='dashboard'>
       <NavBar />

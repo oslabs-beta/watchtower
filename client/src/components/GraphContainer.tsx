@@ -9,8 +9,7 @@ import '../styles/graphContainer.scss';
 const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
   //update with the metrics from backend
   const [currentMetrics, setMetrics] = useState(null);
-
-  //fetch the data from the backend
+  
   // fetch the data from the backend
   useEffect(() => {
     // ensure that the currentProvision is truthy aka the user has submitted the form
