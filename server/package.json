@@ -14,12 +14,15 @@
     "@aws-sdk/client-cloudwatch": "^3.609.0",
     "@aws-sdk/client-dynamodb": "^3.609.0",
     "@types/express": "^4.17.21",
+    "@types/node": "^20.14.10",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "react-cookie": "^7.1.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.4"
   },
   "type": "module"
