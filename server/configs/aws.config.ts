@@ -15,7 +15,7 @@ export const config: Config = {
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_ID,
   },
   region: process.env.REGION,
-}
+};
 
 // const cloudWatchClient = new CloudWatchClient(config);
 // export const dynamoDBClient = new DynamoDBClient(config);
