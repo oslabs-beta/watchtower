@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import GraphContainer from './GraphContainer';
 import StatusBox from './StatusBox';
 import AnalysisContainer from './AnalysisContainer';
@@ -7,16 +7,15 @@ import '../styles/Dashboard.scss';
 import { ProvisionFormData } from '../../types/types';
 
 const Dashboard = () => {
-  //use state to keep track of what provision data the user requested
-  //The current provsion must be in the ProvisonFormData format or null
+  // useState to keep track of the provision data
   const [currentProvision, setCurrentProvision] =
     useState<ProvisionFormData | null>(null);
 
-  //handler function to handle the onSubmit for StatusBox
-  //On Submit a post request will be made with the data from the request form
+  // handler function to handle the onSubmit for StatusBox
   const handleFormSubmit = async (data: ProvisionFormData) => {
     try {
       setCurrentProvision(data);
+      console.log('Provision saved', data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -30,7 +29,7 @@ const Dashboard = () => {
         <AnalysisContainer />
       </div>
       <div id='rightSide'>
-        {/* Send the currentProvision on the props to the graphContainer */}
+        {/* Send the currentProvision on the props to the GraphContainer */}
         <GraphContainer currentProvision={currentProvision} />
       </div>
     </div>

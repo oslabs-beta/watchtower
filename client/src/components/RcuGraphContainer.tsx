@@ -11,39 +11,22 @@ import {
   ResponsiveContainer,
   Label,
   ReferenceLine,
-  Legend,
 } from 'recharts';
-
-// Hard-coded data in case connection is not made by MVP presentation
-const data = [
-  { rcu: 40, time: '1' },
-  { rcu: 100, time: '2' },
-  { rcu: 23, time: '3' },
-  { rcu: 33, time: '4' },
-  { rcu: 54, time: '5' },
-  { rcu: 88, time: '6' },
-  { rcu: 26, time: '7' },
-  { rcu: 77, time: '8' },
-  { rcu: 33, time: '9' },
-  { rcu: 86, time: '10' },
-];
 
 const RcuGraphContainer = ({
   provisionData,
   metrics,
 }: RcuGraphContainerProps) => {
-  // deconstruct startTime and endTime from provisionData
+  // // Deconstruct startTime and endTime from provisionData
   const { startTime, endTime } = provisionData;
 
-  //error when time is null so must account for that 
-  const startTimeMillis = startTime
-    ? new Date(startTime).getTime()
-    : new Date().getTime();
-  const endTimeMillis = endTime
-    ? new Date(endTime).getTime()
-    : new Date().getTime();
+  //save the data from the metrics
+  const data = metrics.ConsRCU.map((item: any) => ({
+    average: item.Average,
+    timestamp: new Date(item.Timestamp).getTime(),
+  })).sort((a, b) => a.timestamp - b.timestamp);
 
-  const provisionedCapacity = 50; // Replace with metrics.RCU.provisionedCapacity
+  const provisionedCapacity = metrics.ProvRCU;
 
   return (
     <div className='indvidualGraph'>
@@ -62,22 +45,26 @@ const RcuGraphContainer = ({
         >
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis
-            dataKey='time'
+            dataKey='timestamp'
             type='number'
-            domain={[startTimeMillis, endTimeMillis]}
+            domain={[startTime, endTime]}
             tickFormatter={(tick) => new Date(tick).toLocaleTimeString()}
+            scale='time'
           >
             <Label value='Time' offset={-5} position='insideBottom' />
           </XAxis>
-          <YAxis />
+          <YAxis dataKey='average' domain={[0, 1.5]}>
+            <Label value='Average' angle={-90} position='insideLeft' />
+          </YAxis>
           <ReferenceLine
             y={provisionedCapacity}
-            label='Provisioned Capacity'
+            label={<Label value='Maximum Provisoned Capacity' fill={'black'} />}
             stroke='black'
           />
-          <Tooltip />
-          {/* <Legend /> */}
-          <Line type='monotone' dataKey='rcu' stroke='#000000' />
+          <Tooltip
+            labelFormatter={(label) => new Date(label).toLocaleTimeString()}
+          />
+          <Line type='monotone' dataKey='average' stroke='#000000' />
         </LineChart>
       </ResponsiveContainer>
     </div>

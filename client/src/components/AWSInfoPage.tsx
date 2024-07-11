@@ -14,40 +14,48 @@ const AWSInfoPage = () => {
   async function awsInfoSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const AWSAccountName = document.querySelector('AWSAccountName');
-    const AWSAccessKey = document.querySelector('AWSAccessKey');
-    const AWSSecretKey = document.querySelector('AWSSecretKey');
-    const Region = document.querySelector('Region');
+    const AWSAccountName = document.querySelector(
+      '#AWSAccountName'
+    ) as HTMLInputElement;
+    const AWSAccessKey = document.querySelector(
+      '#AWSAccessKey'
+    ) as HTMLInputElement;
+    const AWSSecretKey = document.querySelector(
+      '#AWSSecretKey'
+    ) as HTMLInputElement;
+    const Region = document.querySelector('#Region') as HTMLSelectElement;
 
     // Fetch request - Post method - to AWSConnect path providing AWS Account IAM details.
-    try {
-      const response = await fetch('/api/AWSConnect', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          AWSAccountName: AWSAccountName,
-          AWSAccessKey: AWSAccessKey,
-          AWSSecretKey: AWSSecretKey,
-          Region: Region,
-        }),
-      });
-      console.log('response ', response);
-      const data = await response.json();
-      if (data) {
-        alert('AWS Account Info Submitted!');
-        navigate('/dashboard');
+    //
+    if (AWSAccountName && AWSAccessKey && AWSSecretKey && Region) {
+      try {
+        
+        const response = await fetch('/api/AWSConnect', {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+          body: JSON.stringify({
+            AWSAccountName: AWSAccountName.value,
+            AWSAccessKey: AWSAccessKey.value,
+            AWSSecretKey: AWSSecretKey.value,
+            Region: Region.value,
+          }),
+        });
+        console.log('response ', response);
+        const data = await response.json();
+        if (data) {
+          alert('AWS Account Info Submitted!');
+          navigate('/dashboard');
+        }
+      } catch (err) {
+        alert(
+          'An Error occured while validating AWS Account Info. Please try again.'
+        );
       }
-      alert(data);
-    } catch (err) {
-      alert(
-        'An Error occured while validating AWS Account Info. Please try again.'
-      );
     }
   }
-
   return (
     <div className='container'>
       <NavBar />
@@ -55,17 +63,17 @@ const AWSInfoPage = () => {
         <label>AWS Account Name</label>
         <input type='text' id='AWSAccountName'></input>
         <label>AWS Access Key ID</label>
-        <input type='text' id='AWSAccessKey'></input>
+        <input type='password' id='AWSAccessKey'></input>
 
         <label>AWS Secret Access Key</label>
-        <input type='text' id='AWSSecretKey'></input>
+        <input type='password' id='AWSSecretKey'></input>
 
         <label>Region</label>
-        <select id='region'>
-          <option>us-east-1</option>
-          <option>us-east-2</option>
-          <option>us-west-1</option>
-          <option>us-west-2</option>
+        <select id='Region'>
+          <option value='us-east-1'>us-east-1</option>
+          <option value='us-east-2'>us-east-2</option>
+          <option value='us-west-1'>us-west-1</option>
+          <option value='us-west-2'>us-west-2</option>
         </select>
 
         <button type='submit' onClick={awsInfoSubmit}>

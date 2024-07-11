@@ -17,12 +17,16 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
   //handle when the form is submitted
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Convert dates to ISO format if they are not null
+    const startTime = startDate ? startDate.toISOString() : null;
+    const endTime = endDate ? endDate.toISOString() : null;
+
     onSubmit({
       //commented out for MVP
       //aWSAccountName,
       tableName,
-      startTime: startDate ? startDate.toISOString() : null,
-      endTime: endDate ? endDate.toISOString() : null,
+      startTime,
+      endTime,
     });
   };
 
