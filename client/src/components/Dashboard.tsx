@@ -7,12 +7,11 @@ import '../styles/Dashboard.scss';
 import { ProvisionFormData } from '../../types/types';
 
 const Dashboard = () => {
-
   //use state to keep track of what provision data the user requested
   const [currentProvision, setCurrentProvision] =
     useState<ProvisionFormData | null>(null);
 
-  //handler function to handle the onSubmit 
+  //handler function to handle the onSubmit
   const handleFormSubmit = async (data: ProvisionFormData) => {
     try {
       const response = await fetch('/tables', {
