@@ -35,12 +35,12 @@ const AWSInfoPage = () => {
         }),
       });
       console.log('response ', response);
-      // const data = await response.json();
-      // if (data) {
-      //   alert('AWS Account Info Submitted!');
-      //   navigate('/dashboard');
-      // }
-      // alert(data);
+      const data = await response.json();
+      if (data) {
+        alert('AWS Account Info Submitted!');
+        navigate('/dashboard');
+      }
+      alert(data);
     } catch (err) {
       alert(
         'An Error occured while validating AWS Account Info. Please try again.'
