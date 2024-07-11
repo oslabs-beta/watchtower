@@ -22,9 +22,11 @@ const WcuGraphContainer = ({
 
   //save the data from the metrics
   const data = metrics.ConsWCU.map((item: any) => ({
-    average: item.Average,
+    maximum: item.Maximum,
     timestamp: new Date(item.Timestamp).getTime(),
   })).sort((a, b) => a.timestamp - b.timestamp);
+
+  console.log('data', data)
 
   const provisionedCapacity = metrics.ProvWCU;
 
@@ -53,8 +55,8 @@ const WcuGraphContainer = ({
           >
             <Label value='Time' offset={-5} position='insideBottom' />
           </XAxis>
-          <YAxis dataKey='average' domain={[0, 1.5]}>
-            <Label value='Average' angle={-90} position='insideLeft' />
+          <YAxis dataKey='maximum' domain={[0, 1.5]}>
+            <Label value='Maximum' angle={-90} position='insideLeft' />
           </YAxis>
           <ReferenceLine
             y={provisionedCapacity}
@@ -65,7 +67,7 @@ const WcuGraphContainer = ({
           <Tooltip
             labelFormatter={(label) => new Date(label).toLocaleTimeString()}
           />
-          <Line type='monotone' dataKey='average' stroke='#000000' />
+          <Line type='monotone' dataKey='maximum' stroke='#000000' />
         </LineChart>
       </ResponsiveContainer>
     </div>

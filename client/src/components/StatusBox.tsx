@@ -33,13 +33,12 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
     });
   };
 
-
   useEffect(() => {
     try {
       const getTables = async () => {
         const response = await fetch(`/api/tables`);
         const result = await response.json();
-        console.log("result", result);
+        console.log("tables", result);
         setTable(result);
       }
 
@@ -49,7 +48,6 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
     }
   }, []) 
 
-  console.log(tableName)
 
   return (
     <div id='statusContainer'>
@@ -75,7 +73,8 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
             id='tableName'
             onChange={(e) => setTableName(e.target.value)}
           >
-          {table && table.map((name, index) =>(
+          <option disabled selected>Select a Table</option>
+          {table && table.map((name, index) =>(  
              <option key={index} value={name}>
              {name}
            </option>
