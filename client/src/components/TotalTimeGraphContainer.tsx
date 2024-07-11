@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/graphContainer.scss';
+import { ProvisionFormData, TotalTimeContainerProps } from '../../types/types';
 import {
   LineChart,
   Line,
@@ -8,7 +8,9 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer, Label,
+  ResponsiveContainer,
+  ReferenceLine,
+  Label,
 } from 'recharts';
 
 const data = [
@@ -24,7 +26,11 @@ const data = [
   { rcu: 86, time: '10' },
 ];
 
-const TotalTimeGraphContainer = () => {
+const TotalTimeGraphContainer = ({
+  provisionData,
+  metrics,
+}: TotalTimeContainerProps) => {
+  const provisionedCapacity = 50; // Replace with metrics.RCU.provisionedCapacity
   return (
     <div className='indvidualGraph'>
       <h3>Total Time</h3>
@@ -45,6 +51,11 @@ const TotalTimeGraphContainer = () => {
             <Label value='Time' offset={-5} position='insideBottom' />
           </XAxis>
           <YAxis />
+          <ReferenceLine
+            y={provisionedCapacity}
+            label='Provisioned Capacity'
+            stroke='black'
+          />
           <Tooltip />
           {/* <Legend /> */}
           <Line type='monotone' dataKey='rcu' stroke='#000000' />
@@ -52,6 +63,6 @@ const TotalTimeGraphContainer = () => {
       </ResponsiveContainer>
     </div>
   );
-}
+};
 
 export default TotalTimeGraphContainer;

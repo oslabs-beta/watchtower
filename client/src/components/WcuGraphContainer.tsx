@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/graphContainer.scss';
+import { ProvisionFormData, WcuGraphContainerProps } from '../../types/types';
 import {
   LineChart,
   Line,
@@ -9,26 +9,32 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
   Label,
 } from 'recharts';
 
 const data = [
-  { wcu: 40, time: '1' },
-  { wcu: 100, time: '2' },
-  { wcu: 23, time: '3' },
-  { wcu: 33, time: '4' },
-  { wcu: 54, time: '5' },
-  { wcu: 88, time: '6' },
-  { wcu: 26, time: '7' },
-  { wcu: 77, time: '8' },
-  { wcu: 33, time: '9' },
-  { wcu: 86, time: '10' },
+  { rcu: 40, time: '1' },
+  { rcu: 100, time: '2' },
+  { rcu: 23, time: '3' },
+  { rcu: 33, time: '4' },
+  { rcu: 54, time: '5' },
+  { rcu: 88, time: '6' },
+  { rcu: 26, time: '7' },
+  { rcu: 77, time: '8' },
+  { rcu: 33, time: '9' },
+  { rcu: 86, time: '10' },
 ];
 
-const WcuGraphContainer = () => {
+const WcuGraphContainer = ({
+  provisionData,
+  metrics,
+}: WcuGraphContainerProps) => {
+  const provisionedCapacity = 50; // Replace with metrics.WCU.provisionedCapacity
+
   return (
     <div className='indvidualGraph'>
-      <h3>Write Capacity Unit</h3>
+      <h3>WCU</h3>
       <ResponsiveContainer width='100%' height={400}>
         <LineChart
           width={500}
@@ -46,13 +52,18 @@ const WcuGraphContainer = () => {
             <Label value='Time' offset={-5} position='insideBottom' />
           </XAxis>
           <YAxis />
+          <ReferenceLine
+            y={provisionedCapacity}
+            label='Provisioned Capacity'
+            stroke='black'
+          />
           <Tooltip />
           {/* <Legend /> */}
-          <Line type='monotone' dataKey='wcu' stroke='#000000' />
+          <Line type='monotone' dataKey='rcu' stroke='#000000' />
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
-}
+};
 
 export default WcuGraphContainer;
