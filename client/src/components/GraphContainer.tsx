@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import RcuGraphContainer from './RcuGraphContainer';
 import WcuGraphContainer from './WcuGraphContainer';
 import TotalTimeGraphContainer from './TotalTimeGraphContainer';
@@ -7,26 +7,41 @@ import { ProvisionFormData, GraphContainerProps } from '../../types/types';
 import '../styles/graphContainer.scss';
 
 const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
-  //update with the metrics from backend
-  const [currentMetrics, setMetrics] = useState(null);
-  
-  // fetch the data from the backend
+  //the useState stores the fetched data from the backend
+  //the use ref stores the metrics to prevent re-fetching on the render
+  const [currentMetrics, setCurrentMetrics] = useState(null);
+  const savedMetrics = useRef(null);
+
+  //run if the currentProvsion is defined and the savedMetrics.current is null
   useEffect(() => {
-    // ensure that the currentProvision is truthy aka the user has submitted the form
-    if (currentProvision) {
+    if (currentProvision && !savedMetrics.current) {
       (async () => {
         try {
-          // send the currentProvision in the body to the backend to get the correct metric
-          const response = await fetch(`/api/metrics`, {
+          //deconstruct the parameters from the props and send to the backend
+          const { tableName, startTime, endTime } = currentProvision;
+
+          console.log('Sending request with:', {
+            tableName,
+            startTime,
+            endTime,
+          });
+
+          const response = await fetch('/api/metrics', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ provision: currentProvision }),
+            body: JSON.stringify({ tableName, startTime, endTime }),
           });
 
+          if (!response.ok) {
+            throw new Error(`HTTP error status: ${response.status}`);
+          }
+
           const data = await response.json();
-          setMetrics(data);
+          //update the saved metrics and the current metrics with the fetched data
+          savedMetrics.current = data;
+          setCurrentMetrics(data);
         } catch (error) {
           console.error('Error fetching metrics:', error);
         }
@@ -37,26 +52,25 @@ const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
   return (
     <div className='graphContainer'>
       <h2>Graphical Analysis</h2>
-      {currentProvision && (
+      {currentProvision && currentMetrics && (
         <RcuGraphContainer
           provisionData={currentProvision}
           metrics={currentMetrics}
         />
       )}
-
-      {currentProvision && (
+      {currentProvision && currentMetrics && (
         <WcuGraphContainer
           provisionData={currentProvision}
           metrics={currentMetrics}
         />
       )}
-      {currentProvision && (
+      {currentProvision && currentMetrics && (
         <TotalTimeGraphContainer
           provisionData={currentProvision}
           metrics={currentMetrics}
         />
       )}
-      {/* {currentProvision && (
+      {/* {currentProvision && currentMetrics && (
         <ConsumedCapacity
           provisionData={currentProvision}
           metrics={currentMetrics}
