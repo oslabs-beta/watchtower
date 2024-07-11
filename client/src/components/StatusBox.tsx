@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/statusBox.scss';
@@ -12,7 +12,10 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   //commented out for MVP
   // const [aWSAccountName, setAWSAccountName] = useState('');
-  const [tableName, setTableName] = useState('');
+  const [table, setTable] = useState([]);
+  const [tableName, setTableName] = useState('')
+
+  // const talbeName = document.querySelector('#tableName')
 
   //handle when the form is submitted
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,6 +28,24 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
       endTime: endDate ? endDate.toISOString() : null,
     });
   };
+
+
+  useEffect(() => {
+    try {
+      const getTables = async () => {
+        const response = await fetch(`/api/tables`);
+        const result = await response.json();
+        console.log("result", result);
+        setTable(result);
+      }
+
+      getTables();
+    } catch(err) {
+      console.log("Couldn't get tables' name", err);
+    }
+  }, []) 
+
+  console.log(tableName)
 
   return (
     <div id='statusContainer'>
@@ -46,11 +67,17 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
           </select> */}
 
           <label>Table Name</label>
-          <input
-            type='text'
-            value={tableName}
+          <select
+            id='tableName'
             onChange={(e) => setTableName(e.target.value)}
-          />
+          >
+          {table && table.map((name, index) =>(
+             <option key={index} value={name}>
+             {name}
+           </option>
+          ))}
+          </select>
+
 
           <label>Start Time</label>
           <DatePicker
