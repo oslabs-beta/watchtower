@@ -31,7 +31,7 @@ defaults.responsive = true;
 
 defaults.plugins.title.display = true;
 defaults.plugins.title.align = 'start';
-defaults.plugins.title.font.size = 20;
+// defaults.plugins.title.font.size = 20;
 defaults.plugins.title.color = 'black';
 
 
@@ -42,7 +42,7 @@ const ConsumedCapacity = () => {
     <div>
       <div>Chart 1</div>
       <div>
-        <Bar 
+        <Bar
           data={{
             labels: ['A', 'B', 'C'],
             datasets: [
@@ -50,9 +50,9 @@ const ConsumedCapacity = () => {
                 label: 'Revenue',
                 data: [200, 300, 400],
                 backgroundColor: [
-                  "rgba(43, 63, 229, 0.8)",
-                  "rgba(250, 192, 19, 0.8)",
-                  "rgba(253, 135, 135, 0.8)",
+                  'rgba(43, 63, 229, 0.8)',
+                  'rgba(250, 192, 19, 0.8)',
+                  'rgba(253, 135, 135, 0.8)',
                 ],
                 borderRadius: 5,
               },
@@ -60,26 +60,26 @@ const ConsumedCapacity = () => {
                 label: 'Loss',
                 data: [90, 80, 70],
                 backgroundColor: [
-                  "rgba(43, 63, 229, 0.8)",
-                  "rgba(250, 192, 19, 0.8)",
-                  "rgba(253, 135, 135, 0.8)",
+                  'rgba(43, 63, 229, 0.8)',
+                  'rgba(250, 192, 19, 0.8)',
+                  'rgba(253, 135, 135, 0.8)',
                 ],
                 borderRadius: 5,
-              }
-            ]
+              },
+            ],
           }}
           options={{
             plugins: {
               title: {
                 text: 'Revenue Sources',
-              }
-            }
+              },
+            },
           }}
         />
       </div>
       <div>Chart 2</div>
       <div>
-        <Doughnut 
+        <Doughnut
           data={{
             labels: ['A', 'B', 'C'],
             datasets: [
@@ -87,28 +87,28 @@ const ConsumedCapacity = () => {
                 label: 'Revenue',
                 data: [200, 300, 400],
                 backgroundColor: [
-                  "rgba(43, 63, 229, 0.8)",
-                  "rgba(250, 192, 19, 0.8)",
-                  "rgba(253, 135, 135, 0.8)",
+                  'rgba(43, 63, 229, 0.8)',
+                  'rgba(250, 192, 19, 0.8)',
+                  'rgba(253, 135, 135, 0.8)',
                 ],
                 borderColor: [
-                  "rgba(43, 63, 229, 0.8)",
-                  "rgba(250, 192, 19, 0.8)",
-                  "rgba(253, 135, 135, 0.8)",
+                  'rgba(43, 63, 229, 0.8)',
+                  'rgba(250, 192, 19, 0.8)',
+                  'rgba(253, 135, 135, 0.8)',
                 ],
               },
               {
                 label: 'Loss',
                 data: [90, 80, 70],
                 backgroundColor: [
-                  "rgba(43, 63, 229, 0.8)",
-                  "rgba(250, 192, 19, 0.8)",
-                  "rgba(253, 135, 135, 0.8)",
+                  'rgba(43, 63, 229, 0.8)',
+                  'rgba(250, 192, 19, 0.8)',
+                  'rgba(253, 135, 135, 0.8)',
                 ],
                 borderColor: [
-                  "rgba(43, 63, 229, 0.8)",
-                  "rgba(250, 192, 19, 0.8)",
-                  "rgba(253, 135, 135, 0.8)",
+                  'rgba(43, 63, 229, 0.8)',
+                  'rgba(250, 192, 19, 0.8)',
+                  'rgba(253, 135, 135, 0.8)',
                 ],
                 hoverOffset:4,
               }
@@ -118,14 +118,14 @@ const ConsumedCapacity = () => {
             plugins: {
               title: {
                 text: 'Revenue Sources',
-              }
-            }
+              },
+            },
           }}
         />
       </div>
       <div>Chart 1</div>
       <div>
-        <Line 
+        <Line
           data={{
             labels: ['A', 'B', 'C'],
             datasets: [
@@ -141,7 +141,7 @@ const ConsumedCapacity = () => {
                 backgroundColor: '#FF3030',
                 borderColor: '#FF3030',
               },
-            ]
+            ],
           }}
           options={{
             elements: {
@@ -159,6 +159,6 @@ const ConsumedCapacity = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ConsumedCapacity;
