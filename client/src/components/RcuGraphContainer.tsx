@@ -17,24 +17,21 @@ const RcuGraphContainer = ({
   provisionData,
   metrics,
 }: RcuGraphContainerProps) => {
-  // // Deconstruct startTime and endTime from provisionData
-  const { startTime, endTime } = provisionData;
+  const { startTime, endTime } = provisionData || {};
+  const data = (metrics?.ConsRCU || [])
+    .map((item: any) => ({
+      maximum: item.Maximum,
+      timestamp: new Date(item.Timestamp).getTime(),
+    }))
+    .sort((a, b) => a.timestamp - b.timestamp);
 
-  //save the data from the metrics
-  const data = metrics.ConsRCU.map((item: any) => ({
-    maximum: item.Maximum,
-    timestamp: new Date(item.Timestamp).getTime(),
-  })).sort((a, b) => a.timestamp - b.timestamp);
-
-  const provisionedCapacity = metrics.ProvRCU;
+  const provisionedCapacity = metrics?.ProvRCU || 0;
 
   return (
     <div className='indvidualGraph'>
       <h3>RCU</h3>
-      <ResponsiveContainer width='100%' height={400}>
+      <ResponsiveContainer width='100%' height={200}>
         <LineChart
-          width={500}
-          height={300}
           data={data}
           margin={{
             top: 5,
@@ -47,7 +44,7 @@ const RcuGraphContainer = ({
           <XAxis
             dataKey='timestamp'
             type='number'
-            domain={[startTime, endTime]}
+            domain={[startTime || 'auto', endTime || 'auto']}
             tickFormatter={(tick) => new Date(tick).toLocaleTimeString()}
             scale='time'
           >
@@ -58,7 +55,7 @@ const RcuGraphContainer = ({
           </YAxis>
           <ReferenceLine
             y={provisionedCapacity}
-            label={<Label value='Maximum Provisoned Capacity' fill={'black'} />}
+            label={<Label value='Maximum Provisoned Capacity' fill='black' />}
             stroke='black'
           />
           <Tooltip

@@ -1,25 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react';
 import RcuGraphContainer from './RcuGraphContainer';
 import WcuGraphContainer from './WcuGraphContainer';
-import TotalTimeGraphContainer from './TotalTimeGraphContainer';
-import ConsumedCapacity from './ConsumedCapacity';
 import { ProvisionFormData, GraphContainerProps } from '../../types/types';
 import '../styles/graphContainer.scss';
 
+const defaultProvisionFormData: ProvisionFormData = {
+  tableName: '',
+  startTime: null,
+  endTime: null,
+};
+
 const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
-  //the useState stores the fetched data from the backend
-  //the use ref stores the metrics to prevent re-fetching on the render
-  const [currentMetrics, setCurrentMetrics] = useState(null);
+  const [currentMetrics, setCurrentMetrics] = useState<any>(null);
   const savedMetrics = useRef(null);
 
-  //run if the currentProvsion is defined and the savedMetrics.current is null
   useEffect(() => {
-    if (currentProvision && !savedMetrics.current) {
+    if (currentProvision) {
       (async () => {
         try {
-          //deconstruct the parameters from the props and send to the backend
           const { tableName, startTime, endTime } = currentProvision;
-
           console.log('Sending request with:', {
             tableName,
             startTime,
@@ -39,7 +38,7 @@ const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
           }
 
           const data = await response.json();
-          //update the saved metrics and the current metrics with the fetched data
+          console.log('Received data:', data);
           savedMetrics.current = data;
           setCurrentMetrics(data);
         } catch (error) {
@@ -52,30 +51,16 @@ const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
   return (
     <div className='graphContainer'>
       <h2>Graphical Analysis</h2>
-      {currentProvision && currentMetrics && (
+      <div className='graphSubContainer'>
         <RcuGraphContainer
-          provisionData={currentProvision}
-          metrics={currentMetrics}
+          provisionData={currentProvision || defaultProvisionFormData}
+          metrics={currentMetrics || { ConsRCU: [], ProvRCU: 0 }}
         />
-      )}
-      {currentProvision && currentMetrics && (
         <WcuGraphContainer
-          provisionData={currentProvision}
-          metrics={currentMetrics}
+          provisionData={currentProvision || defaultProvisionFormData}
+          metrics={currentMetrics || { ConsWCU: [], ProvWCU: 0 }}
         />
-      )}
-      {currentProvision && currentMetrics && (
-        <TotalTimeGraphContainer
-          provisionData={currentProvision}
-          metrics={currentMetrics}
-        />
-      )}
-      {/* {currentProvision && currentMetrics && (
-        <ConsumedCapacity
-          provisionData={currentProvision}
-          metrics={currentMetrics}
-        />
-      )} */}
+      </div>
     </div>
   );
 };

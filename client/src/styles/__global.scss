@@ -2,8 +2,6 @@
 
 $lightblue: #a6d8d9;
 $darkblue: #1c3454;
-// src/styles/_variables.scss
-
 $background-paper: #ffffff;
 $box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 $text-primary: #000000;
@@ -16,69 +14,3 @@ $border-radius: 4px;
 $primary-main: #1976d2;
 $primary-contrastText: #ffffff;
 $font-weight-medium: 500;
-
-// // global components used throughout the application
-// .container {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   height: 100%;
-
-//   .formContainer {
-//     display: flex;
-//     flex-direction: column;
-//     width: 40%;
-//     justify-content: space-around;
-//     align-items: center;
-//     border: solid;
-//     border-radius: 5px;
-//     border-color: black;
-//     align-self: center;
-//     background-color: #1c3454;
-//     color: #ccc;
-//     padding: 2%;
-//     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
-//     label {
-//       font-size: x-large;
-//     }
-
-//     input {
-//       width: 80%;
-//       padding: 12px 20px;
-//       margin: 8px 0;
-//       box-sizing: border-box;
-//     }
-//     select {
-//       width: fit-content;
-//       border-radius: 5px;
-//       border-radius: 5px;
-//       margin-top: 3%;
-//       background-color: white;
-//       border: none;
-//       padding: 15px 32px;
-//       text-align: center;
-//       text-decoration: none;
-//       display: inline-block;
-//       font-size: 16px;
-//     }
-
-//     button {
-//       border-radius: 5px;
-//       margin-top: 3%;
-//       background-color: $lightblue;
-//       border: none;
-//       padding: 15px 32px;
-//       text-align: center;
-//       text-decoration: none;
-//       display: inline-block;
-//       font-size: 16px;
-//       color: $darkblue;
-
-//       link:hover {
-//         font-weight: bold;
-//       }
-//     }
-//   }
-// }

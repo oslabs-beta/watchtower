@@ -1,40 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Orders from './Orders';
-import StatusBox from './StatusBox'; // Import StatusBox component
-import { ProvisionFormData } from '../../types/types';
-import Copyright from './Copyright';
+import StatusBox from './StatusBox';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
+import GraphContainer from './GraphContainer';
+import BedrockAnalysis from './BedrockAnalysis';
+import Copyright from './Copyright';
+import { ProvisionFormData } from '../../types/types';
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-  // useState to keep track of the provision data
   const [currentProvision, setCurrentProvision] =
     useState<ProvisionFormData | null>(null);
 
-  // handler function to handle the onSubmit for StatusBox
   const handleFormSubmit = async (data: ProvisionFormData) => {
     try {
       setCurrentProvision(data);
@@ -43,14 +38,10 @@ export default function Dashboard() {
       console.error('Error:', error);
     }
   };
-  const [open, setOpen] = React.useState(true);
+
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
-  };
-
-  const handleSubmit = (formData: ProvisionFormData) => {
-    // Define the onSubmit function for StatusBox
-    console.log('StatusBox submitted', formData);
   };
 
   return (
@@ -58,20 +49,13 @@ export default function Dashboard() {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position='absolute' open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
+          <Toolbar sx={{ pr: '24px' }}>
             <IconButton
               edge='start'
               color='inherit'
               aria-label='open drawer'
               onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
+              sx={{ marginRight: '36px', ...(open && { display: 'none' }) }}
             >
               <MenuIcon />
             </IconButton>
@@ -124,35 +108,28 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-
           <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Status Box */}
-              <Grid item xs={12} md={6} lg={6}>
+              <Grid item xs={12} md={4}>
+                <Paper
+                  sx={{ p: 2, display: 'flex', flexDirection: 'column', mb: 2 }}
+                >
+                  <StatusBox onSubmit={handleFormSubmit} />
+                </Paper>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <StatusBox onSubmit={handleSubmit} />{' '}
-                  {/* Pass onSubmit prop */}
+                  <BedrockAnalysis />
                 </Paper>
               </Grid>
-              {/* Chart */}
-              <Grid item xs={12} md={6} lg={6}>
+              <Grid item xs={12} md={8}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: '100%',
                   }}
                 >
-                  <Chart />
-                </Paper>
-              </Grid>
-            </Grid>
-            <Grid container spacing={3}>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  <GraphContainer currentProvision={currentProvision} />
                 </Paper>
               </Grid>
             </Grid>
