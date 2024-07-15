@@ -17,6 +17,7 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 
 app.use('/api', apiRouter);
 
+
 app.use((req: Request, res: Response) =>
   res.status(404).send("This is not the page you're looking for")
 );

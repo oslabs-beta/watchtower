@@ -33,10 +33,6 @@ export const connectController: ConnectController = {
       Region,
     }: { AWSAccessKey: string; AWSSecretKey: string; Region: string } =
       req.body;
-      console.log(AWSAccessKey,
-        AWSSecretKey,
-        Region,)
-        console.log(req.body);
     //context format for writing into .env
     const writeENV: string =
       `AWS_ACCESS_KEY_ID=${AWSAccessKey}\n` +
