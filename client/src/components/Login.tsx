@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import logo from '../assets/logo.png';
-import watchtower from '../assets/watchtower.jpeg';
+import watchtower from '../assets/watchtower.png';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props: any) {
@@ -25,7 +25,7 @@ function Copyright(props: any) {
     >
       {'Copyright © '}
       <Link color='inherit' href='https://watch-tower.co/'>
-        Watch Tower
+        WatchTower
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

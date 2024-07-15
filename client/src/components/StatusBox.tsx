@@ -3,7 +3,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/statusBox.scss';
 import '../styles/__global.scss';
-import '../styles/statusContainer.scss';
 import { ProvisionFormData, StatusBoxProps } from '../../types/types';
 
 const StatusBox = ({ onSubmit }: StatusBoxProps) => {
@@ -13,7 +12,7 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
   //commented out for MVP
   // const [aWSAccountName, setAWSAccountName] = useState('');
   const [table, setTable] = useState([]);
-  const [tableName, setTableName] = useState('')
+  const [tableName, setTableName] = useState('');
 
   // const talbeName = document.querySelector('#tableName')
 
@@ -38,16 +37,15 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
       const getTables = async () => {
         const response = await fetch(`/api/tables`);
         const result = await response.json();
-        console.log("tables", result);
+        console.log('tables', result);
         setTable(result);
-      }
+      };
 
       getTables();
-    } catch(err) {
+    } catch (err) {
       console.log("Couldn't get tables' name", err);
     }
-  }, []) 
-
+  }, []);
 
   return (
     <div id='statusContainer'>
@@ -69,18 +67,17 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
           </select> */}
 
           <label>Table Name</label>
-          <select
-            id='tableName'
-            onChange={(e) => setTableName(e.target.value)}
-          >
-          <option disabled selected>Select a Table</option>
-          {table && table.map((name, index) =>(  
-             <option key={index} value={name}>
-             {name}
-           </option>
-          ))}
+          <select id='tableName' onChange={(e) => setTableName(e.target.value)}>
+            <option disabled selected>
+              Select a Table
+            </option>
+            {table &&
+              table.map((name, index) => (
+                <option key={index} value={name}>
+                  {name}
+                </option>
+              ))}
           </select>
-
 
           <label>Start Time</label>
           <DatePicker
