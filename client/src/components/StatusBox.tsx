@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+import Title from './Title';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../styles/statusBox.scss';
 import '../styles/__global.scss';
+import '../styles/statusBox.scss';
 import { ProvisionFormData, StatusBoxProps } from '../../types/types';
 
 const StatusBox = ({ onSubmit }: StatusBoxProps) => {

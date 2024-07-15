@@ -1,40 +1,24 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  createTheme,
+  ThemeProvider,
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import logo from '../assets/logo.png';
 import watchtower from '../assets/watchtower.png';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Copyright from './Copyright';
 
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='https://watch-tower.co/'>
-        WatchTower
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Login() {
@@ -47,8 +31,6 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
-
-    // Navigate to the /dashboard page
     navigate('/dashboard');
   };
 
@@ -68,10 +50,6 @@ export default function Login() {
           md={7}
           sx={{
             backgroundImage: `url(${watchtower})`,
-            backgroundColor: (t) =>
-              t.palette.mode === 'light'
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'left',
           }}

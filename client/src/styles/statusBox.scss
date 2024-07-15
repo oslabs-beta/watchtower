@@ -1,74 +1,81 @@
-// @import '__global.scss';
+@import './__global';
 
-// #infoBox {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   border: 1px solid #ccc;
-//   padding: 10px;
-//   border-radius: 5px;
-//   background-color: #ccc;
-//   margin: 10px 0;
-//   width: 150%;
-//   border-color: black;
-//   color: $darkblue;
+#statusContainer {
+  padding: 16px;
+  padding-top: 0;
 
-//   label {
-//     font-size: large;
-//   }
+  h2 {
+    margin-bottom: 16px;
+    color: $text-primary;
+    font-weight: $font-weight-bold;
+    text-align: center;
+  }
 
-//   button {
-//     background-color: transparent;
-//   }
+  .container {
+    display: flex;
+    justify-content: center;
 
-//   #submitButton {
-//     background-color: $darkblue;
-//     color: #ccc;
-//   }
-// }
+    .formContainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 600px; // Increased max-width for a bigger box
+      padding: 32px; // Increased padding for a bigger box
+      border-radius: $border-radius;
+      background-color: $background-default;
 
-// .datepicker {
-//   .react-datepicker__month-container {
-//     background-color: white;
-//     color: #969eac;
-//     font-size: 1rem;
-//     font-family: 'Mulish';
+      label {
+        margin-bottom: 8px;
+        color: $text-secondary;
+        font-size: $font-size-medium;
+      }
 
-//     .react-datepicker__month {
-//       padding: 1rem 0;
-//     }
+      select,
+      .datepicker,
+      input {
+        margin-bottom: 16px;
+        padding: 8px;
+        border: 1px solid $divider;
+        border-radius: $border-radius;
+        font-size: $font-size-medium;
+        width: 100%;
+      }
 
-//     .react-datepicker__month-text {
-//       display: inline-block;
-//       width: 5rem;
-//       margin: 0.5rem;
-//       font-size: 1rem;
-//       padding: 0.2rem;
-//       &:hover {
-//         background-color: #534cea;
-//       }
-//     }
+      select {
+        &:focus {
+          border-color: $primary-main;
+          box-shadow: 0 0 0 1px $primary-main;
+        }
+      }
 
-//     .react-datepicker__navigation--next {
-//       background-color: #1c3454; // Customize the background color
-//       border-radius: 50%; // Make the button round
-//       width: 30px; // Adjust the width
-//       height: 30px; // Adjust the height
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       cursor: pointer;
+      .datepicker {
+        &:focus {
+          border-color: $primary-main;
+          box-shadow: 0 0 0 1px $primary-main;
+        }
+      }
 
-//       &::before {
-//         border-color: #a6d8d9; // Customize the arrow color
-//       }
+      #submitButton {
+        padding: 8px 16px;
+        background-color: $primary-main;
+        color: $primary-contrastText;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        font-weight: $font-weight-medium;
+        text-transform: uppercase;
+        transition: background-color 0.3s;
 
-//       &:hover {
-//         background-color: #a6d8d9; // Change background color on hover
-//         &::before {
-//           border-color: #1c3454; // Change arrow color on hover
-//         }
-//       }
-//     }
-//   }
-// }
+        &:hover {
+          background-color: darken($primary-main, 10%);
+        }
+
+        &:disabled {
+          background-color: lighten($primary-main, 30%);
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
