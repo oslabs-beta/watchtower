@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Layout from './Layout';
 import StatusBox from './StatusBox';
 import GraphContainer from './GraphContainer';
 import BedrockAnalysis from './BedrockAnalysis';
-import Copyright from './Copyright';
 import { ProvisionFormData } from '../../types/types';
 
 const defaultTheme = createTheme();
@@ -37,12 +33,16 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <Paper
-                sx={{ p: 2, display: 'flex', flexDirection: 'column', mb: 2 }}
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: 400,
+                }}
               >
                 <StatusBox onSubmit={handleFormSubmit} />
-              </Paper>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <BedrockAnalysis />
               </Paper>
             </Grid>
             <Grid item xs={12} md={8}>
@@ -51,14 +51,20 @@ export default function Dashboard() {
                   p: 2,
                   display: 'flex',
                   flexDirection: 'column',
-                  height: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: 400,
                 }}
               >
                 <GraphContainer currentProvision={currentProvision} />
               </Paper>
             </Grid>
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <BedrockAnalysis />
+              </Paper>
+            </Grid>
           </Grid>
-          <Copyright sx={{ pt: 4 }} />
         </Container>
       </Layout>
     </ThemeProvider>

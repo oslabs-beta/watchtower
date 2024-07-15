@@ -82,9 +82,9 @@ const WcuGraphContainer = ({
   };
 
   return (
-    <div className='indvidualGraph'>
+    <div className='individualGraph'>
       <h3>WCU</h3>
-      <div style={{ width: '100%', height: '400px' }}>
+      <div className='chartWrapper'>
         <Line data={chartData} options={options} />
       </div>
     </div>

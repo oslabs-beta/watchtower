@@ -23,13 +23,11 @@ import Copyright from './Copyright';
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(() => {
-    // Get initial dark mode state from local storage or default to false
     const savedMode = localStorage.getItem('darkMode');
     return savedMode ? JSON.parse(savedMode) : false;
   });
 
   useEffect(() => {
-    // Save dark mode state to local storage whenever it changes
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
@@ -118,13 +116,19 @@ const Layout = ({ children }) => {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           <Toolbar />
-          <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth='lg' sx={{ mt: 4, mb: 4, flexGrow: 1 }}>
             {children}
-            <Copyright sx={{ pt: 4 }} />
           </Container>
+          <Box sx={{ py: 2, mt: 'auto' }}>
+            <Container maxWidth='lg'>
+              <Copyright />
+            </Container>
+          </Box>
         </Box>
       </Box>
     </ThemeProvider>

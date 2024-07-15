@@ -1,6 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import RcuGraphContainer from './RcuGraphContainer';
 import WcuGraphContainer from './WcuGraphContainer';
+import {
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+} from '@mui/material';
 import { ProvisionFormData, GraphContainerProps } from '../../types/types';
 import '../styles/graphContainer.scss';
 
@@ -12,6 +20,7 @@ const defaultProvisionFormData: ProvisionFormData = {
 
 const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
   const [currentMetrics, setCurrentMetrics] = useState<any>(null);
+  const [selectedGraph, setSelectedGraph] = useState('RCU');
   const savedMetrics = useRef(null);
 
   useEffect(() => {
@@ -50,16 +59,49 @@ const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
 
   return (
     <div className='graphContainer'>
-      <h2>Graphical Analysis</h2>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          mb: 2,
+        }}
+      >
+        <Typography variant='h4' gutterBottom>
+          Graphical Analysis
+        </Typography>
+        <FormControl sx={{ minWidth: 200 }}>
+          <InputLabel id='graph-type-label'>Select Graph Type</InputLabel>
+          <Select
+            labelId='graph-type-label'
+            id='graph-type'
+            value={selectedGraph}
+            onChange={(e) => setSelectedGraph(e.target.value)}
+            label='Select Graph Type'
+          >
+            <MenuItem value='RCU'>RCU</MenuItem>
+            <MenuItem value='WCU'>WCU</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
       <div className='graphSubContainer'>
-        <RcuGraphContainer
-          provisionData={currentProvision || defaultProvisionFormData}
-          metrics={currentMetrics || { ConsRCU: [], ProvRCU: 0 }}
-        />
-        <WcuGraphContainer
-          provisionData={currentProvision || defaultProvisionFormData}
-          metrics={currentMetrics || { ConsWCU: [], ProvWCU: 0 }}
-        />
+        {selectedGraph === 'RCU' ? (
+          <div className='individualGraph'>
+            <RcuGraphContainer
+              provisionData={currentProvision || defaultProvisionFormData}
+              metrics={currentMetrics || { ConsRCU: [], ProvRCU: 0 }}
+            />
+          </div>
+        ) : (
+          <div className='individualGraph'>
+            <WcuGraphContainer
+              provisionData={currentProvision || defaultProvisionFormData}
+              metrics={currentMetrics || { ConsWCU: [], ProvWCU: 0 }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
