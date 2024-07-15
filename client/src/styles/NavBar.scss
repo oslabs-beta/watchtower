@@ -1,59 +1,59 @@
-// @import '__global.scss';
+@import '__global.scss';
 
-// .navbar {
-//   position: fixed;
-//   text-align: center;
-//   width: 10%;
-//   max-width: min-content;
-//   min-width: 90px;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   background-color: $darkblue;
-//   padding: 1rem;
-//   box-shadow: 0 1em 1em black;
-//   // z-index: 1000;
-//   color: $lightblue;
+.navbar {
+  position: fixed;
+  text-align: center;
+  width: 10%;
+  max-width: min-content;
+  min-width: 90px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: $darkblue;
+  padding: 1rem;
+  box-shadow: 0 1em 1em black;
+  // z-index: 1000;
+  color: $lightblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+  padding: 0;
+}
+
+// .menu {
+//   list-style-type: none;
+//   margin: 0;
+//   padding: 0;
 //   display: flex;
 //   flex-direction: column;
-//   justify-content: space-between;
+//   justify-content: center;
 // }
 
-// .container {
-//   padding: 0;
-// }
+.option {
+  width: 100%;
+  height: 20%;
+  border-radius: 5px;
+  vertical-align: middle;
+  white-space: wrap;
+  text-overflow: ellipsis;
 
-// // .menu {
-// //   list-style-type: none;
-// //   margin: 0;
-// //   padding: 0;
-// //   display: flex;
-// //   flex-direction: column;
-// //   justify-content: center;
-// // }
+  &:hover {
+    background-color: $lightblue;
+    color: $darkblue;
+  }
 
-// .option {
-//   width: 100%;
-//   height: 20%;
-//   border-radius: 5px;
-//   vertical-align: middle;
-//   white-space: wrap;
-//   text-overflow: ellipsis;
-
-//   &:hover {
-//     background-color: $lightblue;
-//     color: $darkblue;
-//   }
-
-//   .links {
-//     color: rgb(10, 10, 68);
-//     text-decoration: none;
-//     padding: 0.5rem;
-//     font-size: 1rem;
-//     text-align: center;
-//     &:hover {
-//       color: $darkblue;
-//       font-weight: bold;
-//     }
-//   }
-// }
+  .links {
+    color: rgb(10, 10, 68);
+    text-decoration: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    &:hover {
+      color: $darkblue;
+      font-weight: bold;
+    }
+  }
+}

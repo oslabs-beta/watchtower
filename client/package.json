@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.16.1",
     "@mui/material": "^5.16.1",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-charts": "^7.10.0",
     "chart.js": "^4.4.3",
     "date-fns": "^3.6.0",
     "react": "^18.3.1",

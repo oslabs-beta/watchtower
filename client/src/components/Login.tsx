@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -37,6 +38,8 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,6 +47,14 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    // Navigate to the /dashboard page
+    navigate('/dashboard');
+  };
+
+  const handleSignUpClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    navigate('/signup');
   };
 
   return (
@@ -57,7 +68,6 @@ export default function Login() {
           md={7}
           sx={{
             backgroundImage: `url(${watchtower})`,
-
             backgroundColor: (t) =>
               t.palette.mode === 'light'
                 ? t.palette.grey[50]
@@ -127,7 +137,7 @@ export default function Login() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href='#' variant='body2'>
+                  <Link href='#' variant='body2' onClick={handleSignUpClick}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
