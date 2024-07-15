@@ -6,6 +6,10 @@ export interface ProvisionFormData {
   endTime: string | null;
 }
 
+export interface ReportsProps {
+  timeFrame?: string;
+}
+
 export interface StatusBoxProps {
   onSubmit: (data: ProvisionFormData) => void;
 }
