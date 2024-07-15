@@ -1,9 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-
-interface TitleProps {
-  children?: React.ReactNode;
-}
+import { TitleProps } from '../../types/types';
 
 export default function Title(props: TitleProps) {
   return (

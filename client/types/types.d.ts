@@ -28,3 +28,7 @@ export interface TotalTimeContainerProps {
   provisionData: ProvisionFormData;
   metrics: any;
 }
+
+export interface TitleProps {
+  children?: React.ReactNode;
+}

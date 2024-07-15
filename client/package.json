@@ -18,6 +18,8 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-charts": "^7.10.0",
     "chart.js": "^4.4.3",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-annotation": "^3.0.1",
     "date-fns": "^3.6.0",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",

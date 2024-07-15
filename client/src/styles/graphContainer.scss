@@ -1,29 +1,26 @@
-@import '__global.scss';
-
+/* graphContainer.scss */
 .graphContainer {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .graphSubContainer {
   display: flex;
   flex-direction: column;
-  gap: 16px; // Adds space between the graph components
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px; 
+  padding: 20px;
 }
 
 .indvidualGraph {
-  padding: 16px;
-  background-color: $background-paper;
-  box-shadow: $box-shadow;
-  border-radius: $border-radius;
+  flex: 1;
+  margin: 10px;
+  min-width: 0; 
+}
 
-  h3 {
-    margin-bottom: 16px;
-    color: $text-primary;
-    font-weight: $font-weight-bold;
-  }
-
-  .recharts-wrapper {
-    width: 100%;
-    height: 100%;
-  }
+.indvidualGraph h3 {
+  text-align: center;
 }
