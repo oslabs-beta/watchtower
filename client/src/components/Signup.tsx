@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -35,6 +36,8 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -42,6 +45,14 @@ export default function Signup() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    // Navigate to the root page
+    navigate('/');
+  };
+
+  const handleSignInClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    navigate('/');
   };
 
   return (
@@ -130,7 +141,7 @@ export default function Signup() {
             </Button>
             <Grid container justifyContent='flex-end'>
               <Grid item>
-                <Link href='#' variant='body2'>
+                <Link href='#' variant='body2' onClick={handleSignInClick}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
