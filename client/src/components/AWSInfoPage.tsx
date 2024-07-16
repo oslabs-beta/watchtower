@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 import {
@@ -16,46 +16,50 @@ import {
 const AWSInfoPage = () => {
   let navigate = useNavigate();
 
+  // State for form values
+  const [awsAccountName, setAwsAccountName] = useState('');
+  const [awsAccessKey, setAwsAccessKey] = useState('');
+  const [awsSecretKey, setAwsSecretKey] = useState('');
+  const [region, setRegion] = useState('');
+
+  const onClick = () => {
+    navigate('/AWSConnect');
+  };
+
   async function awsInfoSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const AWSAccountName = document.querySelector(
-      '#AWSAccountName'
-    ) as HTMLInputElement;
-    const AWSAccessKey = document.querySelector(
-      '#AWSAccessKey'
-    ) as HTMLInputElement;
-    const AWSSecretKey = document.querySelector(
-      '#AWSSecretKey'
-    ) as HTMLInputElement;
-    const Region = document.querySelector('#Region') as HTMLSelectElement;
+    // Create the body object
+    const body = {
+      AWSAccountName: awsAccountName,
+      AWSAccessKey: awsAccessKey,
+      AWSSecretKey: awsSecretKey,
+      Region: region,
+    };
 
-    if (AWSAccountName && AWSAccessKey && AWSSecretKey && Region) {
-      try {
-        const response = await fetch('/api/AWSConnect', {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            AWSAccountName: AWSAccountName.value,
-            AWSAccessKey: AWSAccessKey.value,
-            AWSSecretKey: AWSSecretKey.value,
-            Region: Region.value,
-          }),
-        });
-        console.log('response ', response);
-        const data = await response.json();
-        if (data) {
-          alert('AWS Account Info Submitted!');
-          navigate('/dashboard');
-        }
-      } catch (err) {
-        alert(
-          'An error occurred while validating AWS Account Info. Please try again.'
-        );
+    // Log the body object to the console
+    console.log('Request body:', body);
+
+    // Fetch request - Post method - to AWSConnect path providing AWS Account IAM details.
+    try {
+      const response = await fetch('/api/AWSConnect', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(body),
+      });
+      console.log('response ', response);
+      const data = await response.json();
+      if (data) {
+        alert('AWS Account Info Submitted!');
+        navigate('/dashboard');
       }
+    } catch (err) {
+      alert(
+        'An Error occurred while validating AWS Account Info. Please try again.'
+      );
     }
   }
 
@@ -71,6 +75,8 @@ const AWSInfoPage = () => {
               fullWidth
               margin='normal'
               label='AWS Account Name'
+              value={awsAccountName}
+              onChange={(e) => setAwsAccountName(e.target.value)}
               id='AWSAccountName'
               variant='outlined'
             />
@@ -78,6 +84,8 @@ const AWSInfoPage = () => {
               fullWidth
               margin='normal'
               label='AWS Access Key ID'
+              value={awsAccessKey}
+              onChange={(e) => setAwsAccessKey(e.target.value)}
               id='AWSAccessKey'
               variant='outlined'
               type='password'
@@ -86,6 +94,8 @@ const AWSInfoPage = () => {
               fullWidth
               margin='normal'
               label='AWS Secret Access Key'
+              value={awsSecretKey}
+              onChange={(e) => setAwsSecretKey(e.target.value)}
               id='AWSSecretKey'
               variant='outlined'
               type='password'
@@ -95,9 +105,13 @@ const AWSInfoPage = () => {
               <Select
                 labelId='RegionLabel'
                 id='Region'
-                defaultValue='us-east-1'
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
                 label='Region'
               >
+                <MenuItem value='' disabled>
+                  Select a Region
+                </MenuItem>
                 <MenuItem value='us-east-1'>us-east-1</MenuItem>
                 <MenuItem value='us-east-2'>us-east-2</MenuItem>
                 <MenuItem value='us-west-1'>us-west-1</MenuItem>

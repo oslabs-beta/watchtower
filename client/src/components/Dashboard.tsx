@@ -25,6 +25,34 @@ export default function Dashboard() {
     }
   };
 
+  const fetchAnalysis = async () => {
+    if (currentProvision) {
+      try {
+        const response = await fetch('/api/bedrock-analysis', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(currentProvision),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Analysis data:', data);
+        return data;
+      } catch (error) {
+        console.error('Error fetching analysis:', error);
+        return null;
+      }
+    } else {
+      console.error('No provision data available');
+      return null;
+    }
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -39,7 +67,7 @@ export default function Dashboard() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  height: 400,
+                  height: 500,
                 }}
               >
                 <StatusBox onSubmit={handleFormSubmit} />
@@ -53,7 +81,7 @@ export default function Dashboard() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  height: 400,
+                  height: 500,
                 }}
               >
                 <GraphContainer currentProvision={currentProvision} />
@@ -61,7 +89,10 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <BedrockAnalysis />
+                <BedrockAnalysis
+                  currentProvision={currentProvision}
+                  fetchAnalysis={fetchAnalysis}
+                />
               </Paper>
             </Grid>
           </Grid>

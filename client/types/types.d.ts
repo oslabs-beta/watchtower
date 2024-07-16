@@ -28,9 +28,9 @@ export interface WcuGraphContainerProps {
   metrics: any;
 }
 
-export interface TotalTimeContainerProps {
-  provisionData: ProvisionFormData;
-  metrics: any;
+export interface BedrockAnalysisProps {
+  currentProvision: ProvisionFormData | null;
+  fetchAnalysis: () => Promise<any>;
 }
 
 export interface TitleProps {
