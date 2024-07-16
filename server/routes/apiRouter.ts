@@ -41,8 +41,8 @@ router.get(
   }
 );
 
-router.post('/bedrock', bedrockController.getAnlysis, (req: Request, res: Response): Response => {
-  return res.status(200).json(res.locals.output);
+router.post('/bedrock', bedrockController.getAnalysis,  (req: Request, res: Response): void => {
+  res.end()
 });
 
 export default router;

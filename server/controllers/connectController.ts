@@ -5,21 +5,6 @@ interface ConnectController {
   saveAWSInfo: RequestHandler;
 }
 
-//https://iamwebwiz.medium.com/how-to-fix-dirname-is-not-defined-in-es-module-scope-34d94a86694d
-// const __filename: string = fileURLToPath(import.meta.url); // get the resolved path to the file
-// const __dirname: string = path.dirname(__filename); // get the name of the directory
-// const envFilePath = path.resolve(__dirname, '../.env');
-// console.log(envFilePath)
-// const readEnv = () => fs.readFileSync(envFilePath, 'utf-8')
-// console.log(readEnv())
-
-// uncomment below for testing
-// const w = `AWS_ACCESS_KEY_ID=123\n` +
-// `AWS_SECRET_ACCESS_KEY_ID=123\n` +
-// `REGION=123`
-// const write = () => fs.writeFileSync('./.env', w);
-// write()
-
 export const connectController: ConnectController = {
   //save the AWS Info input into .env
   saveAWSInfo: async (
