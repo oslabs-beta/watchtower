@@ -9,7 +9,7 @@ const BedrockAnalysis = (): JSX.Element => {
     setLoading(true);
     setStream('');
     //props.prompt
-    const prompt = 'what is the weather today in NYC'; // Replace with actual prompt or state value
+    const prompt: string = ''; // Replace with actual prompt or state value
     let isFirstChunk = true
 
     try {

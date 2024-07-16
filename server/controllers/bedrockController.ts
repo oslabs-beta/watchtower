@@ -46,6 +46,7 @@ export const bedrockController: BedrockController = {
         if (chunk.outputs && chunk.outputs.length > 0) {
           chunk.outputs.forEach((output: any) => {
             //In SSE, each event should be prefixed with data: and suffixed with \n\n to denote the end of the event.
+            //Great explanation for res.write: https://blog.kevinchisholm.com/javascript/node-js/express-js/response-send-end-write-difference/
             res.write(`data: ${output.text}\n\n`); 
             res.flush(); // Flush the data immediately
           });
@@ -64,3 +65,23 @@ export const bedrockController: BedrockController = {
     }
   },
 };
+
+
+//InvokeModelCommand
+// //Model list: https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html
+// //Model pricing: https://aws.amazon.com/bedrock/pricing/?refid=ft_card
+// //Model body format: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html
+// const input: InvokeModelCommandInput = {
+//   modelId: 'mistral.mistral-7b-instruct-v0:2', 
+//   contentType: 'application/json',
+//   accept: 'application/json',
+//   body: JSON.stringify({
+//     "prompt": prompt,
+//   })
+// }
+// const command: InvokeModelCommand = new InvokeModelCommand(input);
+// const response: InvokeModelCommandOutput = await bedrockclient.send(command);
+// //Have to parse response into text: https://www.raymondcamden.com/2024/04/04/a-quick-first-look-at-amazon-bedrock-with-nodejs
+// const responseBody = JSON.parse(new TextDecoder().decode(response.body));
+// console.log(responseBody.outputs[0].text)
+// res.locals.output = responseBody.outputs[0]
