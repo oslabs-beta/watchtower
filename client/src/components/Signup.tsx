@@ -25,6 +25,8 @@ export default function Signup() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
     });
@@ -50,7 +52,7 @@ export default function Signup() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h1' variant='h5'>
@@ -105,14 +107,7 @@ export default function Signup() {
                   autoComplete='new-password'
                 />
               </Grid>
-              <Grid item xs={12}>
-                {/* <FormControlLabel
-                  control={
-                    <Checkbox value='allowExtraEmails' color='primary' />
-                  }
-                  label='I want to receive inspiration, marketing promotions and updates via email.'
-                /> */}
-              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
             <Button
               type='submit'
