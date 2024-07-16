@@ -51,7 +51,6 @@ export default function Login() {
           sx={{
             backgroundImage: `url(${watchtower})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'left',
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -64,7 +63,7 @@ export default function Login() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component='h1' variant='h5'>
