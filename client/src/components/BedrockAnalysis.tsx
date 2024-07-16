@@ -24,7 +24,7 @@ const BedrockAnalysis = (): JSX.Element => {
       if (!response.ok) throw new Error('Failed to connect to SSE endpoint.');
       // Check if response body is null
       if (!response.body) throw new Error('Response body is null.');
-      
+      //https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams
       const reader = response.body.getReader();
       let accumulatedData: string = '';
 
