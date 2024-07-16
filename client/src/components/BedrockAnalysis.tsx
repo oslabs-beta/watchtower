@@ -31,8 +31,8 @@ export default function BedrockAnalysis({
       <Box
         sx={{
           mt: 2,
-          backgroundColor: 'var(--background-default)', // Use the global CSS variable
-          height: '100px', // Adjust height as needed
+          backgroundColor: 'var(--background-default)', 
+          height: '100px', 
           width: '100%',
           borderRadius: 1,
           p: 2,
