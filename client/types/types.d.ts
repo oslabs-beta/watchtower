@@ -5,6 +5,10 @@ export interface ProvisionFormData {
   startTime: string | null;
   endTime: string | null;
 }
+export interface DataStatsProps {
+  provisionData: ProvisionFormData;
+  currentMetrics: any | null;
+}
 
 export interface ReportsProps {
   timeFrame?: string;

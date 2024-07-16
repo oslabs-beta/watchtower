@@ -1,13 +1,14 @@
 import React from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { ProvisionFormData } from '../../types/types';
+import { ProvisionFormData, DataStatsProps } from '../../types/types';
 
-interface DataStatsProps {
-  provisionData: ProvisionFormData;
-}
 
-const DataStats: React.FC<DataStatsProps> = ({ provisionData }) => {
+
+const DataStats: React.FC<DataStatsProps> = ({
+  provisionData,
+  currentMetrics,
+}) => {
   return (
     <Paper
       sx={{

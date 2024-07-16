@@ -108,7 +108,10 @@ export default function Dashboard() {
                 }}
               >
                 {currentProvision ? (
-                  <DataStats provisionData={currentProvision} /> // Render DataStats when currentProvision is set
+                  <DataStats
+                    provisionData={currentProvision}
+                    currentMetrics={currentMetrics}
+                  /> // Render DataStats when currentProvision is set
                 ) : (
                   <StatusBox onSubmit={handleFormSubmit} /> // Render StatusBox when currentProvision is null
                 )}
