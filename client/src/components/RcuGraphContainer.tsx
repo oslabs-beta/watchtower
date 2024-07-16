@@ -37,7 +37,7 @@ const RcuGraphContainer = ({
 
   const options: ChartOptions<'line'> = {
     responsive: true,
-    maintainAspectRatio: false, // Ensure the graph maintains aspect ratio within the container
+    maintainAspectRatio: false, 
     scales: {
       x: {
         title: {

@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import Layout from './Layout';
 import {
   Box,
   Button,
@@ -13,7 +10,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { format } from 'date-fns';
 import { ProvisionFormData, StatusBoxProps } from '../../types/types';
+import '../styles/StatusBox.scss';
 
 const StatusBox = ({ onSubmit }: StatusBoxProps) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -44,76 +45,76 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
   }, []);
 
   return (
-  
-      <Container maxWidth='sm'>
-        <Box sx={{ mt: 4, mb: 4 }}>
-          <Typography variant='h4' gutterBottom sx={{ textAlign: 'center' }}>
-            Capacity Status
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <FormControl fullWidth margin='normal'>
-              <InputLabel id='tableName-label'>Table Name</InputLabel>
-              <Select
-                labelId='tableName-label'
-                id='tableName'
-                value={tableName}
-                onChange={(e) => setTableName(e.target.value)}
-                label='Table Name'
-              >
-                <MenuItem value='' disabled>
-                  Select a Table
-                </MenuItem>
-                {table.map((name, index) => (
-                  <MenuItem key={index} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl fullWidth margin='normal'>
-              <DatePicker
-                selected={startDate}
-                onChange={(date: Date | null) => setStartDate(date)}
-                showTimeSelect
-                timeFormat='HH:mm'
-                timeIntervals={15}
-                dateFormat='yyyy/MM/dd h:mm aa'
-                timeCaption='time'
-                customInput={
-                  <TextField label='Start Time' variant='outlined' fullWidth />
-                }
-              />
-            </FormControl>
-
-            <FormControl fullWidth margin='normal'>
-              <DatePicker
-                selected={endDate}
-                onChange={(date: Date | null) => setEndDate(date)}
-                showTimeSelect
-                timeFormat='HH:mm'
-                timeIntervals={15}
-                dateFormat='yyyy/MM/dd h:mm aa'
-                timeCaption='time'
-                customInput={
-                  <TextField label='End Time' variant='outlined' fullWidth />
-                }
-              />
-            </FormControl>
-
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              fullWidth
-              sx={{ mt: 2 }}
+    <Container maxWidth='sm' style={{ overflow: 'visible' }}>
+      <Box sx={{ mt: 4, mb: 4, overflow: 'visible' }}>
+        <Typography variant='h4' gutterBottom sx={{ textAlign: 'center' }}>
+          Capacity Status
+        </Typography>
+        <form onSubmit={handleSubmit} style={{ overflow: 'visible' }}>
+          <FormControl fullWidth margin='normal'>
+            <InputLabel id='tableName-label'>Table Name</InputLabel>
+            <Select
+              labelId='tableName-label'
+              id='tableName'
+              value={tableName}
+              onChange={(e) => setTableName(e.target.value)}
+              label='Table Name'
             >
-              Submit
-            </Button>
-          </form>
-        </Box>
-      </Container>
-  
+              <MenuItem value='' disabled>
+                Select a Table
+              </MenuItem>
+              {table.map((name, index) => (
+                <MenuItem key={index} value={name}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <FormControl fullWidth margin='normal'>
+              <TextField
+                label='Start Time'
+                type='datetime-local'
+                value={startDate ? format(startDate, "yyyy-MM-dd'T'HH:mm") : ''}
+                onChange={(e) =>
+                  setStartDate(e.target.value ? new Date(e.target.value) : null)
+                }
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+              />
+            </FormControl>
+
+            <FormControl fullWidth margin='normal'>
+              <TextField
+                label='End Time'
+                type='datetime-local'
+                value={endDate ? format(endDate, "yyyy-MM-dd'T'HH:mm") : ''}
+                onChange={(e) =>
+                  setEndDate(e.target.value ? new Date(e.target.value) : null)
+                }
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+              />
+            </FormControl>
+          </LocalizationProvider>
+
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            fullWidth
+            sx={{ mt: 2 }}
+          >
+            Submit
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 };
 

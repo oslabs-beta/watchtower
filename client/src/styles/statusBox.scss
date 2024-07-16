@@ -23,6 +23,8 @@
       padding: 32px; // Increased padding for a bigger box
       border-radius: $border-radius;
       background-color: $background-default;
+      position: relative; // Added to ensure relative positioning for overflow handling
+      overflow: visible; // Ensure the overflow is visible
 
       label {
         margin-bottom: 8px;
@@ -39,6 +41,8 @@
         border-radius: $border-radius;
         font-size: $font-size-medium;
         width: 100%;
+        position: relative; // Ensure the relative positioning for children
+        z-index: 1; // Ensure it is above other components
       }
 
       select {
@@ -75,6 +79,14 @@
           background-color: lighten($primary-main, 30%);
           cursor: not-allowed;
         }
+      }
+
+      .react-datepicker-wrapper {
+        width: 100%; // Ensure the datepicker wrapper takes full width
+      }
+
+      .react-datepicker {
+        z-index: 2; // Ensure the datepicker is above other elements
       }
     }
   }
