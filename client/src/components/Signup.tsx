@@ -31,12 +31,12 @@ export default function Signup() {
     });
 
     // Navigate to the root page
-    navigate('/');
+    navigate('/login');
   };
 
   const handleSignInClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    navigate('/');
+    navigate('/login');
   };
 
   return (

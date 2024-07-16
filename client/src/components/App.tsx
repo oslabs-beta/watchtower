@@ -7,12 +7,14 @@ import Signup from './Signup';
 import Reports from './Reports';
 import Integrations from './Integrations';
 import Layout from './Layout';
+import LandingPage from './landingPage/LandingPage';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/accountInfo' element={<AWSInfoPage />} />
