@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import RcuGraphContainer from './RcuGraphContainer';
 import WcuGraphContainer from './WcuGraphContainer';
 import {
@@ -18,44 +18,12 @@ const defaultProvisionFormData: ProvisionFormData = {
   endTime: null,
 };
 
-const GraphContainer = ({ currentProvision }: GraphContainerProps) => {
-  const [currentMetrics, setCurrentMetrics] = useState<any>(null);
+const GraphContainer = ({
+  currentProvision,
+  currentMetrics,
+}: GraphContainerProps) => {
   const [selectedGraph, setSelectedGraph] = useState('RCU');
-  const savedMetrics = useRef(null);
-
-  useEffect(() => {
-    if (currentProvision) {
-      (async () => {
-        try {
-          const { tableName, startTime, endTime } = currentProvision;
-          console.log('Sending request with:', {
-            tableName,
-            startTime,
-            endTime,
-          });
-
-          const response = await fetch('/api/metrics', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, startTime, endTime }),
-          });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log('Received data:', data);
-          savedMetrics.current = data;
-          setCurrentMetrics(data);
-        } catch (error) {
-          console.error('Error fetching metrics:', error);
-        }
-      })();
-    }
-  }, [currentProvision]);
+  const savedMetrics = useRef(currentMetrics);
 
   return (
     <div className='graphContainer'>

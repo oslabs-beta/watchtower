@@ -6,6 +6,7 @@ import { BedrockAnalysisProps } from '../../types/types';
 
 export default function BedrockAnalysis({
   currentProvision,
+  currentMetrics,
   fetchAnalysis,
 }: BedrockAnalysisProps) {
   const [analysisData, setAnalysisData] = useState<any>(null);

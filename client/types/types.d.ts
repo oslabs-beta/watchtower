@@ -16,6 +16,7 @@ export interface StatusBoxProps {
 
 export interface GraphContainerProps {
   currentProvision: ProvisionFormData | null;
+  currentMetrics: any | null;
 }
 
 export interface RcuGraphContainerProps {
@@ -30,6 +31,7 @@ export interface WcuGraphContainerProps {
 
 export interface BedrockAnalysisProps {
   currentProvision: ProvisionFormData | null;
+  currentMetrics: any | null;
   fetchAnalysis: () => Promise<any>;
 }
 
