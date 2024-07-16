@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Layout from './Layout';
 import StatusBox from './StatusBox';
+import DataStats from './DataStats'; 
 import GraphContainer from './GraphContainer';
 import BedrockAnalysis from './BedrockAnalysis';
 import { ProvisionFormData } from '../../types/types';
@@ -13,8 +14,7 @@ import { ProvisionFormData } from '../../types/types';
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-  const [currentProvision, setCurrentProvision] =
-    useState<ProvisionFormData | null>(null);
+  const [currentProvision, setCurrentProvision] = useState<ProvisionFormData | null>(null);
 
   const handleFormSubmit = async (data: ProvisionFormData) => {
     try {
@@ -57,7 +57,7 @@ export default function Dashboard() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Layout>
-        <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <Paper
@@ -70,7 +70,11 @@ export default function Dashboard() {
                   height: 500,
                 }}
               >
-                <StatusBox onSubmit={handleFormSubmit} />
+                {currentProvision ? (
+                  <DataStats provisionData={currentProvision} /> // Render DataStats when currentProvision is set
+                ) : (
+                  <StatusBox onSubmit={handleFormSubmit} /> // Render StatusBox when currentProvision is null
+                )}
               </Paper>
             </Grid>
             <Grid item xs={12} md={8}>
@@ -89,10 +93,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <BedrockAnalysis
-                  currentProvision={currentProvision}
-                  fetchAnalysis={fetchAnalysis}
-                />
+                <BedrockAnalysis currentProvision={currentProvision} fetchAnalysis={fetchAnalysis} />
               </Paper>
             </Grid>
           </Grid>
