@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
+import { Box, Button, Typography } from '@mui/material';
+import Title from './Title';
+import '../styles/__global.scss';
+import { BedrockAnalysisProps } from '../../types/types';
 
-const BedrockAnalysis = (): JSX.Element => {
+export default function BedrockAnalysis({
+  currentProvision,
+  currentMetrics,
+  // fetchAnalysis,
+}: BedrockAnalysisProps): JSX.Element {
   const [stream, setStream] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const [save, setSave] = useState<boolean>(false);
 
-  const bedrockAnalysis = async (): Promise<void> => {
+    const bedrockAnalysis = async (): Promise<void> => {
     setLoading(true);
+    setError(null);
     setStream('');
-    //props.prompt
-    const prompt: string = 'What is the weather today in NYC'; // Replace with actual prompt or state value
-    // let isFirstChunk = true
+    
+    if(!currentMetrics) {
+      setError('Failed to fetch analysis data.')
+      setLoading(false)
+      return
+    }
 
+    const metrics = JSON.stringify(currentMetrics)
+    const prompt: string = metrics + 
+    'based on the data, help me to analysis for AWS dynamoDb about provision and consumed capacity and give advice for keeping current provision or switching to ondemand'; // Replace with actual prompt or state value
+    // let isFirstChunk = true
+  
     try {
+
       const response = await fetch('/api/bedrock', {
         method: 'POST',
         headers: {
@@ -60,21 +79,60 @@ const BedrockAnalysis = (): JSX.Element => {
     }
   };
 
-  const saveAnalysis = (): void => {
-    //pass stream and prompt into database
-  }
-
   return (
-    <div>
-      <button onClick={bedrockAnalysis} disabled={loading}>
-        {loading ? 'Loading...' : 'Start Analysis'}
-      </button>
-      <button onClick={saveAnalysis} disabled={save}>
-        Save Analysis
-      </button>
-      <p>{stream}</p>
-    </div>
+    <React.Fragment>
+      <Title>AI Amazon Bedrock Analysis</Title>
+      <Box
+        sx={{
+          mt: 2,
+          backgroundColor: 'var(--background-default)', 
+          minHeight: '100px', 
+          width: '100%',
+          borderRadius: 1,
+          p: 2,
+        }}
+      >
+        {/* {loading && <Typography variant='body1'>Loading...</Typography>} */}
+        {error && (
+          <Typography variant='body1' color='error'>
+            {error}
+          </Typography>
+        )}
+        {!error && stream && (
+          <Typography variant='body1'>
+            {stream}
+          </Typography>
+        )}
+        {!loading && !error && !stream && (
+          <Typography variant='body1'>No analysis data available</Typography>
+        )}
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
+          height: '100%',
+          mt: 2,
+        }}
+      >
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={bedrockAnalysis}
+          disabled={loading}
+        >
+          {loading ? 'Loading...' : 'Start Analysis'}
+        </Button>
+        <Button
+          variant='contained'
+          color='primary'
+          // onClick={}
+          disabled={!save}
+        >
+          Save Analysis
+        </Button>
+      </Box>
+    </React.Fragment>
   );
-};
-
-export default BedrockAnalysis;
+}

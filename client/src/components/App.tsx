@@ -4,21 +4,34 @@ import Dashboard from './Dashboard';
 import AWSInfoPage from './AWSInfoPage';
 import Login from './Login';
 import Signup from './Signup';
+import Reports from './Reports';
+import Integrations from './Integrations';
+import Layout from './Layout';
+import LandingPage from './landingPage/LandingPage';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/accountInfo' element={<AWSInfoPage />} />
-
-        {/* <Route path='/analyze' element={<Analyze />} />
-        <Route path='/pastAnalyses' element={<PastAnalyses />} /> */}
+        <Route path='/reports' element={<Reports />} />
+        <Route path='/integrations' element={<Integrations />} />
+        <Route path='/reports/today' element={<Reports timeFrame='today' />} />
+        <Route
+          path='/reports/this-week'
+          element={<Reports timeFrame='this week' />}
+        />
+        <Route
+          path='/reports/this-month'
+          element={<Reports timeFrame='this month' />}
+        />
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

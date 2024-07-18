@@ -1,73 +1,92 @@
-@import '__global.scss';
+@import './__global';
 
-#infoBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #ccc;
-  margin: 10px 0;
-  width: 150%;
-  border-color: black;
-  color: $darkblue;
+#statusContainer {
+  padding: 16px;
+  padding-top: 0;
 
-  label {
-    font-size: large;
+  h2 {
+    margin-bottom: 16px;
+    color: $text-primary;
+    font-weight: $font-weight-bold;
+    text-align: center;
   }
 
-  button {
-    background-color: transparent;
-  }
+  .container {
+    display: flex;
+    justify-content: center;
 
-  #submitButton {
-    background-color: $darkblue;
-    color: #ccc;
-  }
-}
-
-.datepicker {
-  .react-datepicker__month-container {
-    background-color: white;
-    color: #969eac;
-    font-size: 1rem;
-    font-family: 'Mulish';
-
-    .react-datepicker__month {
-      padding: 1rem 0;
-    }
-
-    .react-datepicker__month-text {
-      display: inline-block;
-      width: 5rem;
-      margin: 0.5rem;
-      font-size: 1rem;
-      padding: 0.2rem;
-      &:hover {
-        background-color: #534cea;
-      }
-    }
-
-    .react-datepicker__navigation--next {
-      background-color: #1c3454; // Customize the background color
-      border-radius: 50%; // Make the button round
-      width: 30px; // Adjust the width
-      height: 30px; // Adjust the height
+    .formContainer {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+      flex-direction: column;
+      width: 100%;
+      max-width: 600px; // Increased max-width for a bigger box
+      padding: 32px; // Increased padding for a bigger box
+      border-radius: $border-radius;
+      background-color: $background-default;
+      position: relative; // Added to ensure relative positioning for overflow handling
+      overflow: visible; // Ensure the overflow is visible
 
-      &::before {
-        border-color: #a6d8d9; // Customize the arrow color
+      label {
+        margin-bottom: 8px;
+        color: $text-secondary;
+        font-size: $font-size-medium;
       }
 
-      &:hover {
-        background-color: #a6d8d9; // Change background color on hover
-        &::before {
-          border-color: #1c3454; // Change arrow color on hover
+      select,
+      .datepicker,
+      input {
+        margin-bottom: 16px;
+        padding: 8px;
+        border: 1px solid $divider;
+        border-radius: $border-radius;
+        font-size: $font-size-medium;
+        width: 100%;
+        position: relative; // Ensure the relative positioning for children
+        z-index: 1; // Ensure it is above other components
+      }
+
+      select {
+        &:focus {
+          border-color: $primary-main;
+          box-shadow: 0 0 0 1px $primary-main;
         }
+      }
+
+      .datepicker {
+        &:focus {
+          border-color: $primary-main;
+          box-shadow: 0 0 0 1px $primary-main;
+        }
+      }
+
+      #submitButton {
+        padding: 8px 16px;
+        background-color: $primary-main;
+        color: $primary-contrastText;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        font-size: $font-size-medium;
+        font-weight: $font-weight-medium;
+        text-transform: uppercase;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: darken($primary-main, 10%);
+        }
+
+        &:disabled {
+          background-color: lighten($primary-main, 30%);
+          cursor: not-allowed;
+        }
+      }
+
+      .react-datepicker-wrapper {
+        width: 100%; // Ensure the datepicker wrapper takes full width
+      }
+
+      .react-datepicker {
+        z-index: 2; // Ensure the datepicker is above other elements
       }
     }
   }
