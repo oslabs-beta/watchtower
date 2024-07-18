@@ -26,8 +26,9 @@ export default function BedrockAnalysis({
     }
 
     const metrics = JSON.stringify(currentMetrics)
+    // Replace with actual prompt or state value
     const prompt: string = metrics + 
-    'based on the data, help me to analysis for AWS dynamoDb about provision and consumed capacity and give advice for keeping current provision or switching to ondemand'; // Replace with actual prompt or state value
+    'based on the data, analysis provision and consumed capacity for AWS dynamoDb and give advice for keeping current provision or switching to ondemand in compact and short way'; 
     // let isFirstChunk = true
   
     try {
