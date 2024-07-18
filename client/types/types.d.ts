@@ -2,8 +2,17 @@ export interface ProvisionFormData {
   //removed AWS account name for MVP as a stretch feature we would like users to have the option to switch between accounts
   //aWSAccountName: string;
   tableName: string;
-  startTime: string | null;
-  endTime: string | null;
+  startTime: any;
+  endTime: any;
+}
+
+export interface DataStatsProps {
+  provisionData: ProvisionFormData;
+  currentMetrics: any | null;
+}
+
+export interface ReportsProps {
+  timeFrame?: string;
 }
 
 export interface StatusBoxProps {
@@ -12,6 +21,7 @@ export interface StatusBoxProps {
 
 export interface GraphContainerProps {
   currentProvision: ProvisionFormData | null;
+  currentMetrics: any | null;
 }
 
 export interface RcuGraphContainerProps {
@@ -24,7 +34,12 @@ export interface WcuGraphContainerProps {
   metrics: any;
 }
 
-export interface TotalTimeContainerProps {
-  provisionData: ProvisionFormData;
-  metrics: any;
+export interface BedrockAnalysisProps {
+  currentProvision: ProvisionFormData | null;
+  currentMetrics: any | null;
+  fetchAnalysis: () => Promise<any>;
+}
+
+export interface TitleProps {
+  children?: React.ReactNode;
 }

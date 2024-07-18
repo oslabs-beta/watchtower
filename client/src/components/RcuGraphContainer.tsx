@@ -1,72 +1,92 @@
 import React from 'react';
+import { Line } from 'react-chartjs-2';
+import { Chart, ChartOptions, registerables } from 'chart.js';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import { RcuGraphContainerProps } from '../../types/types';
 import '../styles/graphContainer.scss';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Label,
-  ReferenceLine,
-} from 'recharts';
+
+// Register the required components
+Chart.register(...registerables, annotationPlugin);
 
 const RcuGraphContainer = ({
   provisionData,
   metrics,
 }: RcuGraphContainerProps) => {
-  // // Deconstruct startTime and endTime from provisionData
-  const { startTime, endTime } = provisionData;
+  const { startTime, endTime } = provisionData || {};
+  const data = (metrics?.ConsRCU || [])
+    .map((item: any) => ({
+      maximum: item.Maximum,
+      timestamp: new Date(item.Timestamp).getTime(),
+      timeLabel: new Date(item.Timestamp).toLocaleTimeString(), // Use formatted string for labels
+    }))
+    .sort((a, b) => a.timestamp - b.timestamp);
 
-  //save the data from the metrics
-  const data = metrics.ConsRCU.map((item: any) => ({
-    maximum: item.Maximum,
-    timestamp: new Date(item.Timestamp).getTime(),
-  })).sort((a, b) => a.timestamp - b.timestamp);
+  const provisionedCapacity = metrics?.ProvRCU || 0;
 
-  const provisionedCapacity = metrics.ProvRCU;
+  const chartData = {
+    labels: data.length > 0 ? data.map((item) => item.timeLabel) : ['No Data'],
+    datasets: [
+      {
+        label: 'Maximum',
+        data: data.length > 0 ? data.map((item) => item.maximum) : [],
+        borderColor: '#000000',
+        fill: false,
+      },
+    ],
+  };
+
+  const options: ChartOptions<'line'> = {
+    responsive: true,
+    maintainAspectRatio: false, 
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Time',
+        },
+      },
+      y: {
+        min: 0,
+        max: 1.5,
+        title: {
+          display: true,
+          text: 'Maximum',
+        },
+      },
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `Time: ${context.label}, Maximum: ${context.raw}`;
+          },
+        },
+      },
+      annotation: {
+        annotations: {
+          line1: {
+            type: 'line',
+            yMin: provisionedCapacity,
+            yMax: provisionedCapacity,
+            borderColor: 'black',
+            borderWidth: 2,
+            label: {
+              content: 'Maximum Provisioned Capacity',
+              position: 'center',
+              color: 'black',
+            },
+          },
+        },
+      },
+    },
+  };
 
   return (
-    <div className='indvidualGraph'>
+    <div className='individualGraph'>
       <h3>RCU</h3>
-      <ResponsiveContainer width='100%' height={400}>
-        <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray='3 3' />
-          <XAxis
-            dataKey='timestamp'
-            type='number'
-            domain={[startTime, endTime]}
-            tickFormatter={(tick) => new Date(tick).toLocaleTimeString()}
-            scale='time'
-          >
-            <Label value='Time' offset={-5} position='insideBottom' />
-          </XAxis>
-          <YAxis dataKey='maximum' domain={[0, 1.5]}>
-            <Label value='Maximum' angle={-90} position='insideLeft' />
-          </YAxis>
-          <ReferenceLine
-            y={provisionedCapacity}
-            label={<Label value='Maximum Provisoned Capacity' fill={'black'} />}
-            stroke='black'
-          />
-          <Tooltip
-            labelFormatter={(label) => new Date(label).toLocaleTimeString()}
-          />
-          <Line type='monotone' dataKey='maximum' stroke='#000000' />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className='chartWrapper'>
+        <Line data={chartData} options={options} />
+      </div>
     </div>
   );
 };

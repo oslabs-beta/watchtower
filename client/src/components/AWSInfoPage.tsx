@@ -1,12 +1,27 @@
-import React from 'react';
-import NavBar from './NavBar';
-import { Link, useNavigate } from 'react-router-dom';
-import '../styles/__global.scss';
-
-// AWS Info Page Submit Function. This sends a post request to /AWSConnect.
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Layout from './Layout';
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 const AWSInfoPage = () => {
   let navigate = useNavigate();
+
+  // State for form values
+  const [awsAccountName, setAwsAccountName] = useState('');
+  const [awsAccessKey, setAwsAccessKey] = useState('');
+  const [awsSecretKey, setAwsSecretKey] = useState('');
+  const [region, setRegion] = useState('');
+
   const onClick = () => {
     navigate('/AWSConnect');
   };
@@ -14,73 +29,108 @@ const AWSInfoPage = () => {
   async function awsInfoSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const AWSAccountName = document.querySelector(
-      '#AWSAccountName'
-    ) as HTMLInputElement;
-    const AWSAccessKey = document.querySelector(
-      '#AWSAccessKey'
-    ) as HTMLInputElement;
-    const AWSSecretKey = document.querySelector(
-      '#AWSSecretKey'
-    ) as HTMLInputElement;
-    const Region = document.querySelector('#Region') as HTMLSelectElement;
+    // Create the body object
+    const body = {
+      AWSAccountName: awsAccountName,
+      AWSAccessKey: awsAccessKey,
+      AWSSecretKey: awsSecretKey,
+      Region: region,
+    };
+
+    // Log the body object to the console
+    console.log('Request body:', body);
 
     // Fetch request - Post method - to AWSConnect path providing AWS Account IAM details.
-    //
-    if (AWSAccountName && AWSAccessKey && AWSSecretKey && Region) {
-      try {
-        
-        const response = await fetch('/api/AWSConnect', {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            AWSAccountName: AWSAccountName.value,
-            AWSAccessKey: AWSAccessKey.value,
-            AWSSecretKey: AWSSecretKey.value,
-            Region: Region.value,
-          }),
-        });
-        console.log('response ', response);
-        const data = await response.json();
-        if (data) {
-          alert('AWS Account Info Submitted!');
-          navigate('/dashboard');
-        }
-      } catch (err) {
-        alert(
-          'An Error occured while validating AWS Account Info. Please try again.'
-        );
+    try {
+      const response = await fetch('/api/AWSConnect', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(body),
+      });
+      console.log('response ', response);
+      const data = await response.json();
+      if (data) {
+        alert('AWS Account Info Submitted!');
+        navigate('/dashboard');
       }
+    } catch (err) {
+      alert(
+        'An Error occurred while validating AWS Account Info. Please try again.'
+      );
     }
   }
+
   return (
-    <div className='container'>
-      <NavBar />
-      <form className='formContainer'>
-        <label>AWS Account Name</label>
-        <input type='text' id='AWSAccountName'></input>
-        <label>AWS Access Key ID</label>
-        <input type='password' id='AWSAccessKey'></input>
-
-        <label>AWS Secret Access Key</label>
-        <input type='password' id='AWSSecretKey'></input>
-
-        <label>Region</label>
-        <select id='Region'>
-          <option value='us-east-1'>us-east-1</option>
-          <option value='us-east-2'>us-east-2</option>
-          <option value='us-west-1'>us-west-1</option>
-          <option value='us-west-2'>us-west-2</option>
-        </select>
-
-        <button type='submit' onClick={awsInfoSubmit}>
-          Submit
-        </button>
-      </form>
-    </div>
+    <Layout>
+      <Container maxWidth='sm'>
+        <Box sx={{ mt: 4, mb: 4 }}>
+          <Typography variant='h4' gutterBottom>
+            AWS Account Information
+          </Typography>
+          <form onSubmit={awsInfoSubmit}>
+            <TextField
+              fullWidth
+              margin='normal'
+              label='AWS Account Name'
+              value={awsAccountName}
+              onChange={(e) => setAwsAccountName(e.target.value)}
+              id='AWSAccountName'
+              variant='outlined'
+            />
+            <TextField
+              fullWidth
+              margin='normal'
+              label='AWS Access Key ID'
+              value={awsAccessKey}
+              onChange={(e) => setAwsAccessKey(e.target.value)}
+              id='AWSAccessKey'
+              variant='outlined'
+              type='password'
+            />
+            <TextField
+              fullWidth
+              margin='normal'
+              label='AWS Secret Access Key'
+              value={awsSecretKey}
+              onChange={(e) => setAwsSecretKey(e.target.value)}
+              id='AWSSecretKey'
+              variant='outlined'
+              type='password'
+            />
+            <FormControl fullWidth margin='normal'>
+              <InputLabel id='RegionLabel'>Region</InputLabel>
+              <Select
+                labelId='RegionLabel'
+                id='Region'
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+                label='Region'
+              >
+                <MenuItem value='' disabled>
+                  Select a Region
+                </MenuItem>
+                <MenuItem value='us-east-1'>us-east-1</MenuItem>
+                <MenuItem value='us-east-2'>us-east-2</MenuItem>
+                <MenuItem value='us-west-1'>us-west-1</MenuItem>
+                <MenuItem value='us-west-2'>us-west-2</MenuItem>
+              </Select>
+            </FormControl>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              fullWidth
+              sx={{ mt: 2 }}
+            >
+              Submit
+            </Button>
+          </form>
+        </Box>
+      </Container>
+    </Layout>
   );
 };
 

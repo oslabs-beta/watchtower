@@ -1,34 +1,34 @@
-@import '__global.scss';
-html {
-  background-color: $lightblue;
-}
+// @import '__global.scss';
+// html {
+//   background-color: $lightblue;
+// }
 
-#dashboard {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin: 0 0 0;
-  padding: 0 0 0;
-  background-color: $lightblue;
+// #dashboard {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   margin: 0 0 0;
+//   padding: 0 0 0;
+//   background-color: $lightblue;
 
-  #leftSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    height: 100vh;
-    border: none;
-    margin-left: 15%;
-  }
+//   #leftSide {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     width: 40%;
+//     height: 100vh;
+//     border: none;
+//     margin-left: 15%;
+//   }
 
-  #rightSide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    width: 60%;
-    margin-left: 3%;
-  }
-}
+//   #rightSide {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     border: none;
+//     width: 60%;
+//     margin-left: 3%;
+//   }
+// }
