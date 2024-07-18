@@ -9,8 +9,8 @@ const BedrockAnalysis = (): JSX.Element => {
     setLoading(true);
     setStream('');
     //props.prompt
-    const prompt: string = ''; // Replace with actual prompt or state value
-    let isFirstChunk = true
+    const prompt: string = 'What is the weather today in NYC'; // Replace with actual prompt or state value
+    // let isFirstChunk = true
 
     try {
       const response = await fetch('/api/bedrock', {
@@ -35,10 +35,10 @@ const BedrockAnalysis = (): JSX.Element => {
 
         const chunk = new TextDecoder().decode(value, { stream: true });
         // Skip the first chunk becase its just a '?', have to check afterwards if it is still sending '?'
-        if (isFirstChunk) {
-          isFirstChunk = false;
-          continue;
-        }
+        // if (isFirstChunk) {
+        //   isFirstChunk = false;
+        //   continue;
+        // }
         accumulatedData += chunk;
         // Split accumulated data by new lines and update state for each line
         const words: string[] = accumulatedData.split('\n\n');
