@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "DynamoDB Observability Tool",
   "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "start": "concurrently \"npm run client\" \"npm run server\"",
     "client": "npm start --prefix client",

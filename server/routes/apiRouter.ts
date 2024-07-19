@@ -31,8 +31,6 @@ router.post(
   }
 );
 
-router.get('/');
-
 router.get(
   '/tables',
   tablesController.getTables,
