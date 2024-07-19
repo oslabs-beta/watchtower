@@ -80,6 +80,34 @@ export default function BedrockAnalysis({
     }
   };
 
+  const handleSaveAnalysis = async () => {
+    try {
+      const response = await fetch('/api/pastAnalysis', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          provision: currentProvision, 
+          metrics: currentMetrics,
+          bedrockAnalysis: stream
+         }),
+      });
+
+      if (!response.ok) {
+        //if not success?
+        setError('Failed to save analysis')
+        throw new Error(`HTTP error status: ${response.status}`);
+      }
+
+      const result = await response.json()
+      setSave(false)
+
+    } catch (error) {
+      console.error('Error fetching metrics:', error);
+    }
+  }
+
   return (
     <React.Fragment>
       <Title>AI Amazon Bedrock Analysis</Title>
@@ -93,7 +121,6 @@ export default function BedrockAnalysis({
           p: 2,
         }}
       >
-        {/* {loading && <Typography variant='body1'>Loading...</Typography>} */}
         {error && (
           <Typography variant='body1' color='error'>
             {error}
@@ -128,10 +155,10 @@ export default function BedrockAnalysis({
         <Button
           variant='contained'
           color='primary'
-          // onClick={}
+          onClick={handleSaveAnalysis}
           disabled={!save}
         >
-          Save Analysis
+          Save Report
         </Button>
       </Box>
     </React.Fragment>

@@ -21,7 +21,7 @@ export const connectController: ConnectController = {
     //context format for writing into .env
     const writeENV: string =
       `AWS_ACCESS_KEY_ID=${AWSAccessKey}\n` +
-      `AWS_SECRET_ACCESS_KEY_ID=${AWSSecretKey}\n` +
+      `AWS_SECRET_ACCESS_KEY=${AWSSecretKey}\n` +
       `REGION=${Region}`;
     try {
       fs.writeFileSync('./.env', writeENV);
