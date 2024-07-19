@@ -5,6 +5,7 @@ import {
   InvokeModelWithResponseStreamCommandOutput
 } from '@aws-sdk/client-bedrock-runtime';
 import { bedrockclient } from '../configs/aws.config.ts';
+import { Output } from '../types';
 
 interface BedrockController {
   getAnalysis: RequestHandler;
@@ -44,7 +45,7 @@ export const bedrockController: BedrockController = {
         //Have to decode into readable text: https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MetaLlama2_section.html
         const chunk = JSON.parse(new TextDecoder().decode(event.chunk.bytes));
         if (chunk.outputs && chunk.outputs.length > 0) {
-          chunk.outputs.forEach((output: any) => {
+          chunk.outputs.forEach((output: Output) => {
             //In SSE, each event should be prefixed with data: and suffixed with \n\n to denote the end of the event.
             //Great explanation for res.write: https://blog.kevinchisholm.com/javascript/node-js/express-js/response-send-end-write-difference/
             res.write(`data: ${output.text}\n\n`); 

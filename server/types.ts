@@ -13,3 +13,8 @@ export type ServerError = {
     err: string;
   };
 };
+
+export type Output = {
+  text: string
+  stop_reason: string | null
+}
