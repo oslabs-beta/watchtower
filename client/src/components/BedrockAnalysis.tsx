@@ -112,7 +112,7 @@ export default function BedrockAnalysis({
 
   return (
     <React.Fragment>
-      <Title>AI Amazon Bedrock Analysis</Title>
+      <Typography variant='h5' gutterBottom>AI Amazon Bedrock Analysis</Typography>
       <Box
         sx={{
           mt: 2,

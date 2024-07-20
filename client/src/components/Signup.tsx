@@ -16,7 +16,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+// change theme color
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#a6d8d9',
+      contrastText: '#fff',
+    },
+  },
+});
 
 export default function Signup(): JSX.Element {
   const navigate = useNavigate();
@@ -42,7 +50,7 @@ export default function Signup(): JSX.Element {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box

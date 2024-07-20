@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider, CssBaseline, Box, Container, Divider, IconButton, List, Toolbar, Typography, Switch, FormControlLabel } from '@mui/material';
+import { createTheme, ThemeProvider, CssBaseline, Box, Container, Divider, IconButton, List, Toolbar, Typography, Switch, FormControlLabel, PaletteMode } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -9,7 +9,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import Divider from '@mui/material/Divider';
 // import IconButton from '@mui/material/IconButton';
 // import List from '@mui/material/List';
-// import Toolbar from '@mui/material/Toolbar';
 // import Typography from '@mui/material/Typography';
 // // import NotificationsIcon from '@mui/icons-material/Notifications';
 // // import Badge from '@mui/material/Badge';
@@ -39,17 +38,65 @@ const Layout = ({ children }): JSX.Element => {
     setDarkMode(!darkMode);
   };
 
-  const theme = createTheme({
+  // Function to get design tokens based on mode
+  const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
-      mode: darkMode ? 'dark' : 'light',
+      mode,
+      ...(mode === 'light'
+        ? {
+            primary: {
+              //light mode main color
+              main: '#a6d8d9',
+              contrastText: '#fff',
+            },
+            //light mode main color
+            divider: '#a6d8d9',
+            text: {
+              primary: '#212121',
+              secondary: '#424242',
+            },
+            background: {
+              default: '#f5f5f5',
+              paper: '#fff',
+            },
+          }
+        : {
+            primary: {
+              //dark mode main color
+              main: '#1c3454',
+              contrastText: '#fff',
+            },
+            //dark mode main color
+            divider: '#1c3454',
+            background: {
+              default: '#121212', // Custom dark background color
+              paper: '#1e1e1e', // Custom dark paper color
+            },
+            text: {
+              primary: '#e0e0e0', // Custom text color for dark mode
+              secondary: '#9e9e9e',
+            },
+          }),
     },
   });
+
+  const theme = createTheme(getDesignTokens(darkMode ? 'dark' : 'light'));
+
+  // const theme = createTheme({
+  //   palette: {
+  //     mode: darkMode ? 'dark' : 'light',
+  //     primary: {
+  //       main: '#1c3454',
+  //       contrastText: '#fff',
+  //     },
+  //   },
+  // });
 
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position='absolute' open={open}>
+        <AppBar position='absolute' open={open} sx={{ backgroundColor: theme.palette.primary.main }}>
           <Toolbar sx={{ pr: '24px' }}>
             <IconButton
               edge='start'

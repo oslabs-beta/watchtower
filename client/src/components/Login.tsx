@@ -19,7 +19,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import watchtower from '../assets/watchtower.png';
 import Copyright from './Copyright';
 
-const defaultTheme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#a6d8d9',
+      contrastText: '#fff',
+    },
+  },
+});
 
 export default function Login(): JSX.Element {
   const navigate = useNavigate();
@@ -61,7 +68,7 @@ export default function Login(): JSX.Element {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Grid container component='main' sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
