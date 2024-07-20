@@ -18,6 +18,7 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import watchtower from '../assets/watchtower.png';
 import Copyright from './Copyright';
+import GitHubButton from './GitHubLoginButton';
 
 const defaultTheme = createTheme();
 
@@ -128,6 +129,7 @@ export default function Login() {
               >
                 Sign In
               </Button>
+              {<GitHubButton />}
               <Grid container>
                 <Grid item xs>
                   <Link href='#' variant='body2'>
