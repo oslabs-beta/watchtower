@@ -194,7 +194,6 @@ export const metricController: MetricController = {
       // res.locals.metrics.RCU.provisionedCapacity =
       //   cloudWatchResponse.Datapoints[0].Average;
       res.locals.ProvWCU = cloudWatchResponse.Datapoints[0].Maximum;
-      console.log(res.locals);
 
       return next();
     } catch (err) {

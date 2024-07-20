@@ -62,33 +62,33 @@ export default function Dashboard() {
     fetchMetrics();
   }, [currentProvision]);
 
-  const fetchAnalysis = async () => {
-    if (currentProvision) {
-      try {
-        const response = await fetch('/api/bedrock-analysis', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(currentProvision),
-        });
+  // const fetchAnalysis = async () => {
+  //   if (currentProvision) {
+  //     try {
+  //       const response = await fetch('/api/bedrock', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(currentProvision),
+  //       });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error status: ${response.status}`);
-        }
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error status: ${response.status}`);
+  //       }
 
-        const data = await response.json();
-        console.log('Analysis data:', data);
-        return data;
-      } catch (error) {
-        console.error('Error fetching analysis:', error);
-        return null;
-      }
-    } else {
-      console.error('No provision data available');
-      return null;
-    }
-  };
+  //       const data = await response.json();
+  //       console.log('Analysis data:', data);
+  //       return data;
+  //     } catch (error) {
+  //       console.error('Error fetching analysis:', error);
+  //       return null;
+  //     }
+  //   } else {
+  //     console.error('No provision data available');
+  //     return null;
+  //   }
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -139,7 +139,7 @@ export default function Dashboard() {
                 <BedrockAnalysis
                   currentProvision={currentProvision}
                   currentMetrics={currentMetrics}
-                  fetchAnalysis={fetchAnalysis}
+                  // fetchAnalysis={fetchAnalysis}
                 />
               </Paper>
             </Grid>

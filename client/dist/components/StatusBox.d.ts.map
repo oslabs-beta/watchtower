@@ -1,1 +1,0 @@
-{"version":3,"file":"StatusBox.d.ts","sourceRoot":"","sources":["../../src/components/StatusBox.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAmB,MAAM,OAAO,CAAC;AAExC,OAAO,4CAA4C,CAAC;AACpD,OAAO,0BAA0B,CAAC;AAClC,OAAO,yBAAyB,CAAC;AACjC,OAAO,gCAAgC,CAAC;AACxC,OAAO,EAAqB,cAAc,EAAE,MAAM,mBAAmB,CAAC;AAEtE,QAAA,MAAM,SAAS,iBAAkB,cAAc,sBA8E9C,CAAC;AAEF,eAAe,SAAS,CAAC"}

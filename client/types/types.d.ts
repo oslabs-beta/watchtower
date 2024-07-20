@@ -37,7 +37,7 @@ export interface WcuGraphContainerProps {
 export interface BedrockAnalysisProps {
   currentProvision: ProvisionFormData | null;
   currentMetrics: any | null;
-  fetchAnalysis: () => Promise<any>;
+  // fetchAnalysis: () => Promise<any>;
 }
 
 export interface TitleProps {

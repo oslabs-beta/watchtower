@@ -29,7 +29,8 @@ const WcuGraphContainer = ({
       {
         label: 'Maximum',
         data: data.length > 0 ? data.map((item) => item.maximum) : [],
-        borderColor: '#000000',
+        backgroundColor: '#FF3030',
+        borderColor: '#FF3030',
         fill: false,
       },
     ],
@@ -47,11 +48,16 @@ const WcuGraphContainer = ({
       },
       y: {
         min: 0,
-        max: 1.5,
+        grace: '5%',
         title: {
           display: true,
           text: 'Maximum',
         },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.5,
       },
     },
     plugins: {
