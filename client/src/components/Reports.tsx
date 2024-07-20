@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import { ReportsProps, ProvisionFormData } from '../../types/types';
+import { Typography, Box, Container, Grid, Paper } from '@mui/material';
+// import Box from '@mui/material/Box';
+// import Container from '@mui/material/Container';
+// import Grid from '@mui/material/Grid';
+// import Paper from '@mui/material/Paper';
+import { ReportsProps, ProvisionFormData, Metrics } from '../../types/types';
 import { 
   DataGrid, 
   GridRowsProp, 
@@ -11,22 +14,19 @@ import {
   GridToolbar 
 } from '@mui/x-data-grid';
 import GraphContainer from './GraphContainer';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Layout from './Layout';
 import DataStats from './DataStats';
 
 
-const Reports = ({ timeFrame }: ReportsProps) => {
+const Reports = ({ timeFrame }: ReportsProps): JSX.Element => {
   const [show, setShow] = useState(false);
   const [currentProvision, setCurrentProvision] = useState<ProvisionFormData | null>(null);
-  const [currentMetrics, setCurrentMetrics] = useState<any>(null);
+  const [currentMetrics, setCurrentMetrics] = useState<Metrics | null>(null);
   const [currentBedrockAnalysis, setCurrentBedrockAnalysis] = useState<string>('')
   const [pastAnalysis, setPastAnalysis] = useState<any>([]);
 
   useEffect(() => {
-    const fetchPastAnalysis = async () => {
+    const fetchPastAnalysis = async (): Promise<void> => {
       try{
           const response = await fetch('/api/pastAnalysis');
 

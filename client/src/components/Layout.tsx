@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider, CssBaseline, Box, Container, Divider, IconButton, List, Toolbar, Typography, Switch, FormControlLabel } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Badge from '@mui/material/Badge';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import Box from '@mui/material/Box';
+// import Container from '@mui/material/Container';
+// import Divider from '@mui/material/Divider';
+// import IconButton from '@mui/material/IconButton';
+// import List from '@mui/material/List';
+// import Toolbar from '@mui/material/Toolbar';
+// import Typography from '@mui/material/Typography';
+// // import NotificationsIcon from '@mui/icons-material/Notifications';
+// // import Badge from '@mui/material/Badge';
+// import Switch from '@mui/material/Switch';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import { mainListItems, secondaryListItems } from './listItems';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
 import Copyright from './Copyright';
 
-const Layout = ({ children }) => {
-  const [open, setOpen] = useState(true);
+const Layout = ({ children }): JSX.Element => {
+  const [open, setOpen] = useState<boolean>(true);
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode');
     return savedMode ? JSON.parse(savedMode) : false;
@@ -31,11 +31,11 @@ const Layout = ({ children }) => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
-  const toggleDrawer = () => {
+  const toggleDrawer = (): void => {
     setOpen(!open);
   };
 
-  const handleDarkModeToggle = () => {
+  const handleDarkModeToggle = (): void => {
     setDarkMode(!darkMode);
   };
 
@@ -79,11 +79,11 @@ const Layout = ({ children }) => {
               }
               label='Dark Mode'
             />
-            <IconButton color='inherit'>
+            {/* <IconButton color='inherit'>
               <Badge badgeContent={4} color='secondary'>
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer variant='permanent' open={open}>

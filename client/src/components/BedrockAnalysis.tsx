@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, useTheme } from '@mui/material';
 import Title from './Title';
-import '../styles/__global.scss';
+// import '../styles/__global.scss';
 import { BedrockAnalysisProps } from '../../types/types';
 
 export default function BedrockAnalysis({
   currentProvision,
   currentMetrics,
-  // fetchAnalysis,
 }: BedrockAnalysisProps): JSX.Element {
+
   const [stream, setStream] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [save, setSave] = useState<boolean>(false);
 
-    const bedrockAnalysis = async (): Promise<void> => {
+  const theme = useTheme();
+
+  const bedrockAnalysis = async (): Promise<void> => {
     setLoading(true);
     setError(null);
     setStream('');
@@ -25,7 +27,7 @@ export default function BedrockAnalysis({
       return
     }
 
-    const metrics = JSON.stringify(currentMetrics)
+    const metrics: string = JSON.stringify(currentMetrics)
     // Replace with actual prompt or state value
     const prompt: string = metrics + 
     'based on the data, analysis provision and consumed capacity for AWS dynamoDb and give advice for keeping current provision or switching to ondemand in compact and short way'; 
@@ -33,7 +35,7 @@ export default function BedrockAnalysis({
   
     try {
 
-      const response = await fetch('/api/bedrock', {
+      const response: Response = await fetch('/api/bedrock', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ export default function BedrockAnalysis({
       // Check if response body is null
       if (!response.body) throw new Error('Response body is null.');
       //https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams
-      const reader = response.body.getReader();
+      const reader: ReadableStreamDefaultReader<Uint8Array>= response.body.getReader();
       let accumulatedData: string = '';
 
       while (true) {
@@ -53,7 +55,7 @@ export default function BedrockAnalysis({
 
         if (done) break;
 
-        const chunk = new TextDecoder().decode(value, { stream: true });
+        const chunk: string = new TextDecoder().decode(value, { stream: true });
         // Skip the first chunk becase its just a '?', have to check afterwards if it is still sending '?'
         // if (isFirstChunk) {
         //   isFirstChunk = false;
@@ -80,9 +82,9 @@ export default function BedrockAnalysis({
     }
   };
 
-  const handleSaveAnalysis = async () => {
+  const handleSaveAnalysis = async (): Promise<void> => {
     try {
-      const response = await fetch('/api/pastAnalysis', {
+      const response: Response = await fetch('/api/pastAnalysis', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +101,7 @@ export default function BedrockAnalysis({
         setError('Failed to save analysis')
         throw new Error(`HTTP error status: ${response.status}`);
       }
-
+      //looking for success message?
       const result = await response.json()
       setSave(false)
 
@@ -114,7 +116,9 @@ export default function BedrockAnalysis({
       <Box
         sx={{
           mt: 2,
-          backgroundColor: 'var(--background-default)', 
+          backgroundColor: theme.palette.mode === 'dark' 
+            ? theme.palette.background.default 
+            : 'var(--background-default)', 
           minHeight: '100px', 
           width: '100%',
           borderRadius: 1,

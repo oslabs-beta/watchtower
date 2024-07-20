@@ -2,7 +2,7 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import {
   InvokeModelWithResponseStreamCommand,
   InvokeModelWithResponseStreamCommandInput,
-  InvokeModelWithResponseStreamCommandOutput
+  InvokeModelWithResponseStreamCommandOutput,
 } from '@aws-sdk/client-bedrock-runtime';
 import { bedrockclient } from '../configs/aws.config.ts';
 import { Output } from '../types';
@@ -12,6 +12,7 @@ interface BedrockController {
 }
 
 export const bedrockController: BedrockController = {
+  
   getAnalysis: async (
     req: Request,
     res: Response,
@@ -48,7 +49,8 @@ export const bedrockController: BedrockController = {
           chunk.outputs.forEach((output: Output) => {
             //In SSE, each event should be prefixed with data: and suffixed with \n\n to denote the end of the event.
             //Great explanation for res.write: https://blog.kevinchisholm.com/javascript/node-js/express-js/response-send-end-write-difference/
-            res.write(`data: ${output.text}\n\n`); 
+            res.write(`data: ${output.text}\n\n`);
+            //res.flush: https://expressjs.com/en/resources/middleware/compression.html 
             res.flush(); // Flush the data immediately
           });
         }

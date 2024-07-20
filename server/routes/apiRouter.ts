@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-
 import { tablesController } from '../controllers/tablesController.ts';
 import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
@@ -16,7 +15,7 @@ router.post(
   '/AWSconnect',
   connectController.saveAWSInfo,
   (req: Request, res: Response): Response => {
-    return res.status(200).json({});
+    return res.status(200).json(res.locals.message);
   }
 );
 

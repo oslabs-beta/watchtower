@@ -21,12 +21,12 @@ import Copyright from './Copyright';
 
 const defaultTheme = createTheme();
 
-export default function Login() {
+export default function Login(): JSX.Element {
   const navigate = useNavigate();
-
+  //have to fix login functionality
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const data: FormData = new FormData(event.currentTarget);
     const loginData = {
       email: data.get('email'),
       password: data.get('password'),

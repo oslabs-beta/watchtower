@@ -1,28 +1,30 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material';
+// import Avatar from '@mui/material/Avatar';
+// import Button from '@mui/material/Button';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import TextField from '@mui/material/TextField';
+// // import FormControlLabel from '@mui/material/FormControlLabel';
+// import Link from '@mui/material/Link';
+// import Grid from '@mui/material/Grid';
+// import Box from '@mui/material/Box';
+// import Typography from '@mui/material/Typography';
+// import Container from '@mui/material/Container';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from './Copyright';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Signup() {
+export default function Signup(): JSX.Element {
   const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    //have to fix signup functionality
     console.log({
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),

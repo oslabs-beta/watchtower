@@ -1,17 +1,19 @@
 import React, { useMemo } from 'react';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import { ProvisionFormData, DataStatsProps } from '../../types/types';
-import '../styles/__global.scss';
+import { useTheme, Paper, Typography, Grid } from '@mui/material';
+// import Paper from '@mui/material/Paper';
+// import Typography from '@mui/material/Typography';
+// import Grid from '@mui/material/Grid';
+import { DataStatsProps } from '../../types/types';
+// import '../styles/__global.scss';
 
 const DataStats: React.FC<DataStatsProps> = ({
   provisionData,
   currentMetrics,
 }) => {
-  console.log('Current Metrics:', currentMetrics);
-
-  const formatDate = (date: Date | null) => {
+  // console.log('Current Metrics:', currentMetrics);
+  const theme = useTheme();
+  
+  const formatDate = (date: Date | string | null) => {
     return date ? new Date(date).toLocaleString() : 'N/A';
   };
 
@@ -42,7 +44,9 @@ const DataStats: React.FC<DataStatsProps> = ({
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        backgroundColor: 'var(--background-default)',
+        backgroundColor: theme.palette.mode === 'dark' 
+        ? theme.palette.background.default 
+        : 'var(--background-default)', 
       }}
     >
       <Typography variant='h6' gutterBottom align='center'>

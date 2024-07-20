@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 import {
   Box,
@@ -12,37 +12,34 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { AWSBody } from '../../types/types';
 
-const AWSInfoPage = () => {
-  let navigate = useNavigate();
+const AWSInfoPage = (): JSX.Element => {
 
+  let navigate: NavigateFunction = useNavigate();
   // State for form values
-  const [awsAccountName, setAwsAccountName] = useState('');
-  const [awsAccessKey, setAwsAccessKey] = useState('');
-  const [awsSecretKey, setAwsSecretKey] = useState('');
-  const [region, setRegion] = useState('');
-
-  const onClick = () => {
-    navigate('/AWSConnect');
-  };
+  const [awsAccountName, setAwsAccountName] = useState<string>('');
+  const [awsAccessKey, setAwsAccessKey] = useState<string>('');
+  const [awsSecretKey, setAwsSecretKey] = useState<string>('');
+  const [region, setRegion] = useState<string>('');
 
   async function awsInfoSubmit(event: React.FormEvent) {
     event.preventDefault();
-
-    // Create the body object
-    const body = {
-      AWSAccountName: awsAccountName,
-      AWSAccessKey: awsAccessKey,
-      AWSSecretKey: awsSecretKey,
-      Region: region,
-    };
-
-    // Log the body object to the console
-    console.log('Request body:', body);
-
     // Fetch request - Post method - to AWSConnect path providing AWS Account IAM details.
     try {
-      const response = await fetch('/api/AWSConnect', {
+      //check input from feilds
+      if(!awsAccountName || !awsAccessKey || !awsSecretKey || !region) {
+        throw new Error('All field must be filled! Please try again')
+      }
+      // Create the body object
+      const body: AWSBody = {
+        AWSAccountName: awsAccountName,
+        AWSAccessKey: awsAccessKey,
+        AWSSecretKey: awsSecretKey,
+        Region: region,
+      };
+
+      const response: Response = await fetch('/api/AWSConnect', {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -50,16 +47,16 @@ const AWSInfoPage = () => {
         method: 'POST',
         body: JSON.stringify(body),
       });
-      console.log('response ', response);
-      const data = await response.json();
-      if (data) {
+
+      const message: string = await response.json();
+
+      if (message === 'success') {
         alert('AWS Account Info Submitted!');
         navigate('/dashboard');
       }
     } catch (err) {
-      alert(
-        'An Error occurred while validating AWS Account Info. Please try again.'
-      );
+      console.error(err)
+      alert(err.message);
     }
   }
 
@@ -79,6 +76,9 @@ const AWSInfoPage = () => {
               onChange={(e) => setAwsAccountName(e.target.value)}
               id='AWSAccountName'
               variant='outlined'
+              InputProps={{
+                autoComplete: 'username'
+              }}
             />
             <TextField
               fullWidth
@@ -89,6 +89,9 @@ const AWSInfoPage = () => {
               id='AWSAccessKey'
               variant='outlined'
               type='password'
+              InputProps={{
+                autoComplete: 'new-password'
+              }}
             />
             <TextField
               fullWidth
@@ -99,6 +102,9 @@ const AWSInfoPage = () => {
               id='AWSSecretKey'
               variant='outlined'
               type='password'
+              InputProps={{
+                autoComplete: 'new-password'
+              }}
             />
             <FormControl fullWidth margin='normal'>
               <InputLabel id='RegionLabel'>Region</InputLabel>

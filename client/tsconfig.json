@@ -8,6 +8,7 @@
     // "declarationMap": true,
     // "outDir": "./dist",
     // "rootDir": "./src",
+    "removeComments": true,
     "typeRoots": ["./types", "./node_modules/@types"],
     "esModuleInterop": true,
     "skipLibCheck": true,

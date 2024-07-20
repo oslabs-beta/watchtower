@@ -6,10 +6,10 @@ import Login from './Login';
 import Signup from './Signup';
 import Reports from './Reports';
 import Integrations from './Integrations';
-import Layout from './Layout';
+// import Layout from './Layout';
 import LandingPage from './landingPage/LandingPage';
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <BrowserRouter>
       <Routes>
