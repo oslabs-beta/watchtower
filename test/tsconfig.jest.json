@@ -1,6 +1,7 @@
 {
   "extends": "../client/tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["...", "@types/jest", "node", "jest"]
   }
 }
