@@ -33,6 +33,14 @@ router.post(
 router.get('/');
 
 router.get(
+  '/pastAnalyses',
+  metricController.getPastAnalyses,
+  (req: Request, res: Response): Response => {
+    return res.status(200).json(res.locals.pastAnalyses);
+  }
+);
+
+router.get(
   '/tables',
   tablesController.getTables,
   (req: Request, res: Response): Response => {
