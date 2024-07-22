@@ -2,13 +2,10 @@ import express, { Request, Response } from 'express';
 import { tablesController } from '../controllers/tablesController.ts';
 import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
-<<<<<<< HEAD
 import authController from '../controllers/authController';
 import gitHubAuthController from '../controllers/gitHubAuthController.ts';
-=======
 import { bedrockController } from '../controllers/bedrockController.ts';
 // import { authController } from '../controllers/authController';
->>>>>>> dev
 
 const router = express.Router();
 
@@ -51,8 +48,12 @@ router.get(
   }
 );
 
-router.post('/bedrock', bedrockController.getAnalysis,  (req: Request, res: Response): void => {
-  res.end()
-});
+router.post(
+  '/bedrock',
+  bedrockController.getAnalysis,
+  (req: Request, res: Response): void => {
+    res.end();
+  }
+);
 
 export default router;

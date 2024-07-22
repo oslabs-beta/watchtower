@@ -50,8 +50,8 @@ export default function Dashboard(): JSX.Element {
           },
         })
           .then((response) => response.json())
-          .then((data) => {
-            localStorage.setItem('accessToken', data);
+          .then((accessToken) => {
+            localStorage.setItem('accessToken', accessToken);
             setRerender(!rerender);
           })
           .catch((err) =>
@@ -85,6 +85,7 @@ export default function Dashboard(): JSX.Element {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `${localStorage.getItem('accessToken')}`,
             },
             body: JSON.stringify({ tableName, startTime, endTime }),
           });
@@ -113,7 +114,7 @@ export default function Dashboard(): JSX.Element {
           <h3>Login with GitHub Failed. Please try again.</h3>
           <button
             onClick={() => {
-              navigate('/login');
+              navigate('/');
             }}
           >
             Login
