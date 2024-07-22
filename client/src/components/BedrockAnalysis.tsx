@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
-import Title from './Title';
+// import Title from './Title';
 // import '../styles/__global.scss';
 import { BedrockAnalysisProps } from '../../types/types';
 

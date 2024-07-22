@@ -13,7 +13,10 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
-import { ProvisionFormData, StatusBoxProps } from '../../types/types';
+import { 
+  // ProvisionFormData,
+   StatusBoxProps ,
+  } from '../../types/types';
 import '../styles/StatusBox.scss';
 
 const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {

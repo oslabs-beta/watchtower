@@ -38,43 +38,38 @@ const Layout = ({ children }): JSX.Element => {
     setDarkMode(!darkMode);
   };
 
-  // Function to get design tokens based on mode
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
       mode,
       ...(mode === 'light'
         ? {
             primary: {
-              //light mode main color
-              main: '#a6d8d9',
-              contrastText: '#fff',
+              main: '#a6d8d9', // Primary color for light mode
+              contrastText: '#fff', // Text color to contrast with the primary color
             },
-            //light mode main color
-            divider: '#a6d8d9',
+            divider: '#a6d8d9', // Color of dividers in light mode
             text: {
-              primary: '#212121',
-              secondary: '#424242',
+              primary: '#212121', // Primary text color in light mode
+              secondary: '#424242', // Secondary text color in light mode
             },
             background: {
-              default: '#f5f5f5',
-              paper: '#fff',
+              default: '#f5f5f5', // Default background color in light mode
+              paper: '#fff', // Background color for paper elements in light mode
             },
           }
         : {
             primary: {
-              //dark mode main color
-              main: '#1c3454',
-              contrastText: '#fff',
+              main: '#1c3454', // Primary color for dark mode
+              contrastText: '#fff', // Text color to contrast with the primary color
             },
-            //dark mode main color
-            divider: '#1c3454',
+            divider: '#1c3454', // Color of dividers in dark mode
             background: {
               default: '#121212', // Custom dark background color
               paper: '#1e1e1e', // Custom dark paper color
             },
             text: {
-              primary: '#e0e0e0', // Custom text color for dark mode
-              secondary: '#9e9e9e',
+              primary: '#e0e0e0', // Primary text color in dark mode
+              secondary: '#9e9e9e', // Secondary text color in dark mode
             },
           }),
     },
