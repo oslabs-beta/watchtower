@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import { tablesController } from '../controllers/tablesController.ts';
 import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
+import { bedrockController } from '../controllers/bedrockController.ts';
 // import { authController } from '../controllers/authController';
 
 const router = express.Router();
@@ -30,8 +31,6 @@ router.post(
   }
 );
 
-router.get('/');
-
 router.get(
   '/pastAnalyses',
   metricController.getPastAnalyses,
@@ -47,5 +46,9 @@ router.get(
     return res.status(200).json(res.locals.tables);
   }
 );
+
+router.post('/bedrock', bedrockController.getAnalysis,  (req: Request, res: Response): void => {
+  res.end()
+});
 
 export default router;

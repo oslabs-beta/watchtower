@@ -2,17 +2,13 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import {
   ListTablesCommand,
   ListTablesCommandInput,
+  ListTablesCommandOutput
 } from '@aws-sdk/client-dynamodb';
 import { dynamoDBClient } from '../configs/aws.config.ts';
 
 interface TablesController {
   getTables: RequestHandler;
 }
-
-// const input = {};
-// const command = new ListTablesCommand(input);
-// const response = await dynamoDBClient.send(command);
-// console.log(response.TableNames)
 
 export const tablesController: TablesController = {
   //get all the tables' name from users' AWS DynamoDB
@@ -24,9 +20,9 @@ export const tablesController: TablesController = {
     try {
       //pass in empty object to get all tables name
       const input: ListTablesCommandInput = {};
-      const command = new ListTablesCommand(input);
+      const command: ListTablesCommand = new ListTablesCommand(input);
       //waiting for respoonse from DynamoDB
-      const response = await dynamoDBClient.send(command);
+      const response: ListTablesCommandOutput = await dynamoDBClient.send(command);
       //save all tables name as an array
       res.locals.tables = response.TableNames;
       return next();
