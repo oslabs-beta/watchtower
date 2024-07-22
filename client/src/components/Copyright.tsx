@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import { Typography, Link } from '@mui/material';
 
-function Copyright(props: any) {
+function Copyright(props: any): JSX.Element {
   return (
     <Typography
       variant='body2'

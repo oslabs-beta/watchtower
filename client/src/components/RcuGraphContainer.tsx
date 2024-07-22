@@ -11,8 +11,8 @@ Chart.register(...registerables, annotationPlugin);
 const RcuGraphContainer = ({
   provisionData,
   metrics,
-}: RcuGraphContainerProps) => {
-  const { startTime, endTime } = provisionData || {};
+}: RcuGraphContainerProps): JSX.Element => {
+  // const { startTime, endTime } = provisionData || {};
   const data = (metrics?.ConsRCU || [])
     .map((item: any) => ({
       maximum: item.Maximum,
@@ -21,7 +21,7 @@ const RcuGraphContainer = ({
     }))
     .sort((a, b) => a.timestamp - b.timestamp);
 
-  const provisionedCapacity = metrics?.ProvRCU || 0;
+  const provisionedCapacity: number = metrics?.ProvRCU || 0;
 
   const chartData = {
     labels: data.length > 0 ? data.map((item) => item.timeLabel) : ['No Data'],
@@ -29,7 +29,8 @@ const RcuGraphContainer = ({
       {
         label: 'Maximum',
         data: data.length > 0 ? data.map((item) => item.maximum) : [],
-        borderColor: '#000000',
+        backgroundColor: '#064FF0',
+        borderColor: '#064FF0',
         fill: false,
       },
     ],
@@ -47,11 +48,16 @@ const RcuGraphContainer = ({
       },
       y: {
         min: 0,
-        max: 1.5,
+        grace: '5%',
         title: {
           display: true,
           text: 'Maximum',
         },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.5,
       },
     },
     plugins: {

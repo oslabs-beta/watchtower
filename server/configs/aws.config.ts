@@ -12,6 +12,6 @@ const config: Config = {
   region: process.env.REGION,
 };
 
-export const cloudWatchClient = new CloudWatchClient(config);
-export const dynamoDBClient = new DynamoDBClient(config);
-export const bedrockclient = new BedrockRuntimeClient(config);
+export const cloudWatchClient: CloudWatchClient = new CloudWatchClient(config);
+export const dynamoDBClient: DynamoDBClient = new DynamoDBClient(config);
+export const bedrockclient: BedrockRuntimeClient = new BedrockRuntimeClient(config);

@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider, CssBaseline, Box, Container, Divider, IconButton, List, Toolbar, Typography, Switch, FormControlLabel, PaletteMode } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Badge from '@mui/material/Badge';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import CssBaseline from '@mui/material/CssBaseline';
+// import Box from '@mui/material/Box';
+// import Container from '@mui/material/Container';
+// import Divider from '@mui/material/Divider';
+// import IconButton from '@mui/material/IconButton';
+// import List from '@mui/material/List';
+// import Typography from '@mui/material/Typography';
+// // import NotificationsIcon from '@mui/icons-material/Notifications';
+// // import Badge from '@mui/material/Badge';
+// import Switch from '@mui/material/Switch';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import { mainListItems, secondaryListItems } from './listItems';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
 import Copyright from './Copyright';
 
-const Layout = ({ children }) => {
-  const [open, setOpen] = useState(true);
+const Layout = ({ children }): JSX.Element => {
+  const [open, setOpen] = useState<boolean>(true);
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode');
     return savedMode ? JSON.parse(savedMode) : false;
@@ -31,25 +30,68 @@ const Layout = ({ children }) => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
-  const toggleDrawer = () => {
+  const toggleDrawer = (): void => {
     setOpen(!open);
   };
 
-  const handleDarkModeToggle = () => {
+  const handleDarkModeToggle = (): void => {
     setDarkMode(!darkMode);
   };
 
-  const theme = createTheme({
+  const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
-      mode: darkMode ? 'dark' : 'light',
+      mode,
+      ...(mode === 'light'
+        ? {
+            primary: {
+              main: '#a6d8d9', // Primary color for light mode
+              contrastText: '#fff', // Text color to contrast with the primary color
+            },
+            divider: '#a6d8d9', // Color of dividers in light mode
+            text: {
+              primary: '#212121', // Primary text color in light mode
+              secondary: '#424242', // Secondary text color in light mode
+            },
+            background: {
+              default: '#f5f5f5', // Default background color in light mode
+              paper: '#fff', // Background color for paper elements in light mode
+            },
+          }
+        : {
+            primary: {
+              main: '#1c3454', // Primary color for dark mode
+              contrastText: '#fff', // Text color to contrast with the primary color
+            },
+            divider: '#1c3454', // Color of dividers in dark mode
+            background: {
+              default: '#121212', // Custom dark background color
+              paper: '#1e1e1e', // Custom dark paper color
+            },
+            text: {
+              primary: '#e0e0e0', // Primary text color in dark mode
+              secondary: '#9e9e9e', // Secondary text color in dark mode
+            },
+          }),
     },
   });
+
+  const theme = createTheme(getDesignTokens(darkMode ? 'dark' : 'light'));
+
+  // const theme = createTheme({
+  //   palette: {
+  //     mode: darkMode ? 'dark' : 'light',
+  //     primary: {
+  //       main: '#a6d8d9',
+  //       contrastText: '#fff',
+  //     },
+  //   },
+  // });
 
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position='absolute' open={open}>
+        <AppBar position='absolute' open={open} sx={{ backgroundColor: theme.palette.primary.main }}>
           <Toolbar sx={{ pr: '24px' }}>
             <IconButton
               edge='start'
@@ -79,11 +121,11 @@ const Layout = ({ children }) => {
               }
               label='Dark Mode'
             />
-            <IconButton color='inherit'>
+            {/* <IconButton color='inherit'>
               <Badge badgeContent={4} color='secondary'>
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer variant='permanent' open={open}>

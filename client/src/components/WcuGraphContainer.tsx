@@ -11,8 +11,9 @@ Chart.register(...registerables, annotationPlugin);
 const WcuGraphContainer = ({
   provisionData,
   metrics,
-}: WcuGraphContainerProps) => {
-  const { startTime, endTime } = provisionData || {};
+}: WcuGraphContainerProps): JSX.Element => {
+
+  // const { startTime, endTime }: { startTime: Date, endTime: Date } = provisionData || {};
   const data = (metrics?.ConsWCU || [])
     .map((item: any) => ({
       maximum: item.Maximum,
@@ -21,7 +22,7 @@ const WcuGraphContainer = ({
     }))
     .sort((a, b) => a.timestamp - b.timestamp);
 
-  const provisionedCapacity = metrics?.ProvWCU || 0;
+  const provisionedCapacity: number = metrics?.ProvWCU || 0;
 
   const chartData = {
     labels: data.length > 0 ? data.map((item) => item.timeLabel) : ['No Data'],
@@ -29,7 +30,8 @@ const WcuGraphContainer = ({
       {
         label: 'Maximum',
         data: data.length > 0 ? data.map((item) => item.maximum) : [],
-        borderColor: '#000000',
+        backgroundColor: '#FF3030',
+        borderColor: '#FF3030',
         fill: false,
       },
     ],
@@ -47,11 +49,16 @@ const WcuGraphContainer = ({
       },
       y: {
         min: 0,
-        max: 1.5,
+        grace: '5%',
         title: {
           display: true,
           text: 'Maximum',
         },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.5,
       },
     },
     plugins: {

@@ -1,4 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, 
+  // useRef, 
+} from 'react';
 import RcuGraphContainer from './RcuGraphContainer';
 import WcuGraphContainer from './WcuGraphContainer';
 import {
@@ -21,9 +23,9 @@ const defaultProvisionFormData: ProvisionFormData = {
 const GraphContainer = ({
   currentProvision,
   currentMetrics,
-}: GraphContainerProps) => {
-  const [selectedGraph, setSelectedGraph] = useState('RCU');
-  const savedMetrics = useRef(currentMetrics);
+}: GraphContainerProps): JSX.Element => {
+  const [selectedGraph, setSelectedGraph] = useState<string>('RCU');
+  // const savedMetrics = useRef(currentMetrics);
 
   return (
     <div className='graphContainer'>

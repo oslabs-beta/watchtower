@@ -2,13 +2,14 @@ import path from 'path';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { ServerError } from './types';
-
+import compression from 'compression';
 import apiRouter from './routes/apiRouter.ts';
 
 const app = express();
 
 const PORT = 8000;
 
+app.use(compression());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
