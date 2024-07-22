@@ -18,6 +18,33 @@ export default function Dashboard() {
     useState<ProvisionFormData | null>(null);
   const [currentMetrics, setCurrentMetrics] = useState<any>(null);
 
+  //when the page first loads, grab the code given from  GitHub Oauth and use it get GitHub access token
+  useEffect(() => {
+    const getAccessToken = async () => {
+      const queryString: string = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const codeParam = urlParams.get('code');
+      console.log('queryString', queryString);
+      console.log('urlParams', urlParams);
+      console.log('codeParam', codeParam);
+      console.log(codeParam && localStorage.getItem('token'));
+      if (codeParam && localStorage.getItem('token') === null) {
+        await fetch(`/api/gitHub`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => localStorage.setItem('token', data))
+          .catch((err) =>
+            console.log(`error getting GitHub Access token from server:${err}`)
+          );
+      }
+    };
+    getAccessToken();
+  }, []);
+
   const handleFormSubmit = async (data: ProvisionFormData) => {
     try {
       setCurrentProvision(data);

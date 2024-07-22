@@ -3,11 +3,20 @@ import express, { Request, Response } from 'express';
 import { tablesController } from '../controllers/tablesController.ts';
 import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
-// import { authController } from '../controllers/authController';
+import authController from '../controllers/authController';
+import gitHubAuthController from '../controllers/gitHubAuthController.ts';
 
 const router = express.Router();
 
 // router.post('/login', authController.login); //controller name and method name may change
+
+router.get(
+  '/gitHub',
+  gitHubAuthController.getAccessToken,
+  (req: Request, res: Response): Response => {
+    return res.status(200).json(res.locals.accessToken);
+  }
+);
 
 // router.post('/signup', authController.signup);
 
