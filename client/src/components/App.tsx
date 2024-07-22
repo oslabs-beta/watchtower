@@ -14,7 +14,6 @@ const App = (): JSX.Element => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login />} />
-        {/* <Route path='/login' element={<Login />} /> */}
         <Route path='/signup' element={<Signup />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/accountInfo' element={<AWSInfoPage />} />

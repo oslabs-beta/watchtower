@@ -17,16 +17,22 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine
+FROM node:16-alpine
 
-# Copy the build output to the nginx html directory
-COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html
+# Set the working directory
+WORKDIR /usr/src/app
 
-# Copy the custom Nginx configuration file
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy the build output from the build stage
+COPY --from=build-stage /usr/src/app/build /usr/src/app/build
+
+# Copy the rest of the application code
+COPY . .
+
+# Install serve to serve the built application
+RUN npm install -g serve
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 5000
 
-# Start the Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+# Start the application
+CMD ["serve", "-s", "build", "-l", "5000"]

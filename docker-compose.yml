@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   client:
@@ -10,7 +10,7 @@ services:
     environment:
       NODE_ENV: production
     ports:
-      - 3000:80
+      - '3000:5000'
 
   server:
     build:
@@ -19,4 +19,4 @@ services:
     environment:
       NODE_ENV: production
     ports:
-      - 8000:5000
+      - '8000:5000'

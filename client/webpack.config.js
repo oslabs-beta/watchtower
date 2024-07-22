@@ -1,69 +1,73 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-  entry: './src/index.tsx',
-  mode: 'development',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build'),
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: [/node_modules/, /\.d\.ts$/],
-        use: ['ts-loader'],
-      },
-      {
-        test: /\.jsx?/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
+module.exports = (env, argv) => {
+  const isProduction = argv.mode === 'production';
+
+  return {
+    entry: './src/index.tsx',
+    mode: isProduction ? 'production' : 'development',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'build'),
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(ts|tsx)$/,
+          exclude: [/node_modules/, /\.d\.ts$/],
+          use: ['ts-loader'],
         },
-      },
-      {
-        test: /\.s?css/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.(png|jp(e*)g|svg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
+        {
+          test: /\.jsx?/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
             options: {
-              name: '[name].[ext]',
-              outputPath: 'images/',
+              presets: ['@babel/preset-env', '@babel/preset-react'],
             },
           },
-        ],
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-    }),
-  ],
-  devServer: {
-    historyApiFallback: true,
-    static: {
-      directory: path.resolve(__dirname, 'build'),
-      publicPath: '/',
+        },
+        {
+          test: /\.s?css/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+        {
+          test: /\.(png|jp(e*)g|svg|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: 'images/',
+              },
+            },
+          ],
+        },
+      ],
     },
-    port: 3000,
-    proxy: [
-      {
-        context: ['/api'],
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-      },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    },
+    plugins: [
+      new HtmlWebPackPlugin({
+        template: './src/index.html',
+      }),
     ],
-  },
+    devServer: {
+      historyApiFallback: true,
+      static: {
+        directory: path.resolve(__dirname, 'build'),
+        publicPath: '/',
+      },
+      port: 3000,
+      proxy: [
+        {
+          context: ['/api'],
+          target: 'http://localhost:8000',
+          changeOrigin: true,
+        },
+      ],
+    },
+  };
 };
