@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-const BedrockAnalysis = () => {
-  return (
-    <div>
-      <p>Based on predictive AI... your provisonal levels are adequate!</p>
-    </div>
-=======
 import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import Title from './Title';
@@ -171,8 +162,5 @@ export default function BedrockAnalysis({
         </Button>
       </Box>
     </React.Fragment>
->>>>>>> 7a883519c8bd13b17368e7d56ed827d6e1314cb0
   );
 }
-
-export default BedrockAnalysis;
