@@ -17,7 +17,7 @@ import {
   // ProvisionFormData,
    StatusBoxProps ,
   } from '../../types/types';
-import '../styles/StatusBox.scss';
+// import '../styles/StatusBox.scss';
 
 const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
   const [startDate, setStartDate] = useState<Date | null>(null);

@@ -81,7 +81,7 @@ const Layout = ({ children }): JSX.Element => {
   //   palette: {
   //     mode: darkMode ? 'dark' : 'light',
   //     primary: {
-  //       main: '#1c3454',
+  //       main: '#a6d8d9',
   //       contrastText: '#fff',
   //     },
   //   },

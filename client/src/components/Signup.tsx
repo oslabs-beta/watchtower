@@ -41,12 +41,12 @@ export default function Signup(): JSX.Element {
     });
 
     // Navigate to the root page
-    navigate('/login');
+    navigate('/');
   };
 
   const handleSignInClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    navigate('/login');
+    navigate('/');
   };
 
   return (

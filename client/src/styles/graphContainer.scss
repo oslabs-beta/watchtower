@@ -1,4 +1,4 @@
-@import './__global';
+// @import './__global';
 
 /* graphContainer.scss */
 .graphContainer {
@@ -24,7 +24,7 @@
   flex: 1;
   margin: 10px;
   min-width: 0;
-  background-color: $background-default;
+  background-color: #f5f5f5; // $background-default;
   display: flex;
   flex-direction: column;
   justify-content: center;
