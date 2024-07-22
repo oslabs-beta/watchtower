@@ -1,11 +1,12 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node server.ts",
-    "start-test": "ts-node-dev --respawn server.ts"
+    "start": "node dist/server.js",
+    "start-test": "ts-node-dev --respawn server.ts",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
