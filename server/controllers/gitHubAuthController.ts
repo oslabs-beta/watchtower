@@ -14,7 +14,7 @@ const gitHubAuthController: gitHubAuth = {
     console.log('in the gitHubAuthController.getAccessToken');
     console.log(req.query.code);
     const params: string = `?client_id=${gitHubClientID}&client_secret=${clientSecret}&code=${req.query.code}`;
-
+    console.log('params', params);
     await fetch(`https://github.com/login/oauth/access_token${params}`, {
       method: 'POST',
       headers: {
@@ -24,7 +24,7 @@ const gitHubAuthController: gitHubAuth = {
       .then((response) => response.json())
       .then((data) => {
         console.log('gitHub Access Token', data);
-        res.locals.accessToken = data;
+        res.locals.accessToken = data.access_token;
         next();
       })
       .catch((err) => {

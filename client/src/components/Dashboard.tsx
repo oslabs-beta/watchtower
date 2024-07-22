@@ -10,6 +10,7 @@ import DataStats from './DataStats';
 import GraphContainer from './GraphContainer';
 import BedrockAnalysis from './BedrockAnalysis';
 import { ProvisionFormData } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
@@ -17,7 +18,9 @@ export default function Dashboard() {
   const [currentProvision, setCurrentProvision] =
     useState<ProvisionFormData | null>(null);
   const [currentMetrics, setCurrentMetrics] = useState<any>(null);
+  const [rerender, setRerender] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   //when the page first loads, grab the code given from  GitHub Oauth and use it get GitHub access token
   useEffect(() => {
     const getAccessToken = async () => {
@@ -27,16 +30,22 @@ export default function Dashboard() {
       console.log('queryString', queryString);
       console.log('urlParams', urlParams);
       console.log('codeParam', codeParam);
-      console.log(codeParam && localStorage.getItem('token'));
-      if (codeParam && localStorage.getItem('token') === null) {
-        await fetch(`/api/gitHub`, {
+      console.log(
+        'localStorage accessToken',
+        localStorage.getItem('accessToken')
+      );
+      if (codeParam && localStorage.getItem('accessToken') === null) {
+        await fetch(`/api/gitHub?code=${codeParam}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         })
           .then((response) => response.json())
-          .then((data) => localStorage.setItem('token', data))
+          .then((data) => {
+            localStorage.setItem('accessToken', data);
+            setRerender(!rerender);
+          })
           .catch((err) =>
             console.log(`error getting GitHub Access token from server:${err}`)
           );
@@ -120,59 +129,72 @@ export default function Dashboard() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <Layout>
-        <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: 500,
-                }}
-              >
-                {currentProvision ? (
-                  <DataStats
-                    provisionData={currentProvision}
+      {!localStorage.getItem('accessToken') ? (
+        <div>
+          <h3>Login with GitHub Failed. Please try again.</h3>
+          <button
+            onClick={() => {
+              navigate('/login');
+            }}
+          >
+            Login
+          </button>
+        </div>
+      ) : (
+        <Layout>
+          <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={4}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 500,
+                  }}
+                >
+                  {currentProvision ? (
+                    <DataStats
+                      provisionData={currentProvision}
+                      currentMetrics={currentMetrics}
+                    /> // Render DataStats when currentProvision is set
+                  ) : (
+                    <StatusBox onSubmit={handleFormSubmit} /> // Render StatusBox when currentProvision is null
+                  )}
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 500,
+                  }}
+                >
+                  <GraphContainer
+                    currentProvision={currentProvision}
                     currentMetrics={currentMetrics}
-                  /> // Render DataStats when currentProvision is set
-                ) : (
-                  <StatusBox onSubmit={handleFormSubmit} /> // Render StatusBox when currentProvision is null
-                )}
-              </Paper>
+                  />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  <BedrockAnalysis
+                    currentProvision={currentProvision}
+                    currentMetrics={currentMetrics}
+                    fetchAnalysis={fetchAnalysis}
+                  />
+                </Paper>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={8}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: 500,
-                }}
-              >
-                <GraphContainer
-                  currentProvision={currentProvision}
-                  currentMetrics={currentMetrics}
-                />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <BedrockAnalysis
-                  currentProvision={currentProvision}
-                  currentMetrics={currentMetrics}
-                  fetchAnalysis={fetchAnalysis}
-                />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </Layout>
+          </Container>
+        </Layout>
+      )}
     </ThemeProvider>
   );
 }
