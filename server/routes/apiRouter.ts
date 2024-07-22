@@ -3,6 +3,8 @@ import { tablesController } from '../controllers/tablesController.ts';
 import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
 import { bedrockController } from '../controllers/bedrockController.ts';
+import { saveAnalysisController } from '../controllers/saveAnalysisController.ts';
+
 // import { authController } from '../controllers/authController';
 
 const router = express.Router();
@@ -33,6 +35,7 @@ router.post(
 router.get(
   '/tables',
   tablesController.getTables,
+  saveAnalysisController.createUserProfilesTable,
   (req: Request, res: Response): Response => {
     return res.status(200).json(res.locals.tables);
   }
