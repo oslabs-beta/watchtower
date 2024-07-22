@@ -9,7 +9,6 @@ const app = express();
 
 const PORT = 8000;
 
-//In order to use res.flush: https://www.npmjs.com/package/compression/v/1.0.10
 app.use(compression());
 app.use(cors());
 app.use(express.json());

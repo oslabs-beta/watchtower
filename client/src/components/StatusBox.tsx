@@ -13,19 +13,22 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
-import { ProvisionFormData, StatusBoxProps } from '../../types/types';
-import '../styles/StatusBox.scss';
+import { 
+  // ProvisionFormData,
+   StatusBoxProps ,
+  } from '../../types/types';
+// import '../styles/StatusBox.scss';
 
-const StatusBox = ({ onSubmit }: StatusBoxProps) => {
+const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [table, setTable] = useState<string[]>([]);
-  const [tableName, setTableName] = useState('');
+  const [tableName, setTableName] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    const startTime = startDate ? startDate.toISOString() : null;
-    const endTime = endDate ? endDate.toISOString() : null;
+    const startTime: string | null = startDate ? startDate.toISOString() : null;
+    const endTime: string | null = endDate ? endDate.toISOString() : null;
 
     onSubmit({
       tableName,
@@ -35,13 +38,13 @@ const StatusBox = ({ onSubmit }: StatusBoxProps) => {
   };
 
   useEffect(() => {
-    const getTables = async () => {
+    const getTables = async (): Promise<void> => {
       const response = await fetch(`/api/tables`);
       const result = await response.json();
       setTable(result);
     };
 
-    getTables().catch((err) => console.log("Couldn't get tables' name", err));
+    getTables().catch((err) => console.error("Couldn't get tables' name", err));
   }, []);
 
   return (

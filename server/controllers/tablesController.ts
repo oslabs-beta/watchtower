@@ -11,7 +11,7 @@ interface TablesController {
 }
 
 export const tablesController: TablesController = {
-  //get all the tables' name from users' AWS DynamoDB
+  //get all the tables' name from AWS DynamoDB
   getTables: async (
     req: Request,
     res: Response,

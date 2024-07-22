@@ -19,14 +19,21 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import watchtower from '../assets/watchtower.png';
 import Copyright from './Copyright';
 
-const defaultTheme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#a6d8d9',
+      contrastText: '#fff',
+    },
+  },
+});
 
-export default function Login() {
+export default function Login(): JSX.Element {
   const navigate = useNavigate();
-
+  //have to fix login functionality
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const data: FormData = new FormData(event.currentTarget);
     const loginData = {
       email: data.get('email'),
       password: data.get('password'),
@@ -61,7 +68,7 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Grid container component='main' sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
