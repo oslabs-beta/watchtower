@@ -19,48 +19,35 @@ import GraphContainer from './GraphContainer';
 import BedrockAnalysis from './BedrockAnalysis';
 import { ProvisionFormData, Metrics } from '../../types/types';
 import { useNavigate } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
-export default function Dashboard(): JSX.Element {
+export default function Dashboard(): JSX.Element | null {
   const [currentProvision, setCurrentProvision] =
     useState<ProvisionFormData | null>(null);
   const [currentMetrics, setCurrentMetrics] = useState<Metrics | null>(null);
-  const [rerender, setRerender] = useState<boolean>(false);
+  // const [rerender, setRerender] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  //when the page first loads, grab the code given from  GitHub Oauth and use it get GitHub access token
-  useEffect(() => {
-    const getAccessToken = async () => {
-      const queryString: string = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const codeParam = urlParams.get('code');
-      console.log('queryString', queryString);
-      console.log('urlParams', urlParams);
-      console.log('codeParam', codeParam);
-      console.log(
-        'localStorage accessToken',
-        localStorage.getItem('accessToken')
-      );
-      if (codeParam && localStorage.getItem('accessToken') === null) {
-        await fetch(`/api/gitHub?code=${codeParam}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((response) => response.json())
-          .then((accessToken) => {
-            localStorage.setItem('accessToken', accessToken);
-            setRerender(!rerender);
-          })
-          .catch((err) =>
-            console.log(`error getting GitHub Access token from server:${err}`)
-          );
-      }
-    };
-    getAccessToken();
-  }, []);
+
+  const queryString: string = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const codeParam = urlParams.get('code');
+  console.log(codeParam);
+
+  // if (!codeParam) {
+  //   console.log('code param not available');
+
+  //   navigate('/');
+  //   // return null;
+  // }
+
+  if (!codeParam) {
+    console.log('redirect?');
+    window.location.assign('http://localhost:3000/');
+    return null;
+  }
 
   const handleFormSubmit = async (data: ProvisionFormData): Promise<void> => {
     try {
@@ -70,6 +57,35 @@ export default function Dashboard(): JSX.Element {
       console.error('Error:', error);
     }
   };
+
+  //when the page first loads, grab the code given from  GitHub Oauth and use it get GitHub access token
+
+  useEffect(() => {
+    const getAccessToken = async () => {
+      console.log(
+        'localStorage accessToken',
+        localStorage.getItem('accessToken')
+      );
+
+      if (localStorage.getItem('accessToken') === null) {
+        await fetch(`/api/gitHub?code=${codeParam}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => response.json())
+          .then((accessToken) => {
+            localStorage.setItem('accessToken', accessToken);
+            // setRerender(!rerender);
+          })
+          .catch((err) =>
+            console.log(`error getting GitHub Access token from server:${err}`)
+          );
+      }
+    };
+    getAccessToken();
+  }, []);
 
   useEffect((): void => {
     const fetchMetrics = async (): Promise<void> => {
@@ -109,71 +125,79 @@ export default function Dashboard(): JSX.Element {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      {!localStorage.getItem('accessToken') ? (
-        <div>
-          <h3>Login with GitHub Failed. Please try again.</h3>
-          <button
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            Login
-          </button>
-        </div>
-      ) : (
-        <Layout>
-          <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={4}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: 500,
-                  }}
-                >
-                  {currentProvision ? (
-                    <DataStats
-                      provisionData={currentProvision}
-                      currentMetrics={currentMetrics}
-                    /> // Render DataStats when currentProvision is set
-                  ) : (
-                    <StatusBox onSubmit={handleFormSubmit} /> // Render StatusBox when currentProvision is null
-                  )}
-                </Paper>
-              </Grid>
-              <Grid item xs={12} md={8}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    height: 500,
-                  }}
-                >
-                  <GraphContainer
-                    currentProvision={currentProvision}
+      {/* {!codeParam ? (
+        // <div>
+        //   <h3>Login with GitHub Failed. Please try again.</h3>
+        //   <button
+        //     onClick={() => {
+        //       navigate('/');
+        //     }}
+        //   >
+        //     Login
+        //   </button>
+        // </div>
+        <button
+          onLoad={() => {
+            console.log('onLoad');
+            navigate('/');
+          }}
+        >
+          Can you see me?
+        </button>
+      ) : ( */}
+      <Layout>
+        <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={4}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: 500,
+                }}
+              >
+                {currentProvision ? (
+                  <DataStats
+                    provisionData={currentProvision}
                     currentMetrics={currentMetrics}
-                  />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <BedrockAnalysis
-                    currentProvision={currentProvision}
-                    currentMetrics={currentMetrics}
-                  />
-                </Paper>
-              </Grid>
+                  /> // Render DataStats when currentProvision is set
+                ) : (
+                  <StatusBox onSubmit={handleFormSubmit} /> // Render StatusBox when currentProvision is null
+                )}
+              </Paper>
             </Grid>
-          </Container>
-        </Layout>
-      )}
+            <Grid item xs={12} md={8}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: 500,
+                }}
+              >
+                <GraphContainer
+                  currentProvision={currentProvision}
+                  currentMetrics={currentMetrics}
+                />
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <BedrockAnalysis
+                  currentProvision={currentProvision}
+                  currentMetrics={currentMetrics}
+                />
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </Layout>
+      {/* )} */}
     </ThemeProvider>
   );
 }

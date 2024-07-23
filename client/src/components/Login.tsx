@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -20,21 +21,14 @@ import watchtower from '../assets/watchtower.png';
 import Copyright from './Copyright';
 import GitHubButton from './GitHubLoginButton';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#a6d8d9',
-      contrastText: '#fff',
-    },
-  },
-});
+const defaultTheme = createTheme();
 
-export default function Login(): JSX.Element {
+export default function Login() {
   const navigate = useNavigate();
-  //have to fix login functionality
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data: FormData = new FormData(event.currentTarget);
+    const data = new FormData(event.currentTarget);
     const loginData = {
       email: data.get('email'),
       password: data.get('password'),
@@ -65,11 +59,11 @@ export default function Login(): JSX.Element {
 
   const handleSignUpClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    navigate('/signup');
+    navigate('/accountInfo');
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={defaultTheme}>
       <Grid container component='main' sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
