@@ -55,7 +55,7 @@ const AWSInfoPage = (): JSX.Element => {
 
         Swal.fire({
           title: 'Are you sure?',
-          text: 'AWS Account Info Submitted! We will create a talbe called "WatchTowerUserProfiles" to save the reports.',
+          text: 'AWS Account Info Submitted! We will create a table "WatchTowerUserProfiles" to save reports.',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#70c0c2',

@@ -27,6 +27,8 @@ export default function BedrockAnalysis({
       return;
     }
 
+    // if()
+
     const metrics: string = JSON.stringify(currentMetrics);
     // Replace with actual prompt or state value
     const prompt: string =
