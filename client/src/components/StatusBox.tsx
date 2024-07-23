@@ -13,10 +13,10 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
-import { 
+import {
   // ProvisionFormData,
-   StatusBoxProps ,
-  } from '../../types/types';
+  StatusBoxProps,
+} from '../../types/types';
 // import '../styles/StatusBox.scss';
 
 const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
@@ -46,7 +46,7 @@ const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
 
     getTables().catch((err) => console.error("Couldn't get tables' name", err));
   }, []);
-
+  
   return (
     <Container maxWidth='sm' style={{ overflow: 'visible' }}>
       <Box sx={{ mt: 4, mb: 4, overflow: 'visible' }}>
@@ -66,11 +66,12 @@ const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
               <MenuItem value='' disabled>
                 Select a Table
               </MenuItem>
-              {table.map((name, index) => (
-                <MenuItem key={index} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
+              {table &&
+                table.map((name, index) => (
+                  <MenuItem key={index} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
 

@@ -5,7 +5,7 @@ import AWSInfoPage from './AWSInfoPage';
 import Login from './Login';
 import Signup from './Signup';
 import Reports from './Reports';
-import Integrations from './Integrations';
+// import Integrations from './Integrations';
 // import Layout from './Layout';
 // import LandingPage from './landingPage/LandingPage';
 
@@ -19,7 +19,7 @@ const App = (): JSX.Element => {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/accountInfo' element={<AWSInfoPage />} />
         <Route path='/reports' element={<Reports />} />
-        <Route path='/integrations' element={<Integrations />} />
+        {/* <Route path='/integrations' element={<Integrations />} /> */}
         <Route path='/reports/today' element={<Reports timeFrame='today' />} />
         <Route
           path='/reports/this-week'

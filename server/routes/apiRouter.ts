@@ -4,7 +4,6 @@ import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
 import { bedrockController } from '../controllers/bedrockController.ts';
 import { saveAnalysisController } from '../controllers/saveAnalysisController.ts';
-
 // import { authController } from '../controllers/authController';
 
 const router = express.Router();
@@ -35,14 +34,43 @@ router.post(
 router.get(
   '/tables',
   tablesController.getTables,
-  saveAnalysisController.createUserProfilesTable,
+  // saveAnalysisController.createUserProfilesTable,
   (req: Request, res: Response): Response => {
     return res.status(200).json(res.locals.tables);
   }
 );
 
-router.post('/bedrock', bedrockController.getAnalysis,  (req: Request, res: Response): void => {
-  res.end()
-});
+router.get(
+  '/createTable',
+  tablesController.getTables,
+  saveAnalysisController.createUserProfilesTable,
+  (req: Request, res: Response): Response => {
+    return res.status(200).json(res.locals.tableName);
+  }
+);
+
+router.post(
+  '/bedrock',
+  bedrockController.getAnalysis,
+  (req: Request, res: Response): void => {
+    res.end();
+  }
+);
+
+router.post(
+  '/pastAnalysis',
+  saveAnalysisController.saveAnalysisToDB,
+  (req: Request, res: Response): Response => {
+    return res.status(200).json(res.locals.message);
+  }
+);
+
+router.get(
+  '/pastAnalysis',
+  saveAnalysisController.getPastAnalysis,
+  (req: Request, res: Response): Response => {
+    return res.status(200).json(res.locals.pastAnalysis);
+  }
+);
 
 export default router;

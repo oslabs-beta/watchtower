@@ -1,19 +1,17 @@
 import {
-  // PutItemCommand,
-  // PutItemCommandInput,
+  PutItemCommand,
+  PutItemCommandInput,
   CreateTableCommand,
   CreateTableCommandInput,
-  // DescribeTableCommand,
-  // DescribeTableCommandInput,
-  // ResourceNotFoundException,
-  // QueryCommandInput,
-  // QueryCommand
+  ScanCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { cloudWatchClient, dynamoDBClient } from '../configs/aws.config.ts';
 
 interface SaveAnalysisController {
   createUserProfilesTable: RequestHandler;
+  saveAnalysisToDB: RequestHandler;
+  getPastAnalysis: RequestHandler;
 }
 // const saveAnalysisToDB = async (
 //   userID: string,
@@ -44,7 +42,8 @@ export const saveAnalysisController: SaveAnalysisController = {
     const analysisTable = 'WatchTowerUserProfiles';
     //check tablename is in the tables array
     if (tables.includes(analysisTable)) {
-      res.locals.tables = tables;
+      // res.locals.tables = tables;
+      res.locals.tableName = analysisTable
       return next();
     }
 
@@ -55,8 +54,8 @@ export const saveAnalysisController: SaveAnalysisController = {
           // AttributeDefinitions // required
           {
             // AttributeDefinition
-            AttributeName: 'analysisID', // required
-            AttributeType: 'N', // required
+            AttributeName: 'createdAt', // required
+            AttributeType: 'S', // required
           },
         ],
         TableName: analysisTable, // required
@@ -64,7 +63,7 @@ export const saveAnalysisController: SaveAnalysisController = {
           // KeySchema // required
           {
             // AttributeDefinition
-            AttributeName: 'analysisID', // required
+            AttributeName: 'createdAt', // required
             KeyType: 'HASH', // required
           },
         ],
@@ -76,33 +75,9 @@ export const saveAnalysisController: SaveAnalysisController = {
       };
       const command = new CreateTableCommand(input);
       const response = await dynamoDBClient.send(command);
-      tables.push(response.TableDescription.TableName);
-      res.locals.tables = tables;
+      res.locals.tableName = response.TableDescription.TableName;
       return next();
     } catch (error) {
-      // if (error instanceof ResourceNotFoundException) {
-      //  // Table does not exist, create it
-      //   const createTableInput: CreateTableCommandInput = {
-      //     TableName: tableName,
-      //     KeySchema: [
-      //       { AttributeName: 'UserID', KeyType: 'HASH' }, // Partition key
-      //       { AttributeName: 'AnalysisID', KeyType: 'RANGE' }, // Sort key
-      //     ],
-      //     AttributeDefinitions: [
-      //       { AttributeName: 'UserID', AttributeType: 'S' },
-      //       { AttributeName: 'AnalysisID', AttributeType: 'S' },
-      //     ],
-      //     ProvisionedThroughput: {
-      //       ReadCapacityUnits: 4,
-      //       WriteCapacityUnits: 4,
-      //     },
-      //   };
-
-      //   await dynamoDBClient.send(new CreateTableCommand(createTableInput));
-      //   console.log('Table created successfully');
-      // } else {
-      //   throw error;
-      // }
       return next({
         log: `Error in saveAnalysisController.createUserProfilesTable middleware function: ${error}`,
         status: 500,
@@ -113,45 +88,57 @@ export const saveAnalysisController: SaveAnalysisController = {
     }
   },
 
-  //   export const saveAnalysisToDB = async (req: Request, res: Response, next: NextFunction) => {
-  //     const { userID, analysisID, metrics } = req.body;
-  //     const saveAnalysisInput: PutItemCommandInput = {
-  //       TableName: 'UserProfiles',
-  //       Item: {
-  //         UserID: { S: userID },
-  //         AnalysisID: { S: analysisID },
-  //         Metrics: { S: JSON.stringify(metrics) },
-  //         CreatedAt: { S: new Date().toISOString() },
-  //       },
-  //     };
+  saveAnalysisToDB: async (req: Request, res: Response, next: NextFunction) => {
+    const { provision, metrics, bedrockAnalysis } = req.body;
 
-  //     await dynamoDBClient.send(new PutItemCommand(saveAnalysisInput));
-  // };
+    try {
+      const saveAnalysisInput: PutItemCommandInput = {
+        TableName: 'WatchTowerUserProfiles',
+        Item: {
+          createdAt: { S: new Date().toISOString() },
+          provision: { S: JSON.stringify(provision) },
+          metrics: { S: JSON.stringify(metrics) },
+          bedrockAnalysis: { S: bedrockAnalysis },
+        },
+      };
+      const command = new PutItemCommand(saveAnalysisInput);
+      const response = await dynamoDBClient.send(command);
 
-  //   getPastAnalyses: async (req: Request, res: Response, next: NextFunction) => {
-  //     const userID = req.user.id;
+      res.locals.message = 'success';
 
-  //     const queryInput: QueryCommandInput = {
-  //       TableName: 'UserProfiles',
-  //       KeyConditionExpression: 'UserID = :userID',
-  //       ExpressionAttributeValues: {
-  //         ':userID': { S: userID },
-  //       },
-  //     };
-  //     try {
-  //       const queryCommand = new QueryCommand(queryInput);
-  //       const queryResponse = await dynamoDBClient.send(queryCommand);
-  //       res.locals.pastAnalyses = queryResponse.Items;
+      return next();
+    } catch (error) {
+      return next({
+        log: `Error in saveAnalysisController.saveAnalysisToD middleware function: ${error}`,
+        status: 500,
+        message: {
+          err: 'Error saving analysis to table name WatchTowerUserProfiles for report.',
+        },
+      });
+    }
+  },
 
-  //       return next();
-  //     } catch (err) {
-  //       return next({
-  //         log: `Error in metricController.getPastAnalyses middleware function: ${err}`,
-  //         status: 500,
-  //         message: {
-  //           err: 'Error fetching past analyses from the database. Check server log for more details',
-  //         },
-  //       });
-  //     }
-  //   },
+  getPastAnalysis: async (req: Request, res: Response, next: NextFunction) => {
+    const input = {
+      // ScanInput
+      TableName: 'WatchTowerUserProfiles', // required
+    };
+
+    try {
+      const command = new ScanCommand(input);
+      const response = await dynamoDBClient.send(command);
+
+      res.locals.pastAnalysis = response.Items;
+
+      return next();
+    } catch (err) {
+      return next({
+        log: `Error in metricController.getPastAnalyses middleware function: ${err}`,
+        status: 500,
+        message: {
+          err: 'Error fetching past analyses from the database. Check server log for more details',
+        },
+      });
+    }
+  },
 };
