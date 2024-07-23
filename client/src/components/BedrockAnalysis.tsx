@@ -8,11 +8,10 @@ export default function BedrockAnalysis({
   currentProvision,
   currentMetrics,
 }: BedrockAnalysisProps): JSX.Element {
-
   const [stream, setStream] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [save, setSave] = useState<boolean>(false);
+  const [save, setSave] = useState<boolean>(true);
 
   const theme = useTheme();
 
@@ -20,21 +19,24 @@ export default function BedrockAnalysis({
     setLoading(true);
     setError(null);
     setStream('');
-    
-    if(!currentMetrics) {
-      setError('Failed to fetch analysis data.')
-      setLoading(false)
-      return
+
+    if (!currentMetrics) {
+      setError('Failed to fetch analysis data.');
+      setLoading(false);
+      setSave(false);
+      return;
     }
 
-    const metrics: string = JSON.stringify(currentMetrics)
-    // Replace with actual prompt or state value
-    const prompt: string = metrics + 
-    'based on the data, analysis provision and consumed capacity for AWS dynamoDb and give advice for keeping current provision or switching to ondemand in compact and short way'; 
-    // let isFirstChunk = true
-  
-    try {
+    // if()
 
+    const metrics: string = JSON.stringify(currentMetrics);
+    // Replace with actual prompt or state value
+    const prompt: string =
+      metrics +
+      'based on the data, analysis provision and consumed capacity for AWS dynamoDb and give advice for keeping current provision or switching to ondemand in compact and short way';
+    // let isFirstChunk = true
+
+    try {
       const response: Response = await fetch('/api/bedrock', {
         method: 'POST',
         headers: {
@@ -47,7 +49,8 @@ export default function BedrockAnalysis({
       // Check if response body is null
       if (!response.body) throw new Error('Response body is null.');
       //https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams
-      const reader: ReadableStreamDefaultReader<Uint8Array>= response.body.getReader();
+      const reader: ReadableStreamDefaultReader<Uint8Array> =
+        response.body.getReader();
       let accumulatedData: string = '';
 
       while (true) {
@@ -65,10 +68,10 @@ export default function BedrockAnalysis({
         // Split accumulated data by new lines and update state for each line
         const words: string[] = accumulatedData.split('\n\n');
 
-        words.forEach(word => {
+        words.forEach((word) => {
           if (word.startsWith('data: ')) {
             const text: string = word.substring(6); // Remove 'data: ' prefix
-            setStream(prevData => prevData + text);
+            setStream((prevData) => prevData + text);
           }
         });
 
@@ -76,7 +79,7 @@ export default function BedrockAnalysis({
       }
 
       setLoading(false);
-      setSave(true)
+      // setSave(true);
     } catch (err) {
       console.error("Couldn't get analysis from bedrock: ", err);
     }
@@ -89,37 +92,42 @@ export default function BedrockAnalysis({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          provision: currentProvision, 
+        body: JSON.stringify({
+          provision: currentProvision,
           metrics: currentMetrics,
-          bedrockAnalysis: stream
-         }),
+          bedrockAnalysis: stream,
+        }),
       });
 
       if (!response.ok) {
         //if not success?
-        setError('Failed to save analysis')
+        setError('Failed to save analysis');
         throw new Error(`HTTP error status: ${response.status}`);
       }
-      //looking for success message?
-      const result = await response.json()
-      setSave(false)
 
+      const message: string = await response.json();
+      if (message === 'success') {
+        alert('Report saved successfully!');
+      }
+      setSave(false);
     } catch (error) {
       console.error('Error fetching metrics:', error);
     }
-  }
+  };
 
   return (
     <React.Fragment>
-      <Typography variant='h5' gutterBottom>AI Amazon Bedrock Analysis</Typography>
+      <Typography variant='h5' gutterBottom>
+        AI Amazon Bedrock Analysis
+      </Typography>
       <Box
         sx={{
           mt: 2,
-          backgroundColor: theme.palette.mode === 'dark' 
-            ? theme.palette.background.default 
-            : 'var(--background-default)', 
-          minHeight: '100px', 
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? theme.palette.background.default
+              : 'var(--background-default)',
+          minHeight: '100px',
           width: '100%',
           borderRadius: 1,
           p: 2,
@@ -130,11 +138,7 @@ export default function BedrockAnalysis({
             {error}
           </Typography>
         )}
-        {!error && stream && (
-          <Typography variant='body1'>
-            {stream}
-          </Typography>
-        )}
+        {!error && stream && <Typography variant='body1'>{stream}</Typography>}
         {!loading && !error && !stream && (
           <Typography variant='body1'>No analysis data available</Typography>
         )}

@@ -22,7 +22,7 @@ import Copyright from './Copyright';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#a6d8d9',
+      main: '#70c0c2',
       contrastText: '#fff',
     },
   },
