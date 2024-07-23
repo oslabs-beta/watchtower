@@ -10,7 +10,7 @@ const gitHubClientID: string = 'Ov23li0zDnhtAMGQIJfT';
 const gitHubAuthController: gitHubAuth = {
   getAccessToken: async (req: Request, res: Response, next: NextFunction) => {
     //secret should not be included here - temporary fix for testing.
-    const clientSecret = 'b14fbd2139f927b8fa7674be4e5d7dbfeac5b069';
+    const clientSecret: string = 'b14fbd2139f927b8fa7674be4e5d7dbfeac5b069';
     console.log('in the gitHubAuthController.getAccessToken');
     console.log(req.query.code);
     const params: string = `?client_id=${gitHubClientID}&client_secret=${clientSecret}&code=${req.query.code}`;

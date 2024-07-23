@@ -20,6 +20,7 @@ import BedrockAnalysis from './BedrockAnalysis';
 import { ProvisionFormData, Metrics } from '../../types/types';
 import { useNavigate } from 'react-router-dom';
 import { redirect } from 'react-router-dom';
+import { useAuth } from './authComponents/AuthProvider';
 
 const defaultTheme = createTheme();
 
@@ -29,12 +30,10 @@ export default function Dashboard(): JSX.Element | null {
   const [currentMetrics, setCurrentMetrics] = useState<Metrics | null>(null);
   // const [rerender, setRerender] = useState<boolean>(false);
 
-  const navigate = useNavigate();
+  const user = useAuth();
+  console.log('token', user.token);
 
-  const queryString: string = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const codeParam = urlParams.get('code');
-  console.log(codeParam);
+  const navigate = useNavigate();
 
   // if (!codeParam) {
   //   console.log('code param not available');
@@ -43,11 +42,11 @@ export default function Dashboard(): JSX.Element | null {
   //   // return null;
   // }
 
-  if (!codeParam) {
-    console.log('redirect?');
-    window.location.assign('http://localhost:3000/');
-    return null;
-  }
+  // if (!codeParam) {
+  //   console.log('redirect?');
+  //   window.location.assign('http://localhost:3000/');
+  //   return null;
+  // }
 
   const handleFormSubmit = async (data: ProvisionFormData): Promise<void> => {
     try {
@@ -58,34 +57,10 @@ export default function Dashboard(): JSX.Element | null {
     }
   };
 
-  //when the page first loads, grab the code given from  GitHub Oauth and use it get GitHub access token
+  //when the page first loads, grab the code given from  GitHub Oauth and pass to backend to get GitHub access token
 
-  useEffect(() => {
-    const getAccessToken = async () => {
-      console.log(
-        'localStorage accessToken',
-        localStorage.getItem('accessToken')
-      );
-
-      if (localStorage.getItem('accessToken') === null) {
-        await fetch(`/api/gitHub?code=${codeParam}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then((response) => response.json())
-          .then((accessToken) => {
-            localStorage.setItem('accessToken', accessToken);
-            // setRerender(!rerender);
-          })
-          .catch((err) =>
-            console.log(`error getting GitHub Access token from server:${err}`)
-          );
-      }
-    };
-    getAccessToken();
-  }, []);
+  // useEffect();
+  // }, []);
 
   useEffect((): void => {
     const fetchMetrics = async (): Promise<void> => {

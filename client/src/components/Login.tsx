@@ -20,11 +20,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import watchtower from '../assets/watchtower.png';
 import Copyright from './Copyright';
 import GitHubButton from './GitHubLoginButton';
+import { useAuth } from './authComponents/AuthProvider';
 
 const defaultTheme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
+  const user = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -61,6 +63,8 @@ export default function Login() {
     event.preventDefault();
     navigate('/accountInfo');
   };
+
+  if (!user.token) user.gitHubOAuth();
 
   return (
     <ThemeProvider theme={defaultTheme}>

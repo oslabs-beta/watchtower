@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { createTheme, ThemeProvider, CssBaseline, Box, Container, Divider, IconButton, List, Toolbar, Typography, Switch, FormControlLabel, PaletteMode } from '@mui/material';
+import {
+  createTheme,
+  ThemeProvider,
+  CssBaseline,
+  Box,
+  Button,
+  Container,
+  Divider,
+  IconButton,
+  List,
+  Toolbar,
+  Typography,
+  Switch,
+  FormControlLabel,
+  PaletteMode,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -18,6 +33,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
 import Copyright from './Copyright';
+import { useAuth } from './authComponents/AuthProvider';
 
 const Layout = ({ children }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(true);
@@ -77,6 +93,8 @@ const Layout = ({ children }): JSX.Element => {
 
   const theme = createTheme(getDesignTokens(darkMode ? 'dark' : 'light'));
 
+  const user = useAuth();
+
   // const theme = createTheme({
   //   palette: {
   //     mode: darkMode ? 'dark' : 'light',
@@ -91,7 +109,11 @@ const Layout = ({ children }): JSX.Element => {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position='absolute' open={open} sx={{ backgroundColor: theme.palette.primary.main }}>
+        <AppBar
+          position='absolute'
+          open={open}
+          sx={{ backgroundColor: theme.palette.primary.main }}
+        >
           <Toolbar sx={{ pr: '24px' }}>
             <IconButton
               edge='start'
@@ -121,6 +143,9 @@ const Layout = ({ children }): JSX.Element => {
               }
               label='Dark Mode'
             />
+            {/* <Button sx={{ mt: 3, mb: 2 }} onClick={user.logOut()}>
+              Logout
+            </Button> */}
             {/* <IconButton color='inherit'>
               <Badge badgeContent={4} color='secondary'>
                 <NotificationsIcon />
