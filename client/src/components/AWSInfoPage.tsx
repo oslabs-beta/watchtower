@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { AWSBody } from '../../types/types';
+import Swal from 'sweetalert2'
 
 const AWSInfoPage = (): JSX.Element => {
   let navigate: NavigateFunction = useNavigate();
@@ -51,12 +52,37 @@ const AWSInfoPage = (): JSX.Element => {
       console.log('respnse from back end:', response);
 
       if (message === 'success') {
-        alert('AWS Account Info Submitted!');
-        navigate('/dashboard');
+
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'AWS Account Info Submitted! We will create a table "WatchTowerUserProfiles" to save reports.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#70c0c2',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const response: Response = await fetch('/api/createTable')
+            const data: string = await response.json()
+            Swal.fire({
+              title: 'Table created!',
+              text: `Table ${data} is created successfully in your DynamoDB!`,
+              icon: 'success',
+              confirmButtonColor: '#70c0c2',
+            });
+          };
+          navigate('/dashboard');
+        });
       }
     } catch (err) {
-      console.error(err);
-      alert(err.message);
+      console.error(err)
+      Swal.fire({
+        title: 'Oops...',
+        text: err.message,
+        icon: 'error',
+        confirmButtonColor: '#70c0c2'
+      });
     }
   }
 

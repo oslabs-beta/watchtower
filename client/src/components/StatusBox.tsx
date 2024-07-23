@@ -13,16 +13,17 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from 'date-fns';
-import { 
+import {
   // ProvisionFormData,
-   StatusBoxProps ,
-  } from '../../types/types';
+  StatusBoxProps,
+} from '../../types/types';
 // import '../styles/StatusBox.scss';
+import Swal from 'sweetalert2'
 
 const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [table, setTable] = useState<string[]>([]);
+  const [table, setTable] = useState<string[] | null>(null);
   const [tableName, setTableName] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent): void => {
@@ -40,13 +41,28 @@ const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
   useEffect(() => {
     const getTables = async (): Promise<void> => {
       const response = await fetch(`/api/tables`);
+
+      if (!response.ok) {
+        console.log(response)
+        throw new Error(`HTTP error status:${response.status}, AWS security token is incorrect!`);
+      }
+
       const result = await response.json();
       setTable(result);
     };
 
-    getTables().catch((err) => console.error("Couldn't get tables' name", err));
+    getTables()
+    .catch((err) => {
+      console.error("Couldn't get tables' name", err)
+      Swal.fire({
+        title: 'Oops...',
+        text: err.message,
+        icon: 'error',
+        confirmButtonColor: '#70c0c2'
+      });
+    });
   }, []);
-
+  
   return (
     <Container maxWidth='sm' style={{ overflow: 'visible' }}>
       <Box sx={{ mt: 4, mb: 4, overflow: 'visible' }}>
@@ -66,11 +82,12 @@ const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
               <MenuItem value='' disabled>
                 Select a Table
               </MenuItem>
-              {table.map((name, index) => (
-                <MenuItem key={index} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
+              {table && table.length &&
+                table.map((name, index) => (
+                  <MenuItem key={index} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
 

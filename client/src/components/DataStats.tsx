@@ -12,7 +12,7 @@ const DataStats: React.FC<DataStatsProps> = ({
 }) => {
   // console.log('Current Metrics:', currentMetrics);
   const theme = useTheme();
-  
+
   const formatDate = (date: Date | string | null) => {
     return date ? new Date(date).toLocaleString() : 'N/A';
   };
@@ -44,9 +44,11 @@ const DataStats: React.FC<DataStatsProps> = ({
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        backgroundColor: theme.palette.mode === 'dark' 
-        ? theme.palette.background.default 
-        : 'var(--background-default)', 
+        backgroundColor:
+          theme.palette.mode === 'dark'
+            ? theme.palette.background.default
+            : 'var(--background-default)',
+        overflow: 'auto',
       }}
     >
       <Typography variant='h6' gutterBottom align='center'>
