@@ -15,7 +15,6 @@ import {
 import { AWSBody } from '../../types/types';
 
 const AWSInfoPage = (): JSX.Element => {
-
   let navigate: NavigateFunction = useNavigate();
   // State for form values
   const [awsAccountName, setAwsAccountName] = useState<string>('');
@@ -28,8 +27,8 @@ const AWSInfoPage = (): JSX.Element => {
     // Fetch request - Post method - to AWSConnect path providing AWS Account IAM details.
     try {
       //check input from feilds
-      if(!awsAccountName || !awsAccessKey || !awsSecretKey || !region) {
-        throw new Error('All field must be filled! Please try again')
+      if (!awsAccountName || !awsAccessKey || !awsSecretKey || !region) {
+        throw new Error('All field must be filled! Please try again');
       }
       // Create the body object
       const body: AWSBody = {
@@ -49,13 +48,14 @@ const AWSInfoPage = (): JSX.Element => {
       });
 
       const message: string = await response.json();
+      console.log('respnse from back end:', response);
 
       if (message === 'success') {
         alert('AWS Account Info Submitted!');
         navigate('/dashboard');
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
       alert(err.message);
     }
   }
@@ -77,7 +77,7 @@ const AWSInfoPage = (): JSX.Element => {
               id='AWSAccountName'
               variant='outlined'
               InputProps={{
-                autoComplete: 'username'
+                autoComplete: 'username',
               }}
             />
             <TextField
@@ -90,7 +90,7 @@ const AWSInfoPage = (): JSX.Element => {
               variant='outlined'
               type='password'
               InputProps={{
-                autoComplete: 'new-password'
+                autoComplete: 'new-password',
               }}
             />
             <TextField
@@ -103,7 +103,7 @@ const AWSInfoPage = (): JSX.Element => {
               variant='outlined'
               type='password'
               InputProps={{
-                autoComplete: 'new-password'
+                autoComplete: 'new-password',
               }}
             />
             <FormControl fullWidth margin='normal'>
