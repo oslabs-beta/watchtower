@@ -17,9 +17,9 @@ const App = (): JSX.Element => {
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
           {/* <Route path='/login' element={<Login />} /> */}
           <Route element={<PrivateRoute />}>
-            <Route path='/signup' element={<Signup />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/accountInfo' element={<AWSInfoPage />} />
             <Route path='/reports' element={<Reports />} />

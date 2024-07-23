@@ -5,8 +5,11 @@ import React from 'react';
 // Creating AuthContext Provider for use accross the app.
 type AuthType = {
   user: string;
+  setUser: any;
   token: string;
-  logOut(): void;
+  setToken: any;
+  login: any;
+  logout(): void;
   gitHubOAuth(): void;
 };
 
@@ -46,7 +49,28 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const logOut = () => {
+  const login = async (data) => {
+    fetch('api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        localStorage.setItem('token', user.accessToken);
+        setToken(user.accessToken);
+        setUser(user.firstName);
+        navigate('/dashboard');
+      })
+      .catch((err) => {
+        console.log(`error validating user: ${err}. Please sign in again`);
+        navigate('/');
+      });
+  };
+
+  const logout = () => {
     setUser('');
     setToken('');
     localStorage.removeItem('token');
@@ -55,8 +79,11 @@ const AuthProvider = ({ children }) => {
 
   const contextValue: AuthType | null = {
     user,
+    setUser,
     token,
-    logOut,
+    setToken,
+    login: login,
+    logout,
     gitHubOAuth,
   };
 

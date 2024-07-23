@@ -36,6 +36,9 @@ export default function Login() {
       password: data.get('password'),
     };
     console.log(loginData);
+    if (loginData.email && loginData.password) {
+      user.login(loginData);
+    }
 
     try {
       const response = await fetch('/api/login', {
