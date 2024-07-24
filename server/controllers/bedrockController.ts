@@ -19,11 +19,7 @@ export const bedrockController: BedrockController = {
   ): Promise<void> => {
     try {
       const { prompt }: { prompt: string } = req.body;
-      //Model list: https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html
-      //Model pricing: https://aws.amazon.com/bedrock/pricing/?refid=ft_card
-      //Model body format: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html
-      //Not all model has responsesteram, if the model you want use dont have responsestream, you can use invokemodelcommand
-      //Different model might have different input format, we are using Mistral 7B Instruct
+
       const input: InvokeModelWithResponseStreamCommandInput = {
         modelId: 'mistral.mistral-7b-instruct-v0:2',
         contentType: 'application/json',
@@ -37,18 +33,15 @@ export const bedrockController: BedrockController = {
       const responseStream: InvokeModelWithResponseStreamCommandOutput =
         await bedrockclient.send(command);
 
-      // Set headers for server-sent events (SSE)
-      res.setHeader('Content-Type', 'text/event-stream'); //informs the browser that the server will be sending Server-Sent Events (SSE) (require)
-      res.setHeader('Cache-Control', 'no-cache'); //prevents the browser from caching the response (looks like optional)
-      res.setHeader('Connection', 'keep-alive'); //keeps the connection between the client and the server open (looks like optional)
-      res.flushHeaders(); // Add this header to prevent the connection from timing out (require)
+      res.setHeader('Content-Type', 'text/event-stream'); //informs the browser that the server will be sending Server-Sent Events (SSE)
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.flushHeaders(); // prevent the connection from timing out
 
       for await (const event of responseStream.body) {
-        //Have to decode into readable text: https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-runtime_example_bedrock-runtime_InvokeModelWithResponseStream_MetaLlama2_section.html
         const chunk = JSON.parse(new TextDecoder().decode(event.chunk.bytes));
         if (chunk.outputs && chunk.outputs.length > 0) {
           chunk.outputs.forEach((output: Output) => {
-            //In SSE, each event should be prefixed with data: and suffixed with \n\n to denote the end of the event.
             res.write(`data: ${output.text}\n\n`);
             res.flush(); // Flush the data immediately
           });
