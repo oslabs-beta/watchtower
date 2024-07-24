@@ -60,12 +60,12 @@ Getting started with WatchTower is simple!
 10. Analyze Historical Data: Dive into historical metrics to identify trends and optimize performance by navigating over to the reports page.
 
 ## Upcoming Features
-Customizable alerts and notifications ⏳
-Analyze on-demand capacity ⏳
-Customizable dashboard ⏳
-Analyze auto-scaling capacity 🙏🏻
-Expanding report data to aggregate multiple instances of saved reports 🙏🏻
-Shared state between any component shortcode 🙏🏻
+- Customizable alerts and notifications ⏳
+- Analyze on-demand capacity ⏳
+- Customizable dashboard ⏳
+- Analyze auto-scaling capacity 🙏🏻
+- Expanding report data to aggregate multiple instances of saved reports 🙏🏻
+- Shared state between any component shortcode 🙏🏻
 
 ## Contributing
 If you would like to contribute to this project, please follow the below steps:
