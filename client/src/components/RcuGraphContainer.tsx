@@ -12,7 +12,6 @@ const RcuGraphContainer = ({
   provisionData,
   metrics,
 }: RcuGraphContainerProps): JSX.Element => {
-  // const { startTime, endTime } = provisionData || {};
   const data = (metrics?.ConsRCU || [])
     .map((item: any) => ({
       maximum: item.Maximum,
@@ -38,7 +37,7 @@ const RcuGraphContainer = ({
 
   const options: ChartOptions<'line'> = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     scales: {
       x: {
         title: {

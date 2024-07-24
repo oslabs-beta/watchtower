@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useEffect } from 'react';
+import React from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import {
   Avatar,
@@ -31,7 +30,7 @@ const theme = createTheme({
   },
 });
 
-export default function Login() {
+const Login = (): JSX.Element => {
   const navigate = useNavigate();
   const user = useAuth();
 
@@ -42,45 +41,18 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    console.log(loginData);
+
     if (loginData.email && loginData.password) {
       user.login(loginData);
     }
-
-    // try {
-    //   const response = await fetch('/api/login', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(loginData),
-    //   });
-
-    //   if (response.ok) {
-    //     const result = await response.json();
-    //     console.log('Login successful:', result);
-    //     navigate('/dashboard');
-    //   } else {
-    //     const error = await response.json();
-    //     console.error('Login failed:', error);
-    //   }
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
   };
 
   const handleSignUpClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     navigate('/signup');
   };
-  console.log('user token', user.token);
 
   user.gitHubOAuth();
-
-  // if (user.token){
-  //   user.setToken('');
-  //   localStorage.removeItem('token');
-  // }
 
   return (
     <ThemeProvider theme={theme}>
@@ -182,4 +154,6 @@ export default function Login() {
       )}
     </ThemeProvider>
   );
-}
+};
+
+export default Login;

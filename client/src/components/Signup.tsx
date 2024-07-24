@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -13,23 +13,9 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
-// import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
-// import CssBaseline from '@mui/material/CssBaseline';
-// import TextField from '@mui/material/TextField';
-// // import FormControlLabel from '@mui/material/FormControlLabel';
-// import Link from '@mui/material/Link';
-// import Grid from '@mui/material/Grid';
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import Container from '@mui/material/Container';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
-import { useAuth } from './authComponents/AuthProvider';
 
-// TODO remove, this demo shouldn't need to reset the theme.
-// change theme color
 const theme = createTheme({
   palette: {
     primary: {
@@ -39,21 +25,12 @@ const theme = createTheme({
   },
 });
 
-export default function Signup(): JSX.Element {
+const Signup = (): JSX.Element => {
   const navigate = useNavigate();
-  const user = useAuth();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    //have to fix signup functionality
-    console.log(formData);
-    console.log({
-      firstName: formData.get('firstName'),
-      lastName: formData.get('lastName'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-    });
 
     fetch('api/signup', {
       method: 'POST',
@@ -69,9 +46,6 @@ export default function Signup(): JSX.Element {
     })
       .then((response) => response.json())
       .then((newUser) => {
-        console.log(newUser);
-        // user.setUser(newUser.firstName);
-        // Navigate to the root page
         navigate('/');
       })
       .catch((err) => {
@@ -154,7 +128,6 @@ export default function Signup(): JSX.Element {
               <Grid item xs={12}></Grid>
             </Grid>
             <Button
-              // onClick={handleSignUp}
               type='submit'
               fullWidth
               variant='contained'
@@ -175,4 +148,6 @@ export default function Signup(): JSX.Element {
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default Signup;

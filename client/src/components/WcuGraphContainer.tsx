@@ -12,8 +12,6 @@ const WcuGraphContainer = ({
   provisionData,
   metrics,
 }: WcuGraphContainerProps): JSX.Element => {
-
-  // const { startTime, endTime }: { startTime: Date, endTime: Date } = provisionData || {};
   const data = (metrics?.ConsWCU || [])
     .map((item: any) => ({
       maximum: item.Maximum,

@@ -7,7 +7,6 @@ import apiRouter from './routes/apiRouter.ts';
 import { connectDB } from './configs/db.config';
 
 const app = express();
-
 const PORT = 8000;
 connectDB();
 
