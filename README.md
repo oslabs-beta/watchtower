@@ -71,10 +71,14 @@ Getting started with WatchTower is simple!
 If you would like to contribute to this project, please follow the below steps:
 
 1. Fork the GitHub repo.
-2. Create your feature branch: (git checkout -b feature-YourFeature)
-3. Commit your changes: (git commit -m "Add feature")
-4. Push to your feature branch: (git push origin feature-YourFeature)
-5. Open a pull request. Please follow the below template for your pull request.
+2. Create your feature branch:
+      ```sh
+      git checkout -b feature-YourFeature
+4. Commit your changes:
+      ```sh
+      git commit -m "Add feature"
+5. Push to your feature branch: (git push origin feature-YourFeature)
+6. Open a pull request. Please follow the below template for your pull request.
 - Pull Request Title
 - Description of Feature Branch
 - Why the change was needed
