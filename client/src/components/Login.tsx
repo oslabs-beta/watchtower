@@ -40,34 +40,34 @@ export default function Login() {
       user.login(loginData);
     }
 
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
+    // try {
+    //   const response = await fetch('/api/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(loginData),
+    //   });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Login successful:', result);
-        navigate('/dashboard');
-      } else {
-        const error = await response.json();
-        console.error('Login failed:', error);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    //   if (response.ok) {
+    //     const result = await response.json();
+    //     console.log('Login successful:', result);
+    //     navigate('/dashboard');
+    //   } else {
+    //     const error = await response.json();
+    //     console.error('Login failed:', error);
+    //   }
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
   };
 
   const handleSignUpClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    navigate('/accountInfo');
+    navigate('/signup');
   };
 
-  if (!user.token) user.gitHubOAuth();
+  user.gitHubOAuth();
 
   return (
     <ThemeProvider theme={defaultTheme}>

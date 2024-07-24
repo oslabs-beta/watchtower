@@ -14,6 +14,7 @@ import {
   Switch,
   FormControlLabel,
   PaletteMode,
+  colors,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -95,6 +96,10 @@ const Layout = ({ children }): JSX.Element => {
 
   const user = useAuth();
 
+  const handleLogout = () => {
+    user.logout();
+  };
+
   // const theme = createTheme({
   //   palette: {
   //     mode: darkMode ? 'dark' : 'light',
@@ -143,9 +148,12 @@ const Layout = ({ children }): JSX.Element => {
               }
               label='Dark Mode'
             />
-            {/* <Button sx={{ mt: 3, mb: 2 }} onClick={user.logOut()}>
+            <Button
+              sx={{ mt: 2, mb: 3, color: 'black' }}
+              onClick={handleLogout}
+            >
               Logout
-            </Button> */}
+            </Button>
             {/* <IconButton color='inherit'>
               <Badge badgeContent={4} color='secondary'>
                 <NotificationsIcon />

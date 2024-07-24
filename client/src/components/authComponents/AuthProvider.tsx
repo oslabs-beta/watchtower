@@ -17,7 +17,7 @@ const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState('');
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [token, setToken] = useState(localStorage.getItem('accessToken') || '');
   console.log('user', user, 'token', token);
   const navigate = useNavigate();
 
@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
       })
         .then((response) => response.json())
         .then((accessToken) => {
+          console.log('in gitHubOAuth');
           localStorage.setItem('accessToken', accessToken);
           setToken(accessToken);
           navigate('/dashboard');
@@ -59,7 +60,7 @@ const AuthProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((user) => {
-        localStorage.setItem('token', user.accessToken);
+        localStorage.setItem('accessToken', user.accessToken);
         setToken(user.accessToken);
         setUser(user.firstName);
         navigate('/dashboard');
@@ -73,7 +74,7 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser('');
     setToken('');
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     navigate('/');
   };
 
