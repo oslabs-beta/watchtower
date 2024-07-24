@@ -50,7 +50,7 @@ Getting started with WatchTower is simple!
    ```sh
    npm i
    npm start
-If localhost:3000 does not automatically open in your browser, open this link: http://localhost:3000/
+ - If localhost:3000 does not automatically open in your browser, open this link: http://localhost:3000/
 4. Sign Up: Create an account on our website, or login with GitHub.
 5. Connect Your DynamoDB: Use our easy-to-follow guide to connect your DynamoDB tables to WatchTower.
 6. Generate metric data: Input necessary information, such as the table you wish to analyze and the time period you wish to see database metrics.
