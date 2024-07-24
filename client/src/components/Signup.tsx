@@ -1,6 +1,18 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container, createTheme, ThemeProvider } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  createTheme,
+  ThemeProvider,
+} from '@mui/material';
 // import Avatar from '@mui/material/Avatar';
 // import Button from '@mui/material/Button';
 // import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +26,7 @@ import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Co
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
+import { useAuth } from './authComponents/AuthProvider';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 // change theme color
@@ -28,20 +41,42 @@ const theme = createTheme({
 
 export default function Signup(): JSX.Element {
   const navigate = useNavigate();
+  const user = useAuth();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
     //have to fix signup functionality
+    console.log(formData);
     console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      password: formData.get('password'),
     });
 
-    // Navigate to the root page
-    navigate('/');
+    fetch('api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+      }),
+    })
+      .then((response) => response.json())
+      .then((newUser) => {
+        console.log(newUser);
+        // user.setUser(newUser.firstName);
+        // Navigate to the root page
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(`Error creating user account${err}`);
+      });
   };
 
   const handleSignInClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -119,6 +154,7 @@ export default function Signup(): JSX.Element {
               <Grid item xs={12}></Grid>
             </Grid>
             <Button
+              // onClick={handleSignUp}
               type='submit'
               fullWidth
               variant='contained'

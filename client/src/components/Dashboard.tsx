@@ -130,6 +130,14 @@ import {
   Grid,
   Paper,
 } from '@mui/material';
+import {
+  createTheme,
+  ThemeProvider,
+  CssBaseline,
+  Container,
+  Grid,
+  Paper,
+} from '@mui/material';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import CssBaseline from '@mui/material/CssBaseline';
 // import Container from '@mui/material/Container';
@@ -141,13 +149,22 @@ import DataStats from './DataStats';
 import GraphContainer from './GraphContainer';
 import BedrockAnalysis from './BedrockAnalysis';
 import { ProvisionFormData, Metrics } from '../../types/types';
+import { useNavigate } from 'react-router-dom';
+import { redirect } from 'react-router-dom';
+import { useAuth } from './authComponents/AuthProvider';
 
 const defaultTheme = createTheme();
 
-export default function Dashboard(): JSX.Element {
+export default function Dashboard(): JSX.Element | null {
   const [currentProvision, setCurrentProvision] =
     useState<ProvisionFormData | null>(null);
   const [currentMetrics, setCurrentMetrics] = useState<Metrics | null>(null);
+  // const [rerender, setRerender] = useState<boolean>(false);
+
+  const user = useAuth();
+  console.log('token', user.token);
+
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (data: ProvisionFormData): Promise<void> => {
     try {
@@ -172,6 +189,7 @@ export default function Dashboard(): JSX.Element {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              Authorization: `${localStorage.getItem('accessToken')}`,
             },
             body: JSON.stringify({ tableName, startTime, endTime }),
           });

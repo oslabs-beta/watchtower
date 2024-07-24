@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -18,6 +19,8 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import watchtower from '../assets/watchtower.png';
 import Copyright from './Copyright';
+import GitHubButton from './GitHubLoginButton';
+import { useAuth } from './authComponents/AuthProvider';
 
 const theme = createTheme({
   palette: {
@@ -28,38 +31,42 @@ const theme = createTheme({
   },
 });
 
-export default function Login(): JSX.Element {
+export default function Login() {
   const navigate = useNavigate();
-  //have to fix login functionality
+  const user = useAuth();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data: FormData = new FormData(event.currentTarget);
+    const data = new FormData(event.currentTarget);
     const loginData = {
       email: data.get('email'),
       password: data.get('password'),
     };
     console.log(loginData);
-
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Login successful:', result);
-        navigate('/dashboard');
-      } else {
-        const error = await response.json();
-        console.error('Login failed:', error);
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (loginData.email && loginData.password) {
+      user.login(loginData);
     }
+
+    // try {
+    //   const response = await fetch('/api/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(loginData),
+    //   });
+
+    //   if (response.ok) {
+    //     const result = await response.json();
+    //     console.log('Login successful:', result);
+    //     navigate('/dashboard');
+    //   } else {
+    //     const error = await response.json();
+    //     console.error('Login failed:', error);
+    //   }
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
   };
 
   const handleSignUpClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -67,8 +74,10 @@ export default function Login(): JSX.Element {
     navigate('/signup');
   };
 
+  user.gitHubOAuth();
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={defaultTheme}>
       <Grid container component='main' sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -135,6 +144,7 @@ export default function Login(): JSX.Element {
               >
                 Sign In
               </Button>
+              {<GitHubButton />}
               <Grid container>
                 <Grid item xs>
                   <Link href='#' variant='body2'>

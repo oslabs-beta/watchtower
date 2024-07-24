@@ -4,6 +4,7 @@ import {
   ThemeProvider,
   CssBaseline,
   Box,
+  Button,
   Container,
   Divider,
   IconButton,
@@ -13,6 +14,7 @@ import {
   Switch,
   FormControlLabel,
   PaletteMode,
+  colors,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -32,6 +34,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
 import Copyright from './Copyright';
+import { useAuth } from './authComponents/AuthProvider';
 
 const Layout = ({ children }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(true);
@@ -91,6 +94,12 @@ const Layout = ({ children }): JSX.Element => {
 
   const theme = createTheme(getDesignTokens(darkMode ? 'dark' : 'light'));
 
+  const user = useAuth();
+
+  const handleLogout = () => {
+    user.logout();
+  };
+
   // const theme = createTheme({
   //   palette: {
   //     mode: darkMode ? 'dark' : 'light',
@@ -139,6 +148,12 @@ const Layout = ({ children }): JSX.Element => {
               }
               label='Dark Mode'
             />
+            <Button
+              sx={{ mt: 2, mb: 3, color: 'black' }}
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
             {/* <IconButton color='inherit'>
               <Badge badgeContent={4} color='secondary'>
                 <NotificationsIcon />
