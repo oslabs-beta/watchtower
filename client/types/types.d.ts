@@ -46,28 +46,28 @@ export interface TitleProps {
 }
 
 export interface LoginData {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export interface AWSBody {
-  AWSAccountName: string
-  AWSAccessKey: string
-  AWSSecretKey: string
-  Region: string
+  AWSAccountName: string;
+  AWSAccessKey: string;
+  AWSSecretKey: string;
+  Region: string;
 }
 
 export interface Metrics {
-  ConsRCU: Array
-  ConsWCU: Array
-  ProvRCU: number
-  ProvWCU: number
+  ConsRCU: Array;
+  ConsWCU: Array;
+  ProvRCU: number;
+  ProvWCU: number;
 }
 
 export interface PastAnalysis {
-  ConsRCU: Array
-  ConsWCU: Array
-  ProvRCU: number
-  ProvWCU: number
-  bedrockAnalysis: string
+  ConsRCU: Array;
+  ConsWCU: Array;
+  ProvRCU: number;
+  ProvWCU: number;
+  bedrockAnalysis: string;
 }

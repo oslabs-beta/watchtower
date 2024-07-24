@@ -25,7 +25,7 @@ export const connectController: ConnectController = {
       `REGION=${Region}`;
     try {
       fs.writeFileSync('./.env', writeENV);
-      res.locals.message = 'success'
+      res.locals.message = 'success';
       return next();
     } catch (err) {
       return next({

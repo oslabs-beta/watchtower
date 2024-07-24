@@ -7,14 +7,14 @@ interface gitHubAuth {
 
 const gitHubClientID: string = 'Ov23li0zDnhtAMGQIJfT';
 
-const gitHubAuthController: gitHubAuth = {
-  getAccessToken: async (req: Request, res: Response, next: NextFunction) => {
-    //secret should not be included here - temporary fix for testing.
+export const gitHubAuthController: gitHubAuth = {
+  getAccessToken: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     const clientSecret: string = 'b14fbd2139f927b8fa7674be4e5d7dbfeac5b069';
-    console.log('in the gitHubAuthController.getAccessToken');
-    console.log(req.query.code);
     const params: string = `?client_id=${gitHubClientID}&client_secret=${clientSecret}&code=${req.query.code}`;
-    console.log('params', params);
     await fetch(`https://github.com/login/oauth/access_token${params}`, {
       method: 'POST',
       headers: {
@@ -23,12 +23,11 @@ const gitHubAuthController: gitHubAuth = {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('gitHub Access Token', data);
         res.locals.accessToken = data.access_token;
-        next();
+        return next();
       })
       .catch((err) => {
-        next({
+        return next({
           log: `Error in gitHubAuthController.getAccessToken: ${err}`,
           status: 500,
           message: {
@@ -37,8 +36,12 @@ const gitHubAuthController: gitHubAuth = {
         });
       });
   },
-
-  getUserData: async (req: Request, res: Response, next: NextFunction) => {
+  
+  getUserData: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     await fetch(`https://api.github.com/user`, {
       method: 'GET',
       headers: {
@@ -48,11 +51,13 @@ const gitHubAuthController: gitHubAuth = {
     })
       .then((response) => response.json())
       .then((userData) => {
-        console.log('GitHub User Data', userData);
+
         res.locals.gitHubUserData = userData;
+
+        return next();
       })
       .catch((err) => {
-        next({
+        return next({
           log: `Error in gitHubAuthController.getUserData: ${err}`,
           status: 500,
           message: {
@@ -62,5 +67,3 @@ const gitHubAuthController: gitHubAuth = {
       });
   },
 };
-
-export default gitHubAuthController;

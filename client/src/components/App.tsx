@@ -5,11 +5,8 @@ import AWSInfoPage from './AWSInfoPage';
 import Login from './Login';
 import Signup from './Signup';
 import Reports from './Reports';
-// import Integrations from './Integrations';
 import AuthProvider from './authComponents/AuthProvider';
 import PrivateRoute from './authComponents/PrivateRoute';
-// import Layout from './Layout';
-// import LandingPage from './landingPage/LandingPage';
 
 const App = (): JSX.Element => {
   return (
@@ -18,12 +15,10 @@ const App = (): JSX.Element => {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
-          {/* <Route path='/login' element={<Login />} /> */}
           <Route element={<PrivateRoute />}>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/accountInfo' element={<AWSInfoPage />} />
             <Route path='/reports' element={<Reports />} />
-            {/* <Route path='/integrations' element={<Integrations />} /> */}
             <Route
               path='/reports/today'
               element={<Reports timeFrame='today' />}

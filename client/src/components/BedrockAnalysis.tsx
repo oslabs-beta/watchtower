@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
-// import Title from './Title';
-// import '../styles/__global.scss';
 import { BedrockAnalysisProps } from '../../types/types';
+import Swal from 'sweetalert2';
 
 export default function BedrockAnalysis({
   currentProvision,
@@ -27,14 +26,11 @@ export default function BedrockAnalysis({
       return;
     }
 
-    // if()
-
     const metrics: string = JSON.stringify(currentMetrics);
-    // Replace with actual prompt or state value
+    // Replace prompt for different output from bedrock
     const prompt: string =
       metrics +
       'based on the data, analysis provision and consumed capacity for AWS dynamoDb and give advice for keeping current provision or switching to ondemand in compact and short way';
-    // let isFirstChunk = true
 
     try {
       const response: Response = await fetch('/api/bedrock', {
@@ -46,9 +42,9 @@ export default function BedrockAnalysis({
       });
 
       if (!response.ok) throw new Error('Failed to connect to SSE endpoint.');
-      // Check if response body is null
+
       if (!response.body) throw new Error('Response body is null.');
-      //https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams
+
       const reader: ReadableStreamDefaultReader<Uint8Array> =
         response.body.getReader();
       let accumulatedData: string = '';
@@ -59,13 +55,9 @@ export default function BedrockAnalysis({
         if (done) break;
 
         const chunk: string = new TextDecoder().decode(value, { stream: true });
-        // Skip the first chunk becase its just a '?', have to check afterwards if it is still sending '?'
-        // if (isFirstChunk) {
-        //   isFirstChunk = false;
-        //   continue;
-        // }
+
         accumulatedData += chunk;
-        // Split accumulated data by new lines and update state for each line
+
         const words: string[] = accumulatedData.split('\n\n');
 
         words.forEach((word) => {
@@ -79,9 +71,14 @@ export default function BedrockAnalysis({
       }
 
       setLoading(false);
-      // setSave(true);
     } catch (err) {
       console.error("Couldn't get analysis from bedrock: ", err);
+      Swal.fire({
+        title: 'Oops...',
+        text: err.message,
+        icon: 'error',
+        confirmButtonColor: '#70c0c2',
+      });
     }
   };
 
@@ -100,18 +97,28 @@ export default function BedrockAnalysis({
       });
 
       if (!response.ok) {
-        //if not success?
         setError('Failed to save analysis');
         throw new Error(`HTTP error status: ${response.status}`);
       }
 
       const message: string = await response.json();
       if (message === 'success') {
-        alert('Report saved successfully!');
+        Swal.fire({
+          title: 'Sumbitted!',
+          text: 'Report is successfully save in your table WatchTowerUserProfiles!',
+          icon: 'success',
+          confirmButtonColor: '#70c0c2',
+        });
       }
       setSave(false);
     } catch (error) {
       console.error('Error fetching metrics:', error);
+      Swal.fire({
+        title: 'Oops...',
+        text: error.message,
+        icon: 'error',
+        confirmButtonColor: '#70c0c2',
+      });
     }
   };
 
