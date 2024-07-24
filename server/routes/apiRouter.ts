@@ -2,11 +2,11 @@ import express, { Request, Response } from 'express';
 import { tablesController } from '../controllers/tablesController.ts';
 import { metricController } from '../controllers/metricController.ts';
 import { connectController } from '../controllers/connectController.ts';
-import authController from '../controllers/authController';
-import gitHubAuthController from '../controllers/gitHubAuthController.ts';
+import { authController } from '../controllers/authController';
+import { gitHubAuthController } from '../controllers/gitHubAuthController.ts';
 import { bedrockController } from '../controllers/bedrockController.ts';
 import { saveAnalysisController } from '../controllers/saveAnalysisController.ts';
-import userController from '../controllers/userController';
+import { userController } from '../controllers/userController';
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post(
   '/login',
   userController.verifyUser,
   authController.setJWT,
-  (req: Request, res: Response) => {
+  (req: Request, res: Response): Response => {
     return res.status(200).json({
       firstName: res.locals.user,
       accessToken: res.locals.accessToken,
@@ -61,7 +61,6 @@ router.post(
 router.get(
   '/tables',
   tablesController.getTables,
-  // saveAnalysisController.createUserProfilesTable,
   (req: Request, res: Response): Response => {
     return res.status(200).json(res.locals.tables);
   }

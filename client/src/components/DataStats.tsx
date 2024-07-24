@@ -1,16 +1,11 @@
 import React, { useMemo } from 'react';
 import { useTheme, Paper, Typography, Grid } from '@mui/material';
-// import Paper from '@mui/material/Paper';
-// import Typography from '@mui/material/Typography';
-// import Grid from '@mui/material/Grid';
 import { DataStatsProps } from '../../types/types';
-// import '../styles/__global.scss';
 
 const DataStats: React.FC<DataStatsProps> = ({
   provisionData,
   currentMetrics,
 }) => {
-  // console.log('Current Metrics:', currentMetrics);
   const theme = useTheme();
 
   const formatDate = (date: Date | string | null) => {

@@ -1,5 +1,5 @@
 {
-  "name": "dynamodb",
+  "name": "watchtower",
   "version": "1.0.0",
   "description": "DynamoDB Observability Tool",
   "main": "index.js",

@@ -1,7 +1,7 @@
 import {
   GetMetricStatisticsCommand,
   GetMetricStatisticsCommandInput,
-  GetMetricStatisticsCommandOutput
+  GetMetricStatisticsCommandOutput,
 } from '@aws-sdk/client-cloudwatch';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { cloudWatchClient } from '../configs/aws.config.ts';
@@ -14,10 +14,16 @@ interface MetricController {
 }
 
 export const metricController: MetricController = {
-  
-  getConsumedRCUs: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-
-    const { tableName, startTime, endTime }: { tableName: string, startTime: Date, endTime: Date } = req.body;
+  getConsumedRCUs: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    const {
+      tableName,
+      startTime,
+      endTime,
+    }: { tableName: string; startTime: Date; endTime: Date } = req.body;
 
     try {
       const cloudWatchInput: GetMetricStatisticsCommandInput = {
@@ -32,18 +38,13 @@ export const metricController: MetricController = {
         StartTime: new Date(`${startTime}`),
         EndTime: new Date(`${endTime}`),
         Period: Number('60'),
-        Statistics: [
-          'Average',
-          'Maximum',
-        ],
+        Statistics: ['Average', 'Maximum'],
       };
 
-      const getMetricStatisticsCommand: GetMetricStatisticsCommand = new GetMetricStatisticsCommand(
-        cloudWatchInput
-      );
-      const cloudWatchResponse: GetMetricStatisticsCommandOutput = await cloudWatchClient.send(
-        getMetricStatisticsCommand
-      );
+      const getMetricStatisticsCommand: GetMetricStatisticsCommand =
+        new GetMetricStatisticsCommand(cloudWatchInput);
+      const cloudWatchResponse: GetMetricStatisticsCommandOutput =
+        await cloudWatchClient.send(getMetricStatisticsCommand);
 
       res.locals.ConsRCU = cloudWatchResponse.Datapoints;
 
@@ -59,9 +60,16 @@ export const metricController: MetricController = {
     }
   },
 
-  getConsumedWCUs: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-
-    const { tableName, startTime, endTime }: { tableName: string, startTime: Date, endTime: Date } = req.body;
+  getConsumedWCUs: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    const {
+      tableName,
+      startTime,
+      endTime,
+    }: { tableName: string; startTime: Date; endTime: Date } = req.body;
 
     try {
       const cloudWatchInput: GetMetricStatisticsCommandInput = {
@@ -76,18 +84,13 @@ export const metricController: MetricController = {
         StartTime: new Date(`${startTime}`),
         EndTime: new Date(`${endTime}`),
         Period: Number('60'),
-        Statistics: [
-          'Average',
-          'Maximum',
-        ],
+        Statistics: ['Average', 'Maximum'],
       };
 
-      const getMetricStatisticsCommand: GetMetricStatisticsCommand = new GetMetricStatisticsCommand(
-        cloudWatchInput
-      );
-      const cloudWatchResponse: GetMetricStatisticsCommandOutput = await cloudWatchClient.send(
-        getMetricStatisticsCommand
-      );
+      const getMetricStatisticsCommand: GetMetricStatisticsCommand =
+        new GetMetricStatisticsCommand(cloudWatchInput);
+      const cloudWatchResponse: GetMetricStatisticsCommandOutput =
+        await cloudWatchClient.send(getMetricStatisticsCommand);
 
       res.locals.ConsWCU = cloudWatchResponse.Datapoints;
 
@@ -108,8 +111,11 @@ export const metricController: MetricController = {
     res: Response,
     next: NextFunction
   ): Promise<void> => {
-
-    const { tableName, startTime, endTime }: { tableName: string, startTime: Date, endTime: Date } = req.body;
+    const {
+      tableName,
+      startTime,
+      endTime,
+    }: { tableName: string; startTime: Date; endTime: Date } = req.body;
 
     try {
       const cloudWatchInput: GetMetricStatisticsCommandInput = {
@@ -124,17 +130,13 @@ export const metricController: MetricController = {
         StartTime: new Date(`${startTime}`),
         EndTime: new Date(`${endTime}`),
         Period: Number('60'),
-        Statistics: [
-          'Maximum',
-        ],
+        Statistics: ['Maximum'],
       };
 
-      const getMetricStatisticsCommand: GetMetricStatisticsCommand = new GetMetricStatisticsCommand(
-        cloudWatchInput
-      );
-      const cloudWatchResponse: GetMetricStatisticsCommandOutput = await cloudWatchClient.send(
-        getMetricStatisticsCommand
-      );
+      const getMetricStatisticsCommand: GetMetricStatisticsCommand =
+        new GetMetricStatisticsCommand(cloudWatchInput);
+      const cloudWatchResponse: GetMetricStatisticsCommandOutput =
+        await cloudWatchClient.send(getMetricStatisticsCommand);
 
       res.locals.ProvRCU = cloudWatchResponse.Datapoints[0].Maximum;
 
@@ -155,8 +157,11 @@ export const metricController: MetricController = {
     res: Response,
     next: NextFunction
   ): Promise<void> => {
-
-    const { tableName, startTime, endTime }: { tableName: string, startTime: Date, endTime: Date } = req.body;
+    const {
+      tableName,
+      startTime,
+      endTime,
+    }: { tableName: string; startTime: Date; endTime: Date } = req.body;
 
     try {
       const cloudWatchInput: GetMetricStatisticsCommandInput = {
@@ -171,17 +176,13 @@ export const metricController: MetricController = {
         StartTime: new Date(`${startTime}`),
         EndTime: new Date(`${endTime}`),
         Period: Number('60'),
-        Statistics: [
-          'Maximum',
-        ],
+        Statistics: ['Maximum'],
       };
 
-      const getMetricStatisticsCommand: GetMetricStatisticsCommand = new GetMetricStatisticsCommand(
-        cloudWatchInput
-      );
-      const cloudWatchResponse: GetMetricStatisticsCommandOutput = await cloudWatchClient.send(
-        getMetricStatisticsCommand
-      );
+      const getMetricStatisticsCommand: GetMetricStatisticsCommand =
+        new GetMetricStatisticsCommand(cloudWatchInput);
+      const cloudWatchResponse: GetMetricStatisticsCommandOutput =
+        await cloudWatchClient.send(getMetricStatisticsCommand);
 
       res.locals.ProvWCU = cloudWatchResponse.Datapoints[0].Maximum;
 
@@ -197,38 +198,3 @@ export const metricController: MetricController = {
     }
   },
 };
-
-//Example of working request to AWS Cloudwatch.
-
-// const cloudWatchInput = {
-//   // GetMetricStatisticsInput
-//   Namespace: 'AWS/DynamoDB', // required
-//   MetricName: 'ConsumedReadCapacityUnits', // required
-//   Dimensions: [
-//     // Dimensions
-//     {
-//       // Dimension
-//       Name: 'TableName', // required
-//       Value: 'mockUserTable1', // required
-//     },
-//   ],
-//   StartTime: new Date('2024-07-08T15:20:00.000Z'), // required
-//   EndTime: new Date('2024-07-08T15:30:00.000Z'), // required
-//   Period: Number('60'), // required
-//   Statistics: [
-//     // Statistics
-//     'Average',
-//     'Maximum',
-//     // 'SampleCount' || 'Average' || 'Sum' || 'Minimum' || 'Maximum',
-//   ],
-//   //   ExtendedStatistics: [
-//   //     // ExtendedStatistics
-//   //     'STRING_VALUE',
-//   //   ],
-//   //   Unit: 'Count/Second',
-// }
-
-// const cloudWatchCommand = new GetMetricStatisticsCommand(input);
-// const cloudWatchResponse = await cloudWatchClient.send(cloudWatchCommand);
-
-// console.table(cloudWatchResponse.Datapoints);
