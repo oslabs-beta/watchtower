@@ -9,6 +9,7 @@
 - [Upcoming Features](#upcoming-features)
 - [Contributing](#contributing)
 - [Meet The Team](#meet-the-team)
+- [Where To Find Us](#where-to-find-us)
 
 ## Description
 
@@ -46,18 +47,33 @@ Getting started with WatchTower is simple!
 
 1. **Fork GitHub repo.**
 2. **Clone the repo into VS Code.**
-3. **Navigate to your cloned repo and open a terminal. Run the following commands:**
+3. **Create a `.env` file <strong><u>in the server folder</u></strong> using below template**
+    ```sh
+    # AWS Credentials for Connecting AWS
+    AWS_ACCESS_KEY_ID="your_aws_access_key_id"
+    AWS_SECRET_ACCESS_KEY="your_aws_secret_access_key"
+    REGION="your_aws_region"
+    ```
+4. **Navigate to your cloned repo and open a terminal. Run the following commands:**
    ```sh
    npm i
    npm start
+   ```
  - If localhost:3000 does not automatically open in your browser, open this link: http://localhost:3000/
-4. Sign Up: Create an account on our website, or login with GitHub.
-5. Connect Your DynamoDB: Use our easy-to-follow guide to connect your DynamoDB tables to WatchTower.
-6. Generate metric data: Input necessary information, such as the table you wish to analyze and the time period you wish to see database metrics.
-7. As simple as that, your metric data and visual data is generated!
-8. Generate AI insight: Users can also generate insights from Amazon's Bedrock AI simply by pressing a button.
-9. Save table metrics/graphs: Users can save their generated analysis and metric data to their DynamoDB database by clicking on the “save analysis” button.
-10. Analyze Historical Data: Dive into historical metrics to identify trends and optimize performance by navigating over to the reports page.
+5. Sign Up: Create an account on our website, or login with GitHub.
+6. Connect Your DynamoDB: Use our easy-to-follow guide to connect your DynamoDB tables to WatchTower.
+7. Generate metric data: Input necessary information, such as the table you wish to analyze and the time period you wish to see database metrics.
+8. As simple as that, your metric data and visual data is generated!
+9. Generate AI insight: Users can also generate insights from Amazon's Bedrock AI simply by pressing a button.
+10. Save table metrics/graphs: Users can save their generated analysis and metric data to their DynamoDB database by clicking on the “save analysis” button.
+11. Analyze Historical Data: Dive into historical metrics to identify trends and optimize performance by navigating over to the reports page.
+    - AWS Bedrock has a lot of AI Model: https://docs.aws.amazon.com/bedrock/latest/userguide/model-ids.html Here is the list for the Model name and its ID. The model that we are using is ‘Mistral 7B Instruct’.
+    - AWS Bedrock is not free, they have distinct price for model. Here is the link for pricing: https://aws.amazon.com/bedrock/pricing/?refid=ft_card
+    - Not all model has responsesteram, if the model you want use dont have responsestream, you can use invokemodelcommand method! https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-runtime/command/InvokeModelCommand/
+    - In order to grant access for specific AI model, you have to https://aws.amazon.com/bedrock/ and login, on the left side bar, choose Foundation models -> Base models and click whatever model you want. Inside the model Overview, there is a button ‘Request model access’. Then you will be all set!
+
+
+
 
 ## Upcoming Features
 - Customizable alerts and notifications ⏳
@@ -124,3 +140,9 @@ If you would like to contribute to this project, please follow the below steps:
 </table>
 
 </div>
+
+## Where To Find Us
+- [Website](https://watch-tower.co/)
+- [LinkdIn](https://www.linkedin.com/in/watchtower-db/)
+- [X](https://x.com/WatchTower_DB)
+
