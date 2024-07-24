@@ -84,7 +84,7 @@ If you would like to contribute to this project, please follow the below steps:
 - Why the change was needed
 - How the change was implemented
 
-## Meet the WatchTower Team
+## Meet The Team
 Erik Gao
 - [GitHub](https://github.com/KIREG19)
 - [LinkedIn](https://www.linkedin.com/in/erikgaogg/)
