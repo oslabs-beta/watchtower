@@ -2,7 +2,7 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import {
   ListTablesCommand,
   ListTablesCommandInput,
-  ListTablesCommandOutput
+  ListTablesCommandOutput,
 } from '@aws-sdk/client-dynamodb';
 import { dynamoDBClient } from '../configs/aws.config.ts';
 
@@ -22,7 +22,9 @@ export const tablesController: TablesController = {
       const input: ListTablesCommandInput = {};
       const command: ListTablesCommand = new ListTablesCommand(input);
       //waiting for respoonse from DynamoDB
-      const response: ListTablesCommandOutput = await dynamoDBClient.send(command);
+      const response: ListTablesCommandOutput = await dynamoDBClient.send(
+        command
+      );
       //save all tables name as an array
       res.locals.tables = response.TableNames;
       return next();

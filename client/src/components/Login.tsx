@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useEffect } from 'react';
+import React from 'react';
+// import { useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import {
   Avatar,
@@ -31,7 +31,7 @@ const theme = createTheme({
   },
 });
 
-export default function Login() {
+const Login = (): JSX.Element => {
   const navigate = useNavigate();
   const user = useAuth();
 
@@ -42,7 +42,7 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     };
-    console.log(loginData);
+    // console.log(loginData);
     if (loginData.email && loginData.password) {
       user.login(loginData);
     }
@@ -73,7 +73,7 @@ export default function Login() {
     event.preventDefault();
     navigate('/signup');
   };
-  console.log('user token', user.token);
+  // console.log('user token', user.token);
 
   user.gitHubOAuth();
 
@@ -182,4 +182,6 @@ export default function Login() {
       )}
     </ThemeProvider>
   );
-}
+};
+
+export default Login;

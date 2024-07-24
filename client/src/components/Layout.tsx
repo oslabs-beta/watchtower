@@ -4,7 +4,6 @@ import {
   ThemeProvider,
   CssBaseline,
   Box,
-  Button,
   Container,
   Divider,
   IconButton,
@@ -14,22 +13,10 @@ import {
   Switch,
   FormControlLabel,
   PaletteMode,
-  colors,
 } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import CssBaseline from '@mui/material/CssBaseline';
-// import Box from '@mui/material/Box';
-// import Container from '@mui/material/Container';
-// import Divider from '@mui/material/Divider';
-// import IconButton from '@mui/material/IconButton';
-// import List from '@mui/material/List';
-// import Typography from '@mui/material/Typography';
-// // import NotificationsIcon from '@mui/icons-material/Notifications';
-// // import Badge from '@mui/material/Badge';
-// import Switch from '@mui/material/Switch';
-// import FormControlLabel from '@mui/material/FormControlLabel';
 import { mainListItems, secondaryListItems } from './listItems';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
@@ -100,16 +87,6 @@ const Layout = ({ children }): JSX.Element => {
     user.logout();
   };
 
-  // const theme = createTheme({
-  //   palette: {
-  //     mode: darkMode ? 'dark' : 'light',
-  //     primary: {
-  //       main: '#a6d8d9',
-  //       contrastText: '#fff',
-  //     },
-  //   },
-  // });
-
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
@@ -148,17 +125,14 @@ const Layout = ({ children }): JSX.Element => {
               }
               label='Dark Mode'
             />
-            <Button
-              sx={{ mt: 2, mb: 3, color: 'black' }}
+            <IconButton
+              color='inherit'
+              aria-label='Logout'
               onClick={handleLogout}
+              sx={{ fontSize: 16 }}
             >
-              Logout
-            </Button>
-            {/* <IconButton color='inherit'>
-              <Badge badgeContent={4} color='secondary'>
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
+              <LogoutIcon /> Logout
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant='permanent' open={open}>
@@ -187,7 +161,7 @@ const Layout = ({ children }): JSX.Element => {
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
                 ? theme.palette.grey[100]
-                : theme.palette.grey[900], //(theme.palette.primary.main = '#2c2c2c'),
+                : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',

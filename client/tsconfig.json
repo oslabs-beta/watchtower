@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    // "strict": true,
     "jsx": "react",
-    // "declaration": true,
-    // "declarationMap": true,
-    // "outDir": "./dist",
-    // "rootDir": "./src",
     "removeComments": true,
     "typeRoots": ["./types", "./node_modules/@types"],
     "esModuleInterop": true,

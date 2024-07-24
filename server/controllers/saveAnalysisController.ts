@@ -1,36 +1,23 @@
 import {
   PutItemCommand,
   PutItemCommandInput,
+  PutItemCommandOutput,
   CreateTableCommand,
   CreateTableCommandInput,
+  CreateTableCommandOutput,
   ScanCommand,
+  ScanCommandInput,
+  ScanCommandOutput,
 } from '@aws-sdk/client-dynamodb';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { cloudWatchClient, dynamoDBClient } from '../configs/aws.config.ts';
+import { dynamoDBClient } from '../configs/aws.config.ts';
+import { ProvisionFormData, Metrics } from '../../client/types/types.d';
 
 interface SaveAnalysisController {
   createUserProfilesTable: RequestHandler;
   saveAnalysisToDB: RequestHandler;
   getPastAnalysis: RequestHandler;
 }
-// const saveAnalysisToDB = async (
-//   userID: string,
-//   analysisID: string,
-//   metrics: any
-// ): Promise<void> => {
-//   await createUserProfilesTable(); // Ensure the table exists
-
-//   const input: PutItemCommandInput = {
-//     TableName: 'UserProfiles',
-//     Item: {
-//       UserID: { S: userID },
-//       AnalysisID: { S: analysisID },
-//       Metrics: { S: JSON.stringify(metrics) },
-//       CreatedAt: { S: new Date().toISOString() },
-//     },
-//   };
-//   await dynamoDBClient.send(new PutItemCommand(input));
-// };
 
 export const saveAnalysisController: SaveAnalysisController = {
   createUserProfilesTable: async (
@@ -42,39 +29,34 @@ export const saveAnalysisController: SaveAnalysisController = {
     const analysisTable = 'WatchTowerUserProfiles';
     //check tablename is in the tables array
     if (tables.includes(analysisTable)) {
-      // res.locals.tables = tables;
-      res.locals.tableName = analysisTable
+      res.locals.tableName = analysisTable;
       return next();
     }
 
     try {
       const input: CreateTableCommandInput = {
-        // CreateTableInput
         AttributeDefinitions: [
-          // AttributeDefinitions // required
           {
-            // AttributeDefinition
-            AttributeName: 'createdAt', // required
-            AttributeType: 'S', // required
+            AttributeName: 'createdAt',
+            AttributeType: 'S',
           },
         ],
-        TableName: analysisTable, // required
+        TableName: analysisTable,
         KeySchema: [
-          // KeySchema // required
           {
-            // AttributeDefinition
-            AttributeName: 'createdAt', // required
-            KeyType: 'HASH', // required
+            AttributeName: 'createdAt',
+            KeyType: 'HASH',
           },
         ],
-
         ProvisionedThroughput: {
-          ReadCapacityUnits: Number('1'), // required
-          WriteCapacityUnits: Number('1'), // required
+          ReadCapacityUnits: Number('1'),
+          WriteCapacityUnits: Number('1'),
         },
       };
-      const command = new CreateTableCommand(input);
-      const response = await dynamoDBClient.send(command);
+      const command: CreateTableCommand = new CreateTableCommand(input);
+      const response: CreateTableCommandOutput = await dynamoDBClient.send(
+        command
+      );
       res.locals.tableName = response.TableDescription.TableName;
       return next();
     } catch (error) {
@@ -88,8 +70,20 @@ export const saveAnalysisController: SaveAnalysisController = {
     }
   },
 
-  saveAnalysisToDB: async (req: Request, res: Response, next: NextFunction) => {
-    const { provision, metrics, bedrockAnalysis } = req.body;
+  saveAnalysisToDB: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    const {
+      provision,
+      metrics,
+      bedrockAnalysis,
+    }: {
+      provision: ProvisionFormData;
+      metrics: Metrics;
+      bedrockAnalysis: string;
+    } = req.body;
 
     try {
       const saveAnalysisInput: PutItemCommandInput = {
@@ -101,8 +95,8 @@ export const saveAnalysisController: SaveAnalysisController = {
           bedrockAnalysis: { S: bedrockAnalysis },
         },
       };
-      const command = new PutItemCommand(saveAnalysisInput);
-      const response = await dynamoDBClient.send(command);
+      const command: PutItemCommand = new PutItemCommand(saveAnalysisInput);
+      const response: PutItemCommandOutput = await dynamoDBClient.send(command);
 
       res.locals.message = 'success';
 
@@ -118,15 +112,18 @@ export const saveAnalysisController: SaveAnalysisController = {
     }
   },
 
-  getPastAnalysis: async (req: Request, res: Response, next: NextFunction) => {
-    const input = {
-      // ScanInput
-      TableName: 'WatchTowerUserProfiles', // required
+  getPastAnalysis: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    const input: ScanCommandInput = {
+      TableName: 'WatchTowerUserProfiles',
     };
 
     try {
-      const command = new ScanCommand(input);
-      const response = await dynamoDBClient.send(command);
+      const command: ScanCommand = new ScanCommand(input);
+      const response: ScanCommandOutput = await dynamoDBClient.send(command);
 
       res.locals.pastAnalysis = response.Items;
 
