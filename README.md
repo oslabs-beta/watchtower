@@ -85,28 +85,30 @@ If you would like to contribute to this project, please follow the below steps:
 - How the change was implemented
 
 ## Meet The Team
-Erik Gao
-<img src="https://drive.google.com/uc?export=view&id=17KDjj9yn_AKJJ41DHijzIz7aX7Ya9tQv" alt="Erik" width="100">
+
+### Erik Gao
+<img src="https://drive.google.com/uc?export=view&id=17KDjj9yn_AKJJ41DHijzIz7aX7Ya9tQv" alt="Erik" width="100" style="border-radius: 50%; display: block; margin: 10px auto;">
 - [GitHub](https://github.com/KIREG19)
 - [LinkedIn](https://www.linkedin.com/in/erikgaogg/)
 
-James Coen
-<img src="https://drive.google.com/uc?export=view&id=1ZCAgpJy2Msswi_3On4JPhAJg2lqZFHZZ" alt="james" width="100">
+### James Coen
+<img src="https://drive.google.com/uc?export=view&id=1ZCAgpJy2Msswi_3On4JPhAJg2lqZFHZZ" alt="James" width="100" style="border-radius: 50%; display: block; margin: 10px auto;">
 - [GitHub](https://github.com/jamescoen)
 - [LinkedIn](https://www.linkedin.com/in/james-coen-2a00a3148/)
-  
-Lauren Felty
-<img src="https://drive.google.com/uc?export=view&id=1LXKcsG7xmbbIVCnsdTwouOuMX1HL6HjO" alt="lauren" width="100">
+
+### Lauren Felty
+<img src="https://drive.google.com/uc?export=view&id=1LXKcsG7xmbbIVCnsdTwouOuMX1HL6HjO" alt="Lauren" width="100" style="border-radius: 50%; display: block; margin: 10px auto;">
 - [GitHub](https://github.com/LaurenFelty)
 - [LinkedIn](https://www.linkedin.com/in/lauren-felty/)
 
-Mike Bui
-<img src="https://drive.google.com/uc?export=view&id=1Wprg3i-j_KIZf816Wi1utsjnaH6w7Jgs" alt="mike" width="100">
+### Mike Bui
+<img src="https://drive.google.com/uc?export=view&id=1Wprg3i-j_KIZf816Wi1utsjnaH6w7Jgs" alt="Mike" width="100" style="border-radius: 50%; display: block; margin: 10px auto;">
 - [GitHub](https://github.com/MikeBui91)
 - [LinkedIn](https://www.linkedin.com/in/mike-bui09/)
 
-Piero Espejo
-<img src="https://drive.google.com/uc?export=view&id=180dmu9oKMT7fu_sQVLo6gqSSOADei1-Z" alt="piero" width="100" margin-left="10">
+### Piero Espejo
+<img src="https://drive.google.com/uc?export=view&id=180dmu9oKMT7fu_sQVLo6gqSSOADei1-Z" alt="Piero" width="100" style="border-radius: 50%; display: block; margin: 10px auto;">
 - [GitHub](https://github.com/Piero914)
 - [LinkedIn](https://www.linkedin.com/in/piero-espejo-6813a9b0/)
+
 
