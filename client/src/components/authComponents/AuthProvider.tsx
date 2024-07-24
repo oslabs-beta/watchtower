@@ -5,19 +5,19 @@ import React from 'react';
 // Creating AuthContext Provider for use accross the app.
 type AuthType = {
   user: string;
-  setUser: any;
+  setUser: React.Dispatch<React.SetStateAction<string>>;
   token: string;
-  setToken: any;
-  login: any;
-  logout(): void;
-  gitHubOAuth(): void;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
+  login: (data: any) => void;
+  logout: () => void;
+  gitHubOAuth: () => void;
 };
 
-const AuthContext = createContext(null);
+const AuthContext = createContext<AuthType | undefined>(undefined);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState('');
-  const [token, setToken] = useState(localStorage.getItem('accessToken' || ''));
+  const [token, setToken] = useState(localStorage.getItem('accessToken') || '');
   console.log('user', user, 'token', token);
   const navigate = useNavigate();
 
@@ -97,9 +97,9 @@ const AuthProvider = ({ children }) => {
 export default AuthProvider;
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
-
-// On button click for gh button
-// 1. nav user to other page
-// 2. invoke login function to get access token from github
