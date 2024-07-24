@@ -61,10 +61,10 @@ const Layout = ({ children }): JSX.Element => {
       ...(mode === 'light'
         ? {
             primary: {
-              main: '#a6d8d9', // Primary color for light mode
+              main: '#70c0c2', // Primary color for light mode
               contrastText: '#fff', // Text color to contrast with the primary color
             },
-            divider: '#a6d8d9', // Color of dividers in light mode
+            divider: '#70c0c2', // Color of dividers in light mode
             text: {
               primary: '#212121', // Primary text color in light mode
               secondary: '#424242', // Secondary text color in light mode
@@ -76,10 +76,10 @@ const Layout = ({ children }): JSX.Element => {
           }
         : {
             primary: {
-              main: '#1c3454', // Primary color for dark mode
+              main: '#264672', //'#305990', // Primary color for dark mode
               contrastText: '#fff', // Text color to contrast with the primary color
             },
-            divider: '#1c3454', // Color of dividers in dark mode
+            divider: '#264672', // Color of dividers in dark mode
             background: {
               default: '#121212', // Custom dark background color
               paper: '#1e1e1e', // Custom dark paper color
@@ -187,7 +187,7 @@ const Layout = ({ children }): JSX.Element => {
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
                 ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+                : theme.palette.grey[900], //(theme.palette.primary.main = '#2c2c2c'),
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',

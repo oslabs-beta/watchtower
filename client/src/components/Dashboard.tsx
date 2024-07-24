@@ -1,4 +1,135 @@
+// import React, { useState, useEffect } from 'react';
+// import {
+//   createTheme,
+//   ThemeProvider,
+//   CssBaseline,
+//   Container,
+//   Grid,
+//   Paper,
+// } from '@mui/material';
+// import { useLocation } from 'react-router-dom';
+// import Layout from './Layout';
+// import StatusBox from './StatusBox';
+// import DataStats from './DataStats';
+// import GraphContainer from './GraphContainer';
+// import BedrockAnalysis from './BedrockAnalysis';
+// import { ProvisionFormData, Metrics } from '../../types/types';
+
+// const defaultTheme = createTheme();
+
+// export default function Dashboard(): JSX.Element {
+//   const location = useLocation();
+//   const locationState = location.state || {};
+//   const [currentProvision, setCurrentProvision] =
+//     useState<ProvisionFormData | null>(locationState.provision || null);
+//   const [currentMetrics, setCurrentMetrics] = useState<Metrics | null>(
+//     locationState.metrics || null
+//   );
+
+//   const handleFormSubmit = async (data: ProvisionFormData): Promise<void> => {
+//     try {
+//       setCurrentProvision(data);
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   };
+
+//   useEffect((): void => {
+//     const fetchMetrics = async (): Promise<void> => {
+//       if (currentProvision) {
+//         try {
+//           const { tableName, startTime, endTime } = currentProvision;
+//           const response: Response = await fetch('/api/metrics', {
+//             method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ tableName, startTime, endTime }),
+//           });
+
+//           if (!response.ok) {
+//             throw new Error(`HTTP error status: ${response.status}`);
+//           }
+
+//           const data: Metrics = await response.json();
+//           setCurrentMetrics(data);
+//         } catch (error) {
+//           console.error('Error fetching metrics:', error);
+//         }
+//       }
+//     };
+
+//     fetchMetrics();
+//   }, [currentProvision]);
+
+//   return (
+//     <ThemeProvider theme={defaultTheme}>
+//       <CssBaseline />
+//       <Layout>
+//         <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+//           <Grid container spacing={3}>
+//             <Grid item xs={12} md={4}>
+//               <Paper
+//                 sx={{
+//                   p: 2,
+//                   display: 'flex',
+//                   flexDirection: 'column',
+//                   alignItems: 'center',
+//                   justifyContent: 'center',
+//                   height: 500,
+//                 }}
+//               >
+//                 {currentProvision ? (
+//                   <DataStats
+//                     provisionData={currentProvision}
+//                     currentMetrics={currentMetrics}
+//                   />
+//                 ) : (
+//                   <StatusBox onSubmit={handleFormSubmit} />
+//                 )}
+//               </Paper>
+//             </Grid>
+//             <Grid item xs={12} md={8}>
+//               <Paper
+//                 sx={{
+//                   p: 2,
+//                   display: 'flex',
+//                   flexDirection: 'column',
+//                   alignItems: 'center',
+//                   justifyContent: 'center',
+//                   height: 500,
+//                 }}
+//               >
+//                 <GraphContainer
+//                   currentProvision={currentProvision}
+//                   currentMetrics={currentMetrics}
+//                 />
+//               </Paper>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+//                 <BedrockAnalysis
+//                   currentProvision={currentProvision}
+//                   currentMetrics={currentMetrics}
+//                 />
+//               </Paper>
+//             </Grid>
+//           </Grid>
+//         </Container>
+//       </Layout>
+//     </ThemeProvider>
+//   );
+// }
+
 import React, { useState, useEffect } from 'react';
+import {
+  createTheme,
+  ThemeProvider,
+  CssBaseline,
+  Container,
+  Grid,
+  Paper,
+} from '@mui/material';
 import {
   createTheme,
   ThemeProvider,
@@ -35,19 +166,6 @@ export default function Dashboard(): JSX.Element | null {
 
   const navigate = useNavigate();
 
-  // if (!codeParam) {
-  //   console.log('code param not available');
-
-  //   navigate('/');
-  //   // return null;
-  // }
-
-  // if (!codeParam) {
-  //   console.log('redirect?');
-  //   window.location.assign('http://localhost:3000/');
-  //   return null;
-  // }
-
   const handleFormSubmit = async (data: ProvisionFormData): Promise<void> => {
     try {
       setCurrentProvision(data);
@@ -56,11 +174,6 @@ export default function Dashboard(): JSX.Element | null {
       console.error('Error:', error);
     }
   };
-
-  //when the page first loads, grab the code given from  GitHub Oauth and pass to backend to get GitHub access token
-
-  // useEffect();
-  // }, []);
 
   useEffect((): void => {
     const fetchMetrics = async (): Promise<void> => {
@@ -100,26 +213,6 @@ export default function Dashboard(): JSX.Element | null {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      {/* {!codeParam ? (
-        // <div>
-        //   <h3>Login with GitHub Failed. Please try again.</h3>
-        //   <button
-        //     onClick={() => {
-        //       navigate('/');
-        //     }}
-        //   >
-        //     Login
-        //   </button>
-        // </div>
-        <button
-          onLoad={() => {
-            console.log('onLoad');
-            navigate('/');
-          }}
-        >
-          Can you see me?
-        </button>
-      ) : ( */}
       <Layout>
         <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
@@ -172,7 +265,6 @@ export default function Dashboard(): JSX.Element | null {
           </Grid>
         </Container>
       </Layout>
-      {/* )} */}
     </ThemeProvider>
   );
 }

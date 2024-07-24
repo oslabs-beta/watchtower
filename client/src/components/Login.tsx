@@ -22,7 +22,14 @@ import Copyright from './Copyright';
 import GitHubButton from './GitHubLoginButton';
 import { useAuth } from './authComponents/AuthProvider';
 
-const defaultTheme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#70c0c2',
+      contrastText: '#fff',
+    },
+  },
+});
 
 export default function Login() {
   const navigate = useNavigate();

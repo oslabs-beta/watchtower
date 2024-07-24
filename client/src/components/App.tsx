@@ -5,7 +5,7 @@ import AWSInfoPage from './AWSInfoPage';
 import Login from './Login';
 import Signup from './Signup';
 import Reports from './Reports';
-import Integrations from './Integrations';
+// import Integrations from './Integrations';
 import AuthProvider from './authComponents/AuthProvider';
 import PrivateRoute from './authComponents/PrivateRoute';
 // import Layout from './Layout';
@@ -23,7 +23,7 @@ const App = (): JSX.Element => {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/accountInfo' element={<AWSInfoPage />} />
             <Route path='/reports' element={<Reports />} />
-            <Route path='/integrations' element={<Integrations />} />
+            {/* <Route path='/integrations' element={<Integrations />} /> */}
             <Route
               path='/reports/today'
               element={<Reports timeFrame='today' />}
