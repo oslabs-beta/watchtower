@@ -86,7 +86,6 @@ If you would like to contribute to this project, please follow the below steps:
 
 ## Meet The Team
 Erik Gao
-![Erik Gao](https://drive.google.com/file/d/17KDjj9yn_AKJJ41DHijzIz7aX7Ya9tQv/view?usp=sharing)
 - [GitHub](https://github.com/KIREG19)
 - [LinkedIn](https://www.linkedin.com/in/erikgaogg/)
 
