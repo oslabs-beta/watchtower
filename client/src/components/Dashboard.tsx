@@ -13,9 +13,6 @@ import DataStats from './DataStats';
 import GraphContainer from './GraphContainer';
 import BedrockAnalysis from './BedrockAnalysis';
 import { ProvisionFormData, Metrics } from '../../types/types';
-// import { useNavigate } from 'react-router-dom';
-// import { redirect } from 'react-router-dom';
-// import { useAuth } from './authComponents/AuthProvider';
 
 const defaultTheme = createTheme();
 
@@ -24,15 +21,9 @@ export default function Dashboard(): JSX.Element | null {
     useState<ProvisionFormData | null>(null);
   const [currentMetrics, setCurrentMetrics] = useState<Metrics | null>(null);
 
-  // const user = useAuth();
-  // console.log('token', user.token);
-
-  // const navigate = useNavigate();
-
   const handleFormSubmit = async (data: ProvisionFormData): Promise<void> => {
     try {
       setCurrentProvision(data);
-      // console.log('Provision saved', data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -43,11 +34,7 @@ export default function Dashboard(): JSX.Element | null {
       if (currentProvision) {
         try {
           const { tableName, startTime, endTime } = currentProvision;
-          // console.log('Sending request with:', {
-          //   tableName,
-          //   startTime,
-          //   endTime,
-          // });
+
           const response: Response = await fetch('/api/metrics', {
             method: 'POST',
             headers: {
@@ -62,7 +49,7 @@ export default function Dashboard(): JSX.Element | null {
           }
 
           const data: Metrics = await response.json();
-          // console.log('Received data:', data);
+
           setCurrentMetrics(data);
         } catch (error) {
           console.error('Error fetching metrics:', error);

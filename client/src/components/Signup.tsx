@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Copyright from './Copyright';
-// import { useAuth } from './authComponents/AuthProvider';
 
 const theme = createTheme({
   palette: {
@@ -28,8 +27,6 @@ const theme = createTheme({
 
 const Signup = (): JSX.Element => {
   const navigate = useNavigate();
-  //?
-  // const user = useAuth();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,10 +46,6 @@ const Signup = (): JSX.Element => {
     })
       .then((response) => response.json())
       .then((newUser) => {
-        //?
-        // console.log(newUser);
-        // user.setUser(newUser.firstName);
-        // Navigate to the root page
         navigate('/');
       })
       .catch((err) => {
