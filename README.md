@@ -50,7 +50,7 @@ Getting started with WatchTower is simple!
    ```sh
    npm i
    npm start
-   If localhost:3000 does not automatically open in your browser, open this link: http://localhost:3000/
+If localhost:3000 does not automatically open in your browser, open this link: http://localhost:3000/
 4. Sign Up: Create an account on our website, or login with GitHub.
 5. Connect Your DynamoDB: Use our easy-to-follow guide to connect your DynamoDB tables to WatchTower.
 6. Generate metric data: Input necessary information, such as the table you wish to analyze and the time period you wish to see database metrics.
@@ -75,10 +75,10 @@ If you would like to contribute to this project, please follow the below steps:
 3. Commit your changes: (git commit -m "Add feature")
 4. Push to your feature branch: (git push origin feature-YourFeature)
 5. Open a pull request. Please follow the below template for your pull request.
-#### Pull Request Title
-#### Description of Feature Branch
-#### Why the change was needed
-#### How the change was implemented
+- Pull Request Title
+- Description of Feature Branch
+- Why the change was needed
+- How the change was implemented
 
 ## Meet the WatchTower Team
 Erik Gao
@@ -100,14 +100,4 @@ LinkedIn
 Piero Espejo
 GitHub
 LinkedIn
-
-
-
-
-
-Mike Bui
-https://github.com/MikeBui91
-https://www.linkedin.com/in/mike-bui09/
-
-
 
