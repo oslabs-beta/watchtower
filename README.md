@@ -86,33 +86,35 @@ If you would like to contribute to this project, please follow the below steps:
 
 ## Meet The Team
 
+<div style="display: flex; justify-content: center;">
+
 <table>
   <tr>
-    <td style="text-align: center;">
+    <td style="text-align: center; padding: 10px;">
       <img src="https://drive.google.com/uc?export=view&id=17KDjj9yn_AKJJ41DHijzIz7aX7Ya9tQv" alt="Erik" width="100" style="border-radius: 50%;">
       <br>Erik Gao
       <br><a href="https://github.com/KIREG19">GitHub</a>
       <br><a href="https://www.linkedin.com/in/erikgaogg/">LinkedIn</a>
     </td>
-    <td style="text-align: center;">
+    <td style="text-align: center; padding: 10px;">
       <img src="https://drive.google.com/uc?export=view&id=1ZCAgpJy2Msswi_3On4JPhAJg2lqZFHZZ" alt="James" width="100" style="border-radius: 50%;">
       <br>James Coen
       <br><a href="https://github.com/jamescoen">GitHub</a>
       <br><a href="https://www.linkedin.com/in/james-coen-2a00a3148/">LinkedIn</a>
     </td>
-    <td style="text-align: center;">
+    <td style="text-align: center; padding: 10px;">
       <img src="https://drive.google.com/uc?export=view&id=1LXKcsG7xmbbIVCnsdTwouOuMX1HL6HjO" alt="Lauren" width="100" style="border-radius: 50%;">
       <br>Lauren Felty
       <br><a href="https://github.com/LaurenFelty">GitHub</a>
       <br><a href="https://www.linkedin.com/in/lauren-felty/">LinkedIn</a>
     </td>
-    <td style="text-align: center;">
+    <td style="text-align: center; padding: 10px;">
       <img src="https://drive.google.com/uc?export=view&id=1Wprg3i-j_KIZf816Wi1utsjnaH6w7Jgs" alt="Mike" width="100" style="border-radius: 50%;">
       <br>Mike Bui
       <br><a href="https://github.com/MikeBui91">GitHub</a>
       <br><a href="https://www.linkedin.com/in/mike-bui09/">LinkedIn</a>
     </td>
-    <td style="text-align: center;">
+    <td style="text-align: center; padding: 10px;">
       <img src="https://drive.google.com/uc?export=view&id=180dmu9oKMT7fu_sQVLo6gqSSOADei1-Z" alt="Piero" width="100" style="border-radius: 50%;">
       <br>Piero Espejo
       <br><a href="https://github.com/Piero914">GitHub</a>
@@ -121,6 +123,4 @@ If you would like to contribute to this project, please follow the below steps:
   </tr>
 </table>
 
-
-
-
+</div>
