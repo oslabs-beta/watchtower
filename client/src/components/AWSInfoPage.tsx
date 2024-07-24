@@ -13,10 +13,9 @@ import {
   Typography,
 } from '@mui/material';
 import { AWSBody } from '../../types/types';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const AWSInfoPage = (): JSX.Element => {
-
   let navigate: NavigateFunction = useNavigate();
   // State for form values
   const [awsAccountName, setAwsAccountName] = useState<string>('');
@@ -29,8 +28,8 @@ const AWSInfoPage = (): JSX.Element => {
     // Fetch request - Post method - to AWSConnect path providing AWS Account IAM details.
     try {
       //check input from feilds
-      if(!awsAccountName || !awsAccessKey || !awsSecretKey || !region) {
-        throw new Error('All field must be filled! Please try again')
+      if (!awsAccountName || !awsAccessKey || !awsSecretKey || !region) {
+        throw new Error('All field must be filled! Please try again');
       }
       // Create the body object
       const body: AWSBody = {
@@ -52,7 +51,6 @@ const AWSInfoPage = (): JSX.Element => {
       const message: string = await response.json();
 
       if (message === 'success') {
-
         Swal.fire({
           title: 'Are you sure?',
           text: 'AWS Account Info Submitted! We will create a table "WatchTowerUserProfiles" to save reports.',
@@ -60,28 +58,28 @@ const AWSInfoPage = (): JSX.Element => {
           showCancelButton: true,
           confirmButtonColor: '#70c0c2',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes!'
+          confirmButtonText: 'Yes!',
         }).then(async (result) => {
           if (result.isConfirmed) {
-            const response: Response = await fetch('/api/createTable')
-            const data: string = await response.json()
+            const response: Response = await fetch('/api/createTable');
+            const data: string = await response.json();
             Swal.fire({
               title: 'Table created!',
               text: `Table ${data} is created successfully in your DynamoDB!`,
               icon: 'success',
               confirmButtonColor: '#70c0c2',
             });
-          };
+          }
           navigate('/dashboard');
         });
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
       Swal.fire({
         title: 'Oops...',
         text: err.message,
         icon: 'error',
-        confirmButtonColor: '#70c0c2'
+        confirmButtonColor: '#70c0c2',
       });
     }
   }
@@ -103,7 +101,7 @@ const AWSInfoPage = (): JSX.Element => {
               id='AWSAccountName'
               variant='outlined'
               InputProps={{
-                autoComplete: 'username'
+                autoComplete: 'username',
               }}
             />
             <TextField
@@ -116,7 +114,7 @@ const AWSInfoPage = (): JSX.Element => {
               variant='outlined'
               type='password'
               InputProps={{
-                autoComplete: 'new-password'
+                autoComplete: 'new-password',
               }}
             />
             <TextField
@@ -129,7 +127,7 @@ const AWSInfoPage = (): JSX.Element => {
               variant='outlined'
               type='password'
               InputProps={{
-                autoComplete: 'new-password'
+                autoComplete: 'new-password',
               }}
             />
             <FormControl fullWidth margin='normal'>

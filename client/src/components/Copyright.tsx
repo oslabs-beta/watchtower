@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Typography, Link } from '@mui/material';
 
 function Copyright(props: any): JSX.Element {

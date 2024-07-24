@@ -15,19 +15,16 @@ type AuthType = {
 
 const AuthContext = createContext(null);
 
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState('');
+const AuthProvider = ({ children }): JSX.Element => {
+  const [user, setUser] = useState<string>('');
   const [token, setToken] = useState(localStorage.getItem('accessToken' || ''));
-  console.log('user', user, 'token', token);
+
   const navigate = useNavigate();
 
-  //add logic for a loginFunction
-
-  const gitHubOAuth = async () => {
+  const gitHubOAuth = async (): Promise<void> => {
     const queryString: string = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const codeParam = urlParams.get('code');
-    console.log('codeParam', codeParam);
 
     if (codeParam && !token) {
       await fetch(`/api/gitHub?code=${codeParam}`, {
@@ -38,11 +35,9 @@ const AuthProvider = ({ children }) => {
       })
         .then((response) => response.json())
         .then((accessToken) => {
-          console.log('in gitHubOAuth');
           localStorage.setItem('accessToken', accessToken);
           setToken(accessToken);
           navigate('/dashboard');
-          // setRerender(!rerender);
         })
         .catch((err) =>
           console.log(`error getting GitHub Access token from server:${err}`)
@@ -50,7 +45,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async (data) => {
+  const login = async (data): Promise<void> => {
     fetch('api/login', {
       method: 'POST',
       headers: {
@@ -71,7 +66,7 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const logout = () => {
+  const logout = (): void => {
     setUser('');
     setToken('');
     localStorage.removeItem('accessToken');
@@ -99,7 +94,3 @@ export default AuthProvider;
 export const useAuth = () => {
   return useContext(AuthContext);
 };
-
-// On button click for gh button
-// 1. nav user to other page
-// 2. invoke login function to get access token from github

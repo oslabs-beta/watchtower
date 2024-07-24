@@ -1,6 +1,4 @@
-import React, { useState, 
-  // useRef, 
-} from 'react';
+import React, { useState } from 'react';
 import RcuGraphContainer from './RcuGraphContainer';
 import WcuGraphContainer from './WcuGraphContainer';
 import {
@@ -25,7 +23,6 @@ const GraphContainer = ({
   currentMetrics,
 }: GraphContainerProps): JSX.Element => {
   const [selectedGraph, setSelectedGraph] = useState<string>('RCU');
-  // const savedMetrics = useRef(currentMetrics);
 
   return (
     <div className='graphContainer'>

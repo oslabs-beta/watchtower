@@ -15,6 +15,13 @@ export type ServerError = {
 };
 
 export type Output = {
-  text: string
-  stop_reason: string | null
+  text: string;
+  stop_reason: string | null;
+};
+
+export interface NewUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
 }
