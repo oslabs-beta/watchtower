@@ -46,7 +46,7 @@ const StatusBox = ({ onSubmit }: StatusBoxProps): JSX.Element => {
       }
 
       const data = await response.json();
-      if(!data.includes('WatchTowerUserProfiles1')){
+      if(!data.includes('WatchTowerUserProfiles')){
         Swal.fire({
           title: 'Are you sure?',
           text: 'AWS Account Info Submitted! We will create a table "WatchTowerUserProfiles" to save reports.',
