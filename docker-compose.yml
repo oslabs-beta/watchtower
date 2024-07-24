@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - server
-    environment:
-      NODE_ENV: production
     ports:
       - '3000:5000'
 
@@ -16,7 +14,7 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    environment:
-      NODE_ENV: production
+    env_file:
+      - ./server/.env
     ports:
-      - '8000:5000'
+      - '8000:8000'
