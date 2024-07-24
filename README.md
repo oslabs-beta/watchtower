@@ -9,6 +9,7 @@
 - [Upcoming Features](#upcoming-features)
 - [Contributing](#contributing)
 - [Meet The Team](#meet-the-team)
+- [Where To Find Us](#where-to-find-us)
 
 ## Description
 
@@ -124,3 +125,9 @@ If you would like to contribute to this project, please follow the below steps:
 </table>
 
 </div>
+
+## Where To Find Us
+- [Website](https://watch-tower.co/)
+- [LinkdIn](https://www.linkedin.com/in/watchtower-db/)
+- [X](https://x.com/WatchTower_DB)
+
