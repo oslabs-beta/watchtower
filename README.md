@@ -82,22 +82,22 @@ If you would like to contribute to this project, please follow the below steps:
 
 ## Meet the WatchTower Team
 Erik Gao
-- GitHub
-- LinkedIn
+- GitHub[Link Text](URL)
+- LinkedIn[Link Text](URL)
 
 James Coen
-- GitHub
-- LinkedIn
+- GitHub[Link Text](URL)
+- LinkedIn[Link Text](URL)
 
 Lauren Felty
-- GitHub
-- LinkedIn
+- GitHub[Link Text](URL)
+- LinkedIn[Link Text](URL)
 
 Mike Bui
-- GitHub
-- LinkedIn
+- GitHub[Link Text](URL)
+- LinkedIn[Link Text](URL)
 
 Piero Espejo
-- GitHub
-- LinkedIn
+- GitHub[Link Text](URL)
+- LinkedIn[Link Text](URL)
 
