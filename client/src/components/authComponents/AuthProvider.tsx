@@ -83,7 +83,6 @@ const AuthProvider = ({ children }): JSX.Element => {
     gitHubOAuth,
   };
 
-  // const AuthContext = createContext(contextValue);
   //return Auth Context Provider
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
