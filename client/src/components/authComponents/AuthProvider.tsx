@@ -17,7 +17,7 @@ const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState('');
-  const [token, setToken] = useState(localStorage.getItem('accessToken') || '');
+  const [token, setToken] = useState(localStorage.getItem('accessToken' || ''));
   console.log('user', user, 'token', token);
   const navigate = useNavigate();
 
