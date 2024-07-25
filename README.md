@@ -105,10 +105,13 @@ Getting started with WatchTower is simple!
 
 ## Upcoming Features
 - Customizable alerts and notifications ⏳
+- Analyze auto-scaling capacity ⏳
 - Analyze on-demand capacity ⏳
 - Customizable dashboard ⏳
-- Analyze auto-scaling capacity 🙏🏻
 - Expanding report data to aggregate multiple instances of saved reports 🙏🏻
+- Integrate capacity pricing options to Bedrock AI recommendations to provide more meaningful insights 🙏🏻
+
+  ⏳ = In Progress;  🙏🏻 = Looking for contributors! 
 
 ## Contributing
 If you would like to contribute to this project, please follow the below steps:
