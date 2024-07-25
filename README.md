@@ -26,6 +26,8 @@ WatchTower is a DynamoDB capacity visualization tool. Developers can often have 
 ### AWS Integration
 Seamlessly integrate WatchTower with your AWS account by providing an Access Token and Secret Access Token.
 
+![AWS Acc Info](https://github.com/user-attachments/assets/90a3d36b-ca49-46bc-b429-e458fbebfe9d)
+
 ### Multi-User Functionality
 While our app is hosted locally for your peace of mind, WatchTower has multi-user functionality and full authorization and authentication to protect each user’s data if they are on a shared computer.
 
