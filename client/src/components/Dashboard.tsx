@@ -21,10 +21,12 @@ export default function Dashboard(): JSX.Element | null {
   const [currentProvision, setCurrentProvision] =
     useState<ProvisionFormData | null>(null);
   const [currentMetrics, setCurrentMetrics] = useState<Metrics | null>(null);
+  const [runGraph, setRunGraph] = useState<boolean>(false);
 
   const handleFormSubmit = async (data: ProvisionFormData): Promise<void> => {
     try {
       setCurrentProvision(data);
+      setRunGraph(true);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -110,6 +112,7 @@ export default function Dashboard(): JSX.Element | null {
                 <BedrockAnalysis
                   currentProvision={currentProvision}
                   currentMetrics={currentMetrics}
+                  runGraph={runGraph}
                 />
               </Paper>
             </Grid>

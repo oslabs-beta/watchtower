@@ -6,11 +6,12 @@ import Swal from 'sweetalert2';
 export default function BedrockAnalysis({
   currentProvision,
   currentMetrics,
+  runGraph,
 }: BedrockAnalysisProps): JSX.Element {
   const [stream, setStream] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [save, setSave] = useState<boolean>(true);
+  const [save, setSave] = useState<boolean>(false);
 
   const theme = useTheme();
 
@@ -19,7 +20,7 @@ export default function BedrockAnalysis({
     setError(null);
     setStream('');
 
-    if (!currentMetrics) {
+    if (!currentMetrics || !currentProvision) {
       setError('Failed to fetch analysis data.');
       setLoading(false);
       setSave(false);
@@ -163,7 +164,7 @@ export default function BedrockAnalysis({
           variant='contained'
           color='primary'
           onClick={bedrockAnalysis}
-          disabled={loading}
+          disabled={!runGraph && !loading}
         >
           {loading ? 'Loading...' : 'Start Analysis'}
         </Button>
@@ -171,7 +172,7 @@ export default function BedrockAnalysis({
           variant='contained'
           color='primary'
           onClick={handleSaveAnalysis}
-          disabled={!save}
+          disabled={!runGraph && !save}
         >
           Save Report
         </Button>

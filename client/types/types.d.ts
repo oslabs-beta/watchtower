@@ -37,6 +37,7 @@ export interface WcuGraphContainerProps {
 export interface BedrockAnalysisProps {
   currentProvision: ProvisionFormData | null;
   currentMetrics: Metrics | null;
+  runGraph: boolean;
 }
 
 export interface TitleProps {
