@@ -90,6 +90,7 @@ Getting started with WatchTower is simple!
  - If localhost:3000 does not automatically open in your browser, open this link: http://localhost:3000/
 5. Sign Up: Create an account on our website, or login with GitHub.
 6. Connect Your DynamoDB: Use our easy-to-follow guide to connect your DynamoDB tables to WatchTower.
+   - Warning: If you use the AWS Account Info to update your AWS Key, you have to restart the application!
 7. Generate metric data: Input necessary information, such as the table you wish to analyze and the time period you wish to see database metrics.
 8. As simple as that, your metric data and visual data is generated!
 9. Generate AI insight: Users can also generate insights from Amazon's Bedrock AI simply by pressing a button.
