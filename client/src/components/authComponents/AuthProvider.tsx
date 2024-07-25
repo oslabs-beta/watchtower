@@ -5,26 +5,29 @@ import React from 'react';
 // Creating AuthContext Provider for use accross the app.
 type AuthType = {
   user: string;
-  setUser: any;
+  setUser: React.Dispatch<React.SetStateAction<string>>;
   token: string;
-  setToken: any;
-  login: any;
-  logout(): void;
-  gitHubOAuth(): void;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
+  login: (data: any) => void;
+  logout: () => void;
+  gitHubOAuth: () => void;
 };
 
-const AuthContext = createContext(null);
+const AuthContext = createContext<AuthType | undefined>(undefined);
 
-const AuthProvider = ({ children }): JSX.Element => {
-  const [user, setUser] = useState<string>('');
-  const [token, setToken] = useState(localStorage.getItem('accessToken' || ''));
-
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState('');
+  const [token, setToken] = useState(localStorage.getItem('accessToken') || '');
+  console.log('user', user, 'token', token);
   const navigate = useNavigate();
 
-  const gitHubOAuth = async (): Promise<void> => {
+  //add logic for a loginFunction
+
+  const gitHubOAuth = async () => {
     const queryString: string = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const codeParam = urlParams.get('code');
+    console.log('codeParam', codeParam);
 
     if (codeParam && !token) {
       await fetch(`/api/gitHub?code=${codeParam}`, {
@@ -35,9 +38,11 @@ const AuthProvider = ({ children }): JSX.Element => {
       })
         .then((response) => response.json())
         .then((accessToken) => {
+          console.log('in gitHubOAuth');
           localStorage.setItem('accessToken', accessToken);
           setToken(accessToken);
           navigate('/dashboard');
+          // setRerender(!rerender);
         })
         .catch((err) =>
           console.log(`error getting GitHub Access token from server:${err}`)
@@ -45,7 +50,7 @@ const AuthProvider = ({ children }): JSX.Element => {
     }
   };
 
-  const login = async (data): Promise<void> => {
+  const login = async (data) => {
     fetch('api/login', {
       method: 'POST',
       headers: {
@@ -66,7 +71,7 @@ const AuthProvider = ({ children }): JSX.Element => {
       });
   };
 
-  const logout = (): void => {
+  const logout = () => {
     setUser('');
     setToken('');
     localStorage.removeItem('accessToken');
@@ -92,5 +97,9 @@ const AuthProvider = ({ children }): JSX.Element => {
 export default AuthProvider;
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
