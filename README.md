@@ -13,7 +13,7 @@
 
 ## Description
 
-WatchTower is a DynamoDB capacity visualization tool. Developers can often have difficulty analyzing and interpreting DynamoDB metrics due to the complexities of existing monitoring tools. WatchTower centralizes this data and allows users to generate metric data from DynamoDB usage and to visualize this data using our graphical UI. You can even ask for more input utilizing Amazon's Bedrock AI from within our application! Additionally, you can store and access this historical data and use this information to find usage patterns to form strategies on how to optimize and make your DynamoDB usage more efficient.
+WatchTower is a robust visualization tool for user's Amazon DynamoDB capacity. Developers can often have difficulty analyzing and interpreting DynamoDB provisioning metrics due to the complexities of existing monitoring tools. WatchTower centralizes this data and allows users to generate metric data from DynamoDB usage and to visualize this data using our graphical UI. You can even ask for more input utilizing Amazon's Bedrock AI from within our application! Additionally, you can store and access this historical data and use this information to find usage patterns to form strategies on how to optimize and make your DynamoDB usage more efficient.
 
 ## Tech Stack
 
@@ -26,20 +26,40 @@ WatchTower is a DynamoDB capacity visualization tool. Developers can often have 
 ### AWS Integration
 Seamlessly integrate WatchTower with your AWS account by providing an Access Token and Secret Access Token.
 
-### Multi-User Functionality
-While our app is hosted locally for your peace of mind, WatchTower has multi-user functionality and full authorization and authentication to protect each user’s data if they are on a shared computer.
+![AWS Acc Info](https://github.com/user-attachments/assets/90a3d36b-ca49-46bc-b429-e458fbebfe9d)
 
 ### Centralized Dashboard
 WatchTower provides a clean, easy-to-use dashboard to observe your AWS DynamoDB provisioning levels and usage. You can easily select different tables from your DynamoDB account to monitor, and then specify the date range you would like metrics for.
 
+![Analyze Prov](https://github.com/user-attachments/assets/32d5a9f2-e104-4287-9503-d33baeb4ff52)
+
+
 ### AI Integration
 WatchTower integrates with Amazon’s Bedrock to provide you meaningful insights and recommendations on the provisioning levels and usage for your DynamoDB account.
+
+![Amazon Bedrock Analysis](https://github.com/user-attachments/assets/5743ddbc-67b5-46cc-b392-a66d0db92813)
+
 
 ### Past Metrics Storage
 We offer the ability to store past metrics that you’ve observed so that you can easily regenerate metric graphs to compare trends in your DynamoDB provisioning and usage data over time. (**Note: If you opt-in to this feature, we will dynamically create a new table in your DynamoDB account to hold past metrics).
 
+![View Saved Reports](https://github.com/user-attachments/assets/a7a89e2c-205a-4fef-9ade-8def139cf058)
+
+
+### Multi-User Functionality
+While our app is hosted locally for your peace of mind, WatchTower has multi-user functionality and full authorization and authentication to protect each user’s data if they are on a shared computer. Create an account or easily sign in with GitHub.
+
+![Login Screenshot](https://github.com/user-attachments/assets/46376579-b4d4-41ec-9018-4eceef1894b3)
+
+### Light and Dark Mode User Interface
+Choose your preferred theme for interacting with the app.
+
+![Dark Mode](https://github.com/user-attachments/assets/106d2460-5128-4927-af69-7b37fbafce4d)
+
 ### Credential Security
 Your AWS credentials are stored securely in your local environment and never shared anywhere outside of your local machine - we prioritize your security!
+
+
 
 ## Getting Started
 
