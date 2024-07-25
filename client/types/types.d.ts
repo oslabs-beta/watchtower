@@ -1,6 +1,4 @@
 export interface ProvisionFormData {
-  //removed AWS account name for MVP as a stretch feature we would like users to have the option to switch between accounts
-  //aWSAccountName: string;
   tableName: string;
   startTime: Date | string | null;
   endTime: Date | string | null;
@@ -16,6 +14,7 @@ export interface ReportsProps {
 }
 
 export interface StatusBoxProps {
+  table: string[] | null;
   onSubmit: (data: ProvisionFormData) => void;
 }
 
@@ -39,6 +38,8 @@ export interface WcuGraphContainerProps {
 export interface BedrockAnalysisProps {
   currentProvision: ProvisionFormData | null;
   currentMetrics: Metrics | null;
+  runGraph: boolean;
+  save: boolean;
 }
 
 export interface TitleProps {

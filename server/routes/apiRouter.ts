@@ -71,7 +71,7 @@ router.get(
   tablesController.getTables,
   saveAnalysisController.createUserProfilesTable,
   (req: Request, res: Response): Response => {
-    return res.status(200).json(res.locals.tableName);
+    return res.status(200).json(res.locals.tables);
   }
 );
 
