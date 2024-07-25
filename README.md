@@ -20,7 +20,7 @@ WatchTower is a DynamoDB capacity visualization tool. Developers can often have 
 - **TypeScript**
 - **React**
 - **Express**
-- https://user-images.githubusercontent.com/94085979/187011760-2ab7d8fe-2020-40d8-84a1-3e463ae6718e.svg
+- ![Electron.js](https://img.shields.io/badge/Electron-191970?style=for-the-badge&logo=Electron&logoColor=white)
 ## Key Features
 
 ### AWS Integration
