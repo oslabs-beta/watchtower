@@ -1,11 +1,21 @@
 {
-  "name": "dynamodb",
+  "name": "watchtower",
   "version": "1.0.0",
   "description": "DynamoDB Observability Tool",
   "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run client\" \"npm run server\"",
+    "client": "npm start --prefix client",
+    "server": "npm start --prefix server"
   },
   "author": "Erik Gao, James Coen, Lauren Felty, Mike Bui, Piero Espejo",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

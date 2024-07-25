@@ -1,31 +1,56 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "npx webpack-dev-server --mode development --open --hot",
-    "build": "npx webpack --mode production"
+    "build": "npx webpack --mode development"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@date-io/date-fns": "^2.14.0",
+    "@emotion/react": "^11.12.0",
+    "@emotion/styled": "^11.12.0",
+    "@fontsource/roboto": "^5.0.13",
+    "@mui/icons-material": "^5.16.1",
+    "@mui/material": "^5.16.4",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-charts": "^7.10.0",
+    "@mui/x-data-grid": "^7.11.0",
+    "@mui/x-date-pickers": "^6.0.0",
+    "chart.js": "^4.4.3",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-annotation": "^3.0.1",
+    "date-fns": "^2.30.0",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.0"
+    "react-router-dom": "^6.24.1",
+    "styled-components": "^6.1.12",
+    "sweetalert2": "^11.12.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "babel-loader": "^9.1.3",
     "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
     "sass": "^1.77.6",
     "sass-loader": "^14.2.1",
     "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.1.0",
     "webpack": "^5.92.1",
-    "webpack-cli": "^5.1.4"
-  }
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "proxy": "http://localhost:8000"
 }
