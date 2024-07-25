@@ -57,8 +57,8 @@ export const saveAnalysisController: SaveAnalysisController = {
       const response: CreateTableCommandOutput = await dynamoDBClient.send(
         command
       );
-      tables.push(response.TableDescription.TableName)
-      res.locals.tables = tables
+      tables.push(response.TableDescription.TableName);
+      res.locals.tables = tables;
       res.locals.tableName = response.TableDescription.TableName;
       return next();
     } catch (error) {

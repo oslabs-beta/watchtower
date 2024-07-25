@@ -7,11 +7,11 @@ export default function BedrockAnalysis({
   currentProvision,
   currentMetrics,
   runGraph,
+  save,
 }: BedrockAnalysisProps): JSX.Element {
   const [stream, setStream] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [save, setSave] = useState<boolean>(false);
 
   const theme = useTheme();
 
@@ -23,7 +23,6 @@ export default function BedrockAnalysis({
     if (!currentMetrics || !currentProvision) {
       setError('Failed to fetch analysis data.');
       setLoading(false);
-      setSave(false);
       return;
     }
 
@@ -111,7 +110,6 @@ export default function BedrockAnalysis({
           confirmButtonColor: '#70c0c2',
         });
       }
-      setSave(false);
     } catch (error) {
       console.error('Error fetching metrics:', error);
       Swal.fire({
@@ -148,7 +146,9 @@ export default function BedrockAnalysis({
         )}
         {!error && stream && <Typography variant='body1'>{stream}</Typography>}
         {!loading && !error && !stream && (
-          <Typography variant='body1'>No analysis data available</Typography>
+          <Typography variant='body1' color='error'>
+            No analysis data available
+          </Typography>
         )}
       </Box>
       <Box
@@ -164,7 +164,7 @@ export default function BedrockAnalysis({
           variant='contained'
           color='primary'
           onClick={bedrockAnalysis}
-          disabled={!runGraph && !loading}
+          disabled={!runGraph || loading}
         >
           {loading ? 'Loading...' : 'Start Analysis'}
         </Button>

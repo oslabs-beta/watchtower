@@ -14,6 +14,7 @@ export interface ReportsProps {
 }
 
 export interface StatusBoxProps {
+  table: string[] | null;
   onSubmit: (data: ProvisionFormData) => void;
 }
 
@@ -38,6 +39,7 @@ export interface BedrockAnalysisProps {
   currentProvision: ProvisionFormData | null;
   currentMetrics: Metrics | null;
   runGraph: boolean;
+  save: boolean;
 }
 
 export interface TitleProps {
