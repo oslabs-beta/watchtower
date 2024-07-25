@@ -27,7 +27,6 @@ WatchTower is a robust visualization tool for user's Amazon DynamoDB capacity. D
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 
 ## Key Features
 
@@ -171,6 +170,6 @@ If you would like to contribute to this project, please follow the below steps:
 
 ## Where To Find Us
 - [Website](https://watch-tower.co/)
-- [LinkdIn](https://www.linkedin.com/in/watchtower-db/)
+- [LinkedIn](https://www.linkedin.com/in/watchtower-db/)
 - [X](https://x.com/WatchTower_DB)
 
