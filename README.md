@@ -81,7 +81,6 @@ Getting started with WatchTower is simple!
 - Customizable dashboard ⏳
 - Analyze auto-scaling capacity 🙏🏻
 - Expanding report data to aggregate multiple instances of saved reports 🙏🏻
-- Shared state between any component shortcode 🙏🏻
 
 ## Contributing
 If you would like to contribute to this project, please follow the below steps:
